@@ -914,7 +914,7 @@ function migrateSave() {
   save.skins = (save.skins || []).filter(id => SKINS.some(k => k.id === id)); if (!save.skins.includes('red')) save.skins.unshift('red');
   save.hats = (save.hats || []).filter(id => HATS.some(k => k.id === id)); if (!save.hats.includes('none')) save.hats.unshift('none');
   if (!save.hats.includes(save.hat)) save.hat = 'none';
-  if (save.genVer !== GEN_VERSION) { save.lvl = {}; save.genVer = GEN_VERSION; }
+  save.lvl = {}; save.genVer = GEN_VERSION;
 }
 migrateSave(); persist();
 const isTouch = () => save.device === 'touch';
@@ -1337,7 +1337,6 @@ function genLevel(spec) {
     const [k, p] = pick(fk); let yy = ey; if (L.ceil) yy = Math.max(L.ceil[ex] + 2, yy);
     spawnEnemy(L, k, p, ex * TS + 8, yy * TS);
   }
-  const ed = save.lvl[spec.wi + ':' + spec.node]; if (ed) for (const k in ed) { const i = +k; if (i >= 0 && i < map.length) map[i] = ed[k]; }
   if (type === 'timed') L.timer = 60 * (35 + ((W / 5) | 0));
   return L;
 }
@@ -1417,7 +1416,6 @@ function genUnder(spec, u) {
   L.holesUp.push({ x: ex * TS, y: 0, w: 2 * TS, h: (L.ceil[ex] + 2) * TS });
   L.exitX = ex * TS; L.exitY = 1.5 * TS;
   L.spawn = { x: 3 * TS + 3, y: TS };
-  const ed = save.lvl[spec.wi + ':' + sub.node]; if (ed) for (const k in ed) { const i = +k; if (i >= 0 && i < map.length) map[i] = ed[k]; }
   return L;
 }
 function enterUnder(u) {
@@ -1533,7 +1531,6 @@ function setTile(tx, ty, t) {
   if (tx < 0 || ty < 0 || tx >= world.w || ty >= world.h) return;
   world.map[ty * world.w + tx] = t;
   if (world.home) { save.home.edits[tx + ',' + ty] = t; G.dirty = true; }
-  else if (world.spec) { const k = world.spec.wi + ':' + world.spec.node; (save.lvl[k] || (save.lvl[k] = {}))[ty * world.w + tx] = t; G.dirty = true; }
 }
 function toast(text, dur = 150) { if (G.toasts.some(t => t.text === text)) return; G.toasts.push({ text, t: dur }); if (G.toasts.length > 4) G.toasts.shift(); }
 
