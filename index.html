@@ -137,17 +137,35 @@ const LEGS = {
   jump: ['.kbbbbbbbbk.', '.kBBk..kbbk.', '..kk....kBBk'],
 };
 const SKINS = [
-  { id: 'classico', name: 'Classic', price: 0, wmin: 0, pal: {} },
-  { id: 'esploratore', name: 'Explorer', price: 80, wmin: 0, gift: true, pal: { h: '#8a5a2e', H: '#5a3a1e', L: '#b8844e', r: '#6a8a3a', R: '#46602a', y: '#3a2a1a', b: '#8a6a3a', B: '#4a3020' } },
-  { id: 'ninja', name: 'Ninja', price: 150, wmin: 0, gift: true, pal: { h: '#2a2a3a', H: '#15151f', L: '#4a4a5e', r: '#2e2e40', R: '#1a1a26', y: '#d8433b', b: '#22222e', B: '#15151f' } },
-  { id: 'pirata', name: 'Pirate', price: 200, wmin: 0, gift: true, pal: { h: '#d8433b', H: '#9c2c36', L: '#ff7a6a', r: '#f4ecdc', R: '#b8b0a0', y: '#3a2a1a', b: '#3a2a5a', B: '#2a1a10' } },
-  { id: 'cavaliere', name: 'Knight', price: 150, wmin: 0, pal: { h: '#c8ccd8', H: '#8a90a8', L: '#ffffff', r: '#9aa0b8', R: '#6a7090', y: '#f5c542', b: '#5a5f78', B: '#3a3c50' } },
-  { id: 'principessa', name: 'Princess', price: 200, wmin: 0, pal: { h: '#ff8ac8', H: '#d05a9a', L: '#ffc0e0', r: '#b07aff', R: '#7a4ac0', y: '#f5c542', b: '#b07aff', B: '#7a4ac0' } },
-  { id: 'robot', name: 'Robot', price: 300, wmin: 0, pal: { s: '#b8c0d0', S: '#8890a8', h: '#5a6278', H: '#3a4050', L: '#8a94aa', r: '#3d7fe3', R: '#2753a8', y: '#ffd23a', b: '#5a6278', B: '#3a4050', w: '#7affff' } },
-  { id: 'mago', name: 'Wizard', price: 350, wmin: 1, pal: { h: '#6a3ab0', H: '#4a2280', L: '#9a6ae0', r: '#6a3ab0', R: '#4a2280', y: '#ffd23a', b: '#3a2250', B: '#2a1638' } },
-  { id: 'vampiro', name: 'Vampire', price: 400, wmin: 2, pal: { s: '#e8dcec', S: '#b8a8c8', h: '#1b1626', H: '#0d0b16', L: '#3a3050', r: '#1b1626', R: '#8a1a2a', y: '#d8433b', b: '#1b1626', B: '#3a1a2a' } },
-  { id: 'dorato', name: 'Golden', price: 999, wmin: 7, pal: { h: '#ffd23a', H: '#c89a1a', L: '#fff2a0', r: '#f5c542', R: '#c8901a', y: '#ffffff', b: '#c8901a', B: '#8a5a10' } },
+  { id: 'red', name: 'Red Shirt', price: 0, pal: {} },
+  { id: 'green', name: 'Green Shirt', price: 50, pal: { r: '#3a9a4a', R: '#23662e' } },
+  { id: 'blue', name: 'Blue Shirt', price: 50, pal: { r: '#3d7fe3', R: '#2753a8' } },
+  { id: 'black', name: 'Black Shirt', price: 80, pal: { r: '#2e2e40', R: '#1a1a26' } },
+  { id: 'white', name: 'White Shirt', price: 80, pal: { r: '#f4f0e6', R: '#c8c0b0' } },
+  { id: 'purple', name: 'Purple Shirt', price: 0, gift: true, pal: { r: '#8a4ad0', R: '#5a2a9a' } },
+  { id: 'gold', name: 'Golden Shirt', price: 400, pal: { r: '#f5c542', R: '#c8901a', y: '#ffffff' } },
 ];
+const HAT_PAL = { k: '#1b1626', r: '#e0453c', R: '#9c2c36', w: '#ffffff', g: '#c8ccd8', G: '#8a90a8', L: '#ffffff', p: '#6a3ab0', P: '#4a2280', y: '#ffd23a', B: '#3d7fe3', n: '#3a9a4a', N: '#23662e', b: '#2a2a3a' };
+const HATS = [
+  { id: 'none', name: 'No Hat', price: 0 },
+  { id: 'cap', name: 'Red Cap', price: 60, rows: ['..kkkkkk....', '.krrrrrrk...', 'krrrrrrrrk..', 'krrRRRRRRkkk', 'kkkkkkkkrrrk', '........kkk.'] },
+  { id: 'beanie', name: 'Beanie', price: 80, rows: ['.....kk.....', '....kwwk....', '..kknnnnkk..', '.knnnnnnnnk.', '.knNnNnNnNk.', '.kkkkkkkkkk.'] },
+  { id: 'helmet', name: 'Knight Helmet', price: 150, rows: ['...kkkkkk...', '..kgggggGk..', '.kgLgggggGk.', '.kgggggggGk.', '.kGGGGGGGGk.'] },
+  { id: 'tophat', name: 'Top Hat', price: 200, rows: ['...kkkkkk...', '...kbbbbk...', '...kbbbbk...', '...kbbbbk...', '...krrrrk...', '.kkkkkkkkkk.'] },
+  { id: 'bandana', name: 'Pirate Bandana', price: 0, gift: true, rows: ['............', '...kkkkkk...', '..krrrrrrk..', '.krwrrwrrrk.', 'krrrrrrrrrk.', 'kk.kkkkkkk..'] },
+  { id: 'wizard', name: 'Wizard Hat', price: 0, gift: true, rows: ['......kk....', '.....kpk....', '....kppk....', '...kpppk....', '...kpyppk...', '..kpppppk...', '.kppppppppk.', 'kkkkkkkkkkkk'] },
+  { id: 'crown', name: 'Crown', price: 0, gift: true, rows: ['..y..y..y...', '..yy.yy.yy..', '..yyyyyyyy..', '..yryyByry..', '..yyyyyyyy..'] },
+];
+const HAT_SPR = {};
+function drawHat(id, sx, sy, dir) {
+  if (!id || id === 'none') return;
+  const hat = HATS.find(h => h.id === id); if (!hat) return;
+  const pr = HAT_SPR[id] || (HAT_SPR[id] = pair(spr(hat.rows, HAT_PAL)));
+  const img = pr[dir]; ctx.drawImage(img, sx, sy + 3 - img.height);
+}
+const GIFTS = { 4: { kind: 'hat', id: 'bandana' }, 9: { kind: 'shirt', id: 'purple' }, 12: { kind: 'hat', id: 'wizard' } };
+const ownsGift = g => (g.kind === 'hat' ? save.hats : save.skins).includes(g.id);
+const giftName = g => (g.kind === 'hat' ? HATS : SKINS).find(i => i.id === g.id).name;
 const HERO_CACHE = {};
 const POWER_PAL = {
   fire: { r: '#f4f0e6', R: '#c8c0b0', b: '#e0453c', B: '#9c2c36', y: '#ffb02e' },
@@ -618,7 +636,7 @@ const STYLE = {
   islands: { segs: { islands: 1 }, kinds: ['frog', 'dropper', 'bat'] },
   mines: { segs: { flat: 2, step: 2, cliff: 2, tower: 2, pit: 1, blocks: 1, traps: 2, crate: 1 }, kinds: ['mole', 'bat', 'slime', 'hedgehog'] },
   cliffs: { segs: { cliff: 3, tower: 2, flat: 2, step: 1, fan: 3, crate: 2 }, kinds: ['walker', 'plant', 'dropper'] },
-  lifts: { segs: { movers: 4, flat: 1, zip: 1, fan: 2, cannon: 2 }, kinds: ['dropper', 'bat', 'plant'] },
+  lifts: { segs: { movers: 5, crumbleisles: 2, fan: 2, cannon: 1, zip: 1, traps: 1 }, kinds: ['dropper', 'bat', 'plant'], len: 235, diffAdd: 0.3, enemyMul: 1.5 },
   rush: { segs: { flat: 2, pit: 3, step: 2, zip: 1, belt: 2, cannon: 1 }, kinds: ['boar', 'slime'] },
   canyon: { segs: { crumbleisles: 7, crumble: 3, zip: 1, cannon: 1 }, kinds: ['dropper', 'frog', 'hedgehog'] },
   switches: { segs: { switch: 3, timegate: 3, crate: 2, flat: 2, blocks: 1 }, kinds: ['walker', 'plant', 'hedgehog'] },
@@ -627,13 +645,12 @@ const STYLE = {
   stampede: { segs: { flat: 4, stairs: 2, blocks: 1, pit: 1, belt: 3, traps: 1 }, kinds: ['boar', 'hedgehog'], enemyMul: 1.6 },
   boss: { segs: { flat: 3, step: 2, pit: 2, blocks: 2, cliff: 1, traps: 1, cannon: 1 } },
 };
-const SKIN_LEVELS = { 4: 'esploratore', 9: 'pirata', 12: 'ninja' };
 const TYPE_NAME = { sky: 'FLOATING SKIES', cave: 'UNDERGROUND', bonus: 'BONUS ROOM', secret: 'SECRET PASSAGE', timed: 'TIME TRIAL', arena: 'MONSTER ARENA', treasure: 'TREASURE ROOM', boss: 'FORTRESS' };
 const NORMAL_NAMES = ['TRAIL', 'HILLS', 'PLAINS', 'VALLEY', 'RIDGE', 'CLEARING', 'PASS'];
 function levelLabel(wi, n) { return (wi + 1) + '-' + n + ' ' + LEVELS[n - 1].name; }
 function makeSpec(wi, n) {
   const ty = LEVEL_SEQ[n - 1];
-  return { wi, wid: WORLDS[wi], node: 'L' + n, n, type: ty, style: LEVELS[n - 1].style, diff: clamp(wi * 0.12 + n * 0.028, 0, 1), key: false, skin: SKIN_LEVELS[n] || null, seed: hashStr(WORLDS[wi] + ':L' + n) + wi * 977, label: levelLabel(wi, n) };
+  return { wi, wid: WORLDS[wi], node: 'L' + n, n, type: ty, style: LEVELS[n - 1].style, diff: clamp(wi * 0.12 + n * 0.028, 0, 1), key: false, gift: GIFTS[n] || null, seed: hashStr(WORLDS[wi] + ':L' + n) + wi * 977, label: levelLabel(wi, n) };
 }
 const levelsDone = wi => { let c = 0; for (let n = 1; n <= 16; n++) if (save.worlds[wi].cleared['L' + n]) c++; return c; };
 const homeUnlocked = () => save.admin || save.worlds.reduce((s, w) => s + Object.keys(w.cleared).length, 0) >= 3;
@@ -876,7 +893,7 @@ const GLOW = radial([[0, 'rgba(255,190,90,0.55)'], [1, 'rgba(255,150,60,0)']]);
 const SAVE_KEY = 'pixelia-save-v2';
 const newWorldSave = () => ({ cleared: {}, keys: {}, open: {}, node: 'start', done: false, treasure: false });
 const defaultSave = () => ({
-  coins: 0, maxHp: 3, sfx: true, music: true, device: null, skin: 'classico', skins: ['classico'],
+  coins: 0, maxHp: 3, sfx: true, music: true, device: null, skin: 'red', skins: ['red'], hat: 'none', hats: ['none'], genVer: 0,
   inv: { scala: 4, terra: 10, pietra: 6, legno: 10, foglie: 6, piatt: 4, mattoni: 0, vetro: 0, lanterna: 0 },
   props: { casa: 1, albero: 2, fiori: 3, recinto: 4 },
   keys: { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', down: 'ArrowDown', action: 'Space', vehicle: 'KeyV' }, lvl: {}, crackTut: false, power: null, vehicles: {}, ride: null, admin: false, villTut: false, hubTut: false,
@@ -888,6 +905,18 @@ try {
   if (s) { save = Object.assign(defaultSave(), s); for (let i = 0; i < 8; i++) save.worlds[i] = Object.assign(newWorldSave(), save.worlds[i] || {}); save.keys = Object.assign(defaultSave().keys, save.keys || {}); for (const id in save.vehicles || {}) if (VEH[id]) save.vehicles[id].hp = Math.min(save.vehicles[id].hp, VEH[id].hp); }
 } catch (e) { /* storage unavailable */ }
 function persist() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); } catch (e) { /* ignore */ } }
+const GEN_VERSION = 5; // bump when level layouts change: broken-block memory is reset, progress is kept
+function migrateSave() {
+  for (let i = 0; i < 8; i++) save.worlds[i] = Object.assign(newWorldSave(), save.worlds[i] || {});
+  save.keys = Object.assign(defaultSave().keys, save.keys || {});
+  for (const id in save.vehicles || {}) if (VEH[id]) save.vehicles[id].hp = Math.min(save.vehicles[id].hp, VEH[id].hp);
+  if (!SKINS.some(k => k.id === save.skin)) save.skin = 'red';
+  save.skins = (save.skins || []).filter(id => SKINS.some(k => k.id === id)); if (!save.skins.includes('red')) save.skins.unshift('red');
+  save.hats = (save.hats || []).filter(id => HATS.some(k => k.id === id)); if (!save.hats.includes('none')) save.hats.unshift('none');
+  if (!save.hats.includes(save.hat)) save.hat = 'none';
+  if (save.genVer !== GEN_VERSION) { save.lvl = {}; save.genVer = GEN_VERSION; }
+}
+migrateSave(); persist();
 const isTouch = () => save.device === 'touch';
 const canPay = n => save.admin || save.coins >= n;
 const pay = n => { if (!save.admin) save.coins -= n; };
@@ -1023,11 +1052,11 @@ function fillColumns(L, hs, pit) {
   }
 }
 function genLevel(spec) {
-  const th = THEMES[spec.wid], type = spec.type, d = spec.diff, Rn = mulberry32(spec.seed);
+  const th = THEMES[spec.wid], type = spec.type, d = clamp(spec.diff + ((STYLE[spec.style] || {}).diffAdd || 0), 0, 1), Rn = mulberry32(spec.seed);
   const pick = a => a[(Rn() * a.length) | 0];
   const water = th.kind === 'water', caveLike = type === 'cave' || type === 'secret';
   const indoor = th.kind === 'indoor' || caveLike;
-  const W = { bonus: 72, arena: 36, treasure: 48, boss: 100, timed: 170 }[type] || Math.round(130 + d * 80 + Rn() * 20);
+  const W = { bonus: 72, arena: 36, treasure: 48, boss: 100, timed: 170 }[type] || (STYLE[spec.style] || {}).len || Math.round(130 + d * 80 + Rn() * 20);
   const L = baseLevel(spec.wid, W, {
     spec, topSolid: th.kind !== 'outdoor' || indoor, bgId: caveLike && !water ? 'cave' : spec.wid,
     dark: Math.max(th.dark || 0, caveLike ? (type === 'secret' ? 0.6 : 0.45) : 0),
@@ -1040,7 +1069,7 @@ function genLevel(spec) {
   let x = 0, h = 15;
   const flat = n => { for (let i = 0; i < n && x < W; i++, x++) hs[x] = h; };
   const hole = (n, t) => { for (let i = 0; i < n && x < W; i++, x++) { hs[x] = h; pit[x] = t; } };
-  let placeKey = !!spec.skin && !save.skins.includes(spec.skin);
+  let placeKey = !!spec.gift && !ownsGift(spec.gift);
   const keyX = Math.floor(W * (type === 'bonus' ? 0.7 : 0.45 + Rn() * 0.2));
   const checkX = W >= 120 ? Math.floor(W * 0.5) : -1; let checkDone = false;
   const ST = STYLE[spec.style] || {};
@@ -1052,7 +1081,7 @@ function genLevel(spec) {
       const s = x;
       if (placeKey && x >= keyX) {
         flat(9); blocks.push([s + 1, h - 1, T.STONE]); for (let i = 0; i < 4; i++) blocks.push([s + 2 + i, h - 3, T.STONE]);
-        L.pickups.push({ type: 'skin', skin: spec.skin, x: (s + 3) * TS + 10, y: (h - 5) * TS + 2, t: 0 });
+        L.pickups.push({ type: 'skin', gift: spec.gift, x: (s + 3) * TS + 10, y: (h - 5) * TS + 2, t: 0 });
         if (Rn() < enemyP) ens.push([s + 7, h]);
         placeKey = false; continue;
       }
@@ -1116,9 +1145,9 @@ function genLevel(spec) {
           break;
         }
         case 'movers': {
-          const n = 8 + ((Rn() * 3) | 0); hole(n, pitList.includes('void') ? 'void' : pick(pitList));
+          const n = 8 + ((Rn() * 3) | 0) + Math.floor(d * 3); hole(n, pitList.includes('void') ? 'void' : pick(pitList));
           const vert = Rn() < 0.4, cxp = (s + n / 2) * TS - 24, ay = (h - (vert ? 3 : 0)) * TS;
-          L.movers.push({ ax: cxp, ay, rx: vert ? 0 : (n / 2 - 2) * TS, ry: vert ? 2.5 * TS : 0, sp: 0.02 + Rn() * 0.01, ph: Rn() * 6, w: 48, h: 8, t: 0, x: cxp, y: ay, dx: 0, dy: 0 });
+          L.movers.push({ ax: cxp, ay, rx: vert ? 0 : (n / 2 - 2) * TS, ry: vert ? 2.5 * TS : 0, sp: (0.02 + Rn() * 0.01) * (1 + d * 0.8), ph: Rn() * 6, w: d > 0.4 ? 32 : 48, h: 8, t: 0, x: cxp, y: ay, dx: 0, dy: 0 });
           for (let i = 1; i < n - 1; i += 2) coin(s + i, h - 3);
           flat(3); break;
         }
@@ -1280,7 +1309,7 @@ function genLevel(spec) {
         L.warps.push({ x: a * TS + 2, y: (htop + 5) * TS, w: 2 * TS - 4, h: 3 * TS, k: ky });
       }
       occ[a] = occ[a + 1] = 1;
-      L.unders.push({ k: ky, wet, exitX: b * TS + 4, exitY: hs[b] * TS - 14 });
+      L.unders.push({ k: ky, wet, variant: pick(['caverns', 'grotto', 'mine', 'vault', 'roots']), exitX: b * TS + 4, exitY: hs[b] * TS - 14 });
       L.decos.push({ type: 'hatch', x: b * TS - 8, y: hs[b] * TS, ground: true }); occ[b] = occ[b - 1] = occ[b + 1] = 1;
       break;
     }
@@ -1312,34 +1341,79 @@ function genLevel(spec) {
   if (type === 'timed') L.timer = 60 * (35 + ((W / 5) | 0));
   return L;
 }
+const UNDER_NAMES = { caverns: 'CAVERNS', grotto: 'CRYSTAL GROTTO', mine: 'OLD MINE', vault: 'HIDDEN VAULT', roots: 'ROOT HOLLOW', flooded: 'FLOODED TUNNEL' };
 function genUnder(spec, u) {
-  const Rn = mulberry32(spec.seed + u.k * 131 + 7), th = THEMES[spec.wid], W = 70 + ((Rn() * 24) | 0);
+  const Rn = mulberry32(spec.seed + u.k * 131 + 7), th = THEMES[spec.wid], v = u.wet ? 'flooded' : (u.variant || 'caverns');
+  const W = ({ caverns: 76, grotto: 84, mine: 90, vault: 64, roots: 80, flooded: 80 })[v] + ((Rn() * 16) | 0);
   const sub = Object.assign({}, spec, { node: spec.node + 'u' + u.k, type: 'under' });
-  const L = baseLevel(u.wet ? 'sea' : 'cave', W, { spec: sub, parentSpec: spec, under: u, topSolid: true, bgId: u.wet ? 'sea' : 'cave', dark: u.wet ? 0.25 : 0.4 });
-  L.underwater = !!u.wet;
-  const H = L.h, map = L.map, hs = new Int16Array(W), pit = new Array(W).fill(null);
+  const tid = v === 'flooded' ? 'sea' : v === 'vault' ? 'castle' : 'cave';
+  const L = baseLevel(tid, W, { spec: sub, parentSpec: spec, under: u, variant: v, topSolid: true, bgId: tid, dark: v === 'flooded' ? 0.25 : v === 'vault' ? 0.3 : v === 'grotto' ? 0.5 : 0.4 });
+  L.underwater = v === 'flooded';
+  const H = L.h, map = L.map, hs = new Int16Array(W), pit = new Array(W).fill(null), blocks = [];
   const coin = (tx, ty) => L.pickups.push({ type: 'coin', x: tx * TS + 4, y: ty * TS + 4, t: (Rn() * 60) | 0 });
   let h = 16;
-  for (let x = 0; x < W; x++) { if (x > 6 && x < W - 8 && x % 6 === 0) h = clamp(h + [-1, 0, 1][(Rn() * 3) | 0], 14, 17); hs[x] = x < 6 || x > W - 8 ? 16 : h; }
+  for (let x = 0; x < W; x++) { if (v !== 'vault' && x > 6 && x < W - 8 && x % 6 === 0) h = clamp(h + [-1, 0, 1][(Rn() * 3) | 0], 14, 17); hs[x] = x < 7 || x > W - 8 ? 16 : h; }
+  if (v === 'roots') for (let x = 12; x < W - 16; x += 10 + ((Rn() * 5) | 0)) { const n = 3 + ((Rn() * 2) | 0); for (let i = 0; i < n; i++) { pit[x + i] = 'spikes'; hs[x + i] = hs[x]; blocks.push([x + i, hs[x], T.CRUMBLE]); } }
   fillColumns(L, hs, pit);
   L.ceil = new Int16Array(W);
-  for (let x = 0; x < W; x++) { const c = 4 + Math.round(1.3 * Math.sin(x * 0.25) + hash(x >> 2, 3, 9)); for (let y = 0; y < c; y++) map[y * W + x] = y === 0 ? T.BEDROCK : T.GROUND; L.ceil[x] = c; }
-  if (u.wet) for (let x = 0; x < W; x++) for (let y = L.ceil[x]; y < hs[x]; y++) if (!map[y * W + x]) map[y * W + x] = T.WATER;
-  for (let x = 8; x < W - 10; x += 9 + ((Rn() * 5) | 0)) {
-    const r = Rn(), g = hs[x];
-    if (r < 0.35) { for (let i = 0; i < 4; i++) { map[(g - 4) * W + x + i] = i === 1 || Rn() < 0.25 ? T.QBLOCK : T.STAR; coin(x + i, g - 6); } }
-    else if (r < 0.65) { for (let i = 0; i < 5; i++) { coin(x + i, g - 2); coin(x + i, g - 3); } }
-    else { for (let i = 0; i < 3; i++) map[(g - 3) * W + x + i] = T.PLAT; for (let i = 0; i < 3; i++) coin(x + i, g - 5); }
+  for (let x = 0; x < W; x++) {
+    const c = v === 'vault' ? 3 : 4 + Math.round(1.3 * Math.sin(x * 0.25) + hash(x >> 2, 3, 9));
+    for (let y = 0; y < c; y++) map[y * W + x] = y === 0 ? T.BEDROCK : T.GROUND; L.ceil[x] = c;
   }
-  const gk = th.enemies.filter(e => GROUND_KINDS.has(e[0]));
-  if (!u.wet && gk.length) for (let x = 20; x < W - 12; x += 16 + ((Rn() * 10) | 0)) { const [k, pal] = gk[(Rn() * gk.length) | 0]; spawnEnemy(L, k, pal, x * TS + 8, hs[x] * TS); }
-  for (let x = 4; x < W - 4; x += 8) if (!u.wet) L.decos.push({ type: 'torch', x: x * TS + 6, y: hs[x] * TS - 36, ground: false });
-  for (let x = 3; x < W - 6; x++) if (Rn() < 0.25) { const t = (u.wet ? THEMES.sea : THEMES.cave).decos[(Rn() * 5) | 0]; L.decos.push({ type: t, x: x * TS + 4, y: hs[x] * TS, v: (Rn() * 4) | 0, h: 10 + ((Rn() * 16) | 0), ground: true }); }
-  for (const cx of [3, 4]) { for (let y = 0; y < L.ceil[cx]; y++) map[y * W + cx] = u.wet ? T.WATER : T.AIR; }
+  for (let x = 8; x < W - 10;) {
+    const g = hs[x], r = Rn();
+    if (v === 'caverns') {
+      if (r < 0.35) { for (let i = 0; i < 4; i++) { blocks.push([x + i, g - 4, i === 1 || Rn() < 0.25 ? T.QBLOCK : T.STAR]); coin(x + i, g - 6); } }
+      else if (r < 0.65) { for (let i = 0; i < 5; i++) { coin(x + i, g - 2); coin(x + i, g - 3); } }
+      else { for (let i = 0; i < 3; i++) { blocks.push([x + i, g - 3, T.PLAT]); coin(x + i, g - 5); } }
+      x += 9 + ((Rn() * 5) | 0);
+    } else if (v === 'grotto') {
+      const py = g - 5;
+      for (let y = py; y < g; y++) blocks.push([x, y, T.LADDER]);
+      for (let i = 1; i <= 5; i++) { blocks.push([x + i, py, T.STONE]); coin(x + i, py - 1); }
+      if (r < 0.5) blocks.push([x + 3, py - 3, T.QBLOCK]);
+      L.decos.push({ type: 'crystal', x: (x + 7) * TS, y: g * TS, ground: true }, { type: 'crystal', x: (x + 2) * TS + 4, y: py * TS, ground: true });
+      x += 12 + ((Rn() * 4) | 0);
+    } else if (v === 'mine') {
+      if (r < 0.35) { for (let i = 0; i < 6; i++) { blocks.push([x + i, g - 4, T.PLAT]); coin(x + i, g - 6); } blocks.push([x + 3, L.ceil[x + 3], T.LANTERN]); }
+      else if (r < 0.65) { const bt = Rn() < 0.5 ? T.BELTL : T.BELTR; for (let i = 0; i < 6; i++) { blocks.push([x + i, g, bt]); coin(x + i, g - 2); } }
+      else { for (let i = 0; i < 6; i += 2) blocks.push([x + i, g - 1, T.TRAP]); for (let i = 1; i < 6; i += 2) coin(x + i, g - 3); }
+      if (Rn() < 0.3) L.crates.push({ x: (x + 7) * TS, y: (g - 1) * TS, w: 16, h: 16, vx: 0, vy: 0, hx: (x + 7) * TS, hy: (g - 1) * TS, dx: 0, dy: 0, push: 0 });
+      x += 10 + ((Rn() * 4) | 0);
+    } else if (v === 'vault') {
+      for (let i = 0; i < 5; i++) { blocks.push([x + i, g - 4, i % 2 ? T.QBLOCK : T.STAR]); coin(x + i, g - 2); coin(x + i, g - 7); }
+      x += 9;
+    } else if (v === 'roots') {
+      const len = 2 + ((Rn() * 4) | 0); for (let y = L.ceil[x]; y < L.ceil[x] + len; y++) blocks.push([x, y, T.WOOD]);
+      if (Rn() < 0.6) coin(x + 2, g - 3);
+      x += 4 + ((Rn() * 4) | 0);
+    } else {
+      if (r < 0.4) { for (let y = g - 3; y < g; y++) blocks.push([x, y, T.STONE]); coin(x, g - 5); }
+      else for (let i = 0; i < 5; i++) coin(x + i, 8 + Math.round(Math.sin(i) * 2));
+      x += 8 + ((Rn() * 5) | 0);
+    }
+  }
+  if (v === 'vault') {
+    L.levers.push({ x: 12 * TS + 8, y: hs[12] * TS, cd: 0 });
+    const wx = W - 14; for (let y = L.ceil[wx]; y < hs[wx]; y++) blocks.push([wx, y, T.RED]);
+    L.chest = { x: (W - 10) * TS + 8, y: hs[W - 10] * TS, open: false, kind: 'bonus' };
+  }
+  for (const [bx, by, t] of blocks) if (bx > 5 && bx < W - 6 && by >= 0 && by < H) map[by * W + bx] = t;
+  if (L.underwater) for (let x = 0; x < W; x++) for (let y = L.ceil[x]; y < hs[x]; y++) if (!map[y * W + x]) map[y * W + x] = T.WATER;
+  const kindsBy = { caverns: ['slime', 'walker', 'hedgehog'], grotto: ['mole', 'bat', 'slime'], mine: ['hedgehog', 'slime', 'boar'], vault: ['plant', 'walker'], roots: ['frog', 'bat', 'dropper'], flooded: ['fish', 'jelly'] };
+  let pool = th.enemies.filter(e => kindsBy[v].includes(e[0])); if (!pool.length && v !== 'flooded') pool = th.enemies.filter(e => GROUND_KINDS.has(e[0]));
+  for (let x = 20; x < W - 14 && pool.length; x += 16 + ((Rn() * 10) | 0)) {
+    const [k, pal] = pool[(Rn() * pool.length) | 0], fly = !GROUND_KINDS.has(k);
+    spawnEnemy(L, k, pal, x * TS + 8, (fly ? hs[x] - 4 : hs[x]) * TS);
+  }
+  if (!L.underwater) for (let x = 4; x < W - 4; x += 8) L.decos.push({ type: 'torch', x: x * TS + 6, y: hs[x] * TS - 36, ground: false });
+  const dset = L.underwater ? THEMES.sea.decos : v === 'vault' ? ['barrel', 'pot', 'bones'] : v === 'grotto' ? ['crystal', 'crystal', 'mushroom'] : v === 'roots' ? ['mushroom', 'rock', 'bones'] : THEMES.cave.decos;
+  for (let x = 3; x < W - 6; x++) if (Rn() < 0.25) { const t = dset[(Rn() * dset.length) | 0]; L.decos.push({ type: t, x: x * TS + 4, y: hs[x] * TS, v: (Rn() * 4) | 0, h: 10 + ((Rn() * 16) | 0), ground: true }); }
+  for (const cx of [3, 4]) { for (let y = 0; y < L.ceil[cx]; y++) map[y * W + cx] = L.underwater ? T.WATER : T.AIR; }
   L.holesUp.push({ x: 3 * TS, y: 0, w: 2 * TS, h: (L.ceil[3] + 2) * TS });
   const ex = W - 5;
-  for (const cx of [ex, ex + 1]) for (let y = 0; y < L.ceil[cx]; y++) map[y * W + cx] = u.wet ? T.WATER : T.AIR;
-  if (!u.wet) for (let y = 0; y < hs[ex]; y++) map[y * W + ex] = T.LADDER;
+  for (const cx of [ex, ex + 1]) for (let y = 0; y < L.ceil[cx]; y++) map[y * W + cx] = L.underwater ? T.WATER : T.AIR;
+  if (!L.underwater) for (let y = 0; y < hs[ex]; y++) map[y * W + ex] = T.LADDER;
   L.holesUp.push({ x: ex * TS, y: 0, w: 2 * TS, h: (L.ceil[ex] + 2) * TS });
   L.exitX = ex * TS; L.exitY = 1.5 * TS;
   L.spawn = { x: 3 * TS + 3, y: TS };
@@ -1348,7 +1422,7 @@ function genUnder(spec, u) {
 }
 function enterUnder(u) {
   G.mainWorld = world; world = genUnder(world.spec, u); placePlayer(true);
-  G.banner = { text: 'UNDERGROUND', t: 110 }; Music.set(u.wet ? 'sea' : 'cave', 0.95);
+  G.banner = { text: UNDER_NAMES[world.variant] || 'UNDERGROUND', t: 110 }; Music.set(u.wet ? 'sea' : world.variant === 'vault' ? 'castle' : 'cave', 0.95);
 }
 function returnSurface() {
   const u = world.under; world = G.mainWorld; G.mainWorld = null;
@@ -1545,14 +1619,25 @@ function layout() {
   L.punchZ = { x: VW - 84, y: b - 42, w: 40, h: 48 };
   return L;
 }
+function downUseful() {
+  const p = player; if (!p || !world || G.state !== 'play' || world.home) return false;
+  if (p.climb) return true;
+  const cx = Math.floor((p.x + p.w / 2) / TS), fy = Math.floor((p.y + p.h + 1) / TS);
+  for (let ty = Math.floor((p.y + 2) / TS); ty <= Math.floor((p.y + p.h - 1) / TS); ty++) if (tileAt(cx, ty) === T.LADDER) return true;
+  const below = tileAt(cx, fy);
+  if (below === T.LADDER || (below === T.CRACK && p.onGround && !p.ride)) return true;
+  for (const hd of world.hatchDoors || []) if (p.onGround && p.x + p.w / 2 > hd.x && p.x + p.w / 2 < hd.x + hd.w && Math.abs(p.y + p.h - hd.y) < 3) return true;
+  return false;
+}
 function pollButtons() {
+  G.downOn = downUseful() || btn.down;
   prevBtn.jump = btn.jump; prevBtn.punch = btn.punch;
   const K = save.keys;
   let l = !!keys[K.left], r = !!keys[K.right], j = !!keys[K.jump], p = !!(keys[K.action] || keys.Enter), d = !!keys[K.down];
   if (isTouch() && G.state === 'play') {
     const L = layout();
     for (const pt of pointers.values()) {
-      if (inR(pt, L.down, 2)) d = true;
+      if (G.downOn && inR(pt, L.down, 2)) d = true;
       else if (inR(pt, L.dpad)) { if (pt.x < L.left.x + L.left.w + 2) l = true; else r = true; }
       else if (inR(pt, L.jumpZ)) j = true;
       else if (inR(pt, L.punchZ)) p = true;
@@ -1665,9 +1750,9 @@ function updateGadgets() {
   for (const pl of world.plates) if (p.onGround && p.x + p.w > pl.x + 2 && p.x < pl.x + pl.w - 2 && Math.abs(p.y + p.h - pl.y) < 3) { if (world.gateT < pl.dur - 10) { if (world.gateT === 0) sfx.unlock(); world.gateT = pl.dur; world.gateDur = pl.dur; } }
   if (G.t % 4 === 0) for (const f of world.fans) if (Math.abs(f.x - CX - VW / 2) < VW) G.parts.push({ x: f.x + (Math.random() - 0.5) * 14, y: f.y - 5, vx: 0, vy: -3, life: ((f.y - f.top) / 3) | 0, col: 'rgba(255,255,255,0.45)', s: 1, g: 0 });
 }
-function crateBlock(p, dir) {
+function crateBlock(p, dir, preB) {
   for (const c of world.crates) {
-    if (p.y + p.h <= c.y + 1 || p.y >= c.y + c.h) continue;
+    if (preB <= c.y + 4 || p.y + p.h <= c.y + 1 || p.y >= c.y + c.h) continue;
     if (p.x + p.w > c.x && p.x < c.x + c.w) {
       if (p.x + p.w / 2 < c.x + c.w / 2) { p.x = c.x - p.w; if (dir > 0 && p.onGround) c.push = 1; }
       else { p.x = c.x + c.w; if (dir < 0 && p.onGround) c.push = -1; }
@@ -1810,6 +1895,7 @@ function updateGates() {
 }
 function openChest(c) {
   if (world.boss && !world.boss.defeated) { toast('FIRST DEFEAT ' + world.boss.name + '!', 110); sfx.bump(); return; }
+  if (c.kind === 'bonus') { c.open = true; sfx.win(); addCoins(30); for (let i = 0; i < 6; i++) setTimeout(() => world && world.chest === c && popCoin(c.x, c.y - 14, 0), i * 70); toast('+30 COINS', 100); return; }
   const sp = world.spec, ws = save.worlds[sp.wi];
   c.open = true; sfx.win();
   for (let i = 0; i < 8; i++) setTimeout(() => world && world.chest === c && popCoin(c.x, c.y - 14, 0), i * 70);
@@ -1817,7 +1903,7 @@ function openChest(c) {
     addCoins(100); ws.done = true;
     if (sp.wi < 7) save.maxWorld = Math.max(save.maxWorld, sp.wi + 1);
     const allDone = save.worlds.every(w => w.done);
-    if (allDone && !save.skins.includes('dorato')) save.skins.push('dorato');
+    if (allDone && !save.hats.includes('crown')) { save.hats.push('crown'); save.hat = 'crown'; }
     toast('WORLD TREASURE! +100 COINS', 200);
     G.pending = 90; G.pendingMsg = allDone ? 'YOU SAVED PIXMOND!' : 'WORLD ' + (sp.wi + 1) + ' CLEARED!';
   } else {
@@ -1898,7 +1984,7 @@ function updatePlayer() {
   const preB = p.y + p.h;
   for (const f of world.fans) if (!V && p.x + p.w > f.x - 10 && p.x < f.x + 10 && p.y + p.h > f.top && p.y < f.y) { p.vy = Math.max(p.vy - 0.62, -3.4); p.air2 = true; p.climb = false; }
   const hitW = moveBody(p);
-  crateBlock(p, dir);
+  crateBlock(p, dir, preB);
   landMovers(p, preB);
   if (p.onGround) {
     p.cannonFly = false;
@@ -2089,7 +2175,7 @@ function updatePlay() {
       if (c.type === 'coin') { addCoins(1); sfx.coin(); sparkle(c.x + 4, c.y + 4); }
       else if (c.type === 'heart') { p.hp = Math.min(save.maxHp, p.hp + 1); sfx.item(); toast('+1 HEART', 70); }
       else if (c.type === 'power') { p.morphOther = p.power; p.morph = 48; save.power = c.kind; G.dirty = true; p.power = c.kind; sfx.key(); puff(c.x + 4, c.y + 4, 10, POWERS[c.kind].col); toast('POWER: ' + POWERS[c.kind].name + '!', 120); }
-      else if (c.type === 'skin') { if (!save.skins.includes(c.skin)) save.skins.push(c.skin); save.skin = c.skin; G.dirty = true; persist(); sfx.key(); puff(c.x + 5, c.y + 5, 14, '#ffd23a'); toast('GIFT! NEW CHARACTER: ' + (SKINS.find(k => k.id === c.skin) || {}).name, 200); }
+      else if (c.type === 'skin') { const g = c.gift; if (!ownsGift(g)) (g.kind === 'hat' ? save.hats : save.skins).push(g.id); if (g.kind === 'hat') save.hat = g.id; else save.skin = g.id; G.dirty = true; persist(); sfx.key(); puff(c.x + 5, c.y + 5, 14, '#ffd23a'); toast('GIFT! ' + giftName(g), 200); }
     }
   }
   world.pickups = world.pickups.filter(c => !c.got);
@@ -2223,7 +2309,7 @@ function updateWorlds() {
 function openShop(wi) { G.shop = { wi, tab: 'skin', page: 0 }; G.state = 'shop'; sfx.select(); }
 function shopCatalog() {
   const S = G.shop;
-  if (S.tab === 'skin') return SKINS.filter(s => s.id === 'classico' || ((s.gift || s.id === 'dorato') ? save.skins.includes(s.id) : s.wmin <= S.wi)).map(s => ({ kind: 'skin', it: s }));
+  if (S.tab === 'skin') return HATS.filter(hh => hh.id !== 'none' && (!hh.gift || save.hats.includes(hh.id))).map(it => ({ kind: 'hat', it })).concat(SKINS.filter(sh => !sh.gift || save.skins.includes(sh.id)).map(it => ({ kind: 'shirt', it })));
   if (S.tab === 'powers') return Object.keys(POWER_PRICE).map(k => ({ kind: 'power', it: { id: k, name: POWERS[k].name, price: POWER_PRICE[k] } }));
   if (S.tab === 'blocks') return ITEMS.filter(i => i.wmin <= S.wi).map(it => ({ kind: 'block', it }));
   return PROPS.filter(p => p.wmin <= S.wi).map(it => ({ kind: 'prop', it }));
@@ -2244,10 +2330,11 @@ function shopBuy(e) {
     pay(it.price); save.power = it.id; if (player) { player.morphOther = player.power; player.power = it.id; player.morph = 48; }
     sfx.key(); toast('POWER: ' + it.name + '!', 100); G.dirty = true; return;
   }
-  if (e.kind === 'skin') {
-    if (save.skins.includes(it.id)) { save.skin = it.id; G.dirty = true; sfx.select(); toast('NOW PLAYING AS: ' + it.name, 80); return; }
+  if (e.kind === 'hat' || e.kind === 'shirt') {
+    const own = e.kind === 'hat' ? save.hats : save.skins, key = e.kind === 'hat' ? 'hat' : 'skin';
+    if (own.includes(it.id)) { save[key] = (e.kind === 'hat' && save.hat === it.id) ? 'none' : it.id; G.dirty = true; sfx.select(); return; }
     if (!canPay(it.price)) { sfx.bump(); toast('NOT ENOUGH COINS', 80); return; }
-    pay(it.price); save.skins.push(it.id); save.skin = it.id; sfx.item(); toast('NEW CHARACTER: ' + it.name, 110);
+    pay(it.price); own.push(it.id); save[key] = it.id; sfx.item(); toast('NEW ' + (e.kind === 'hat' ? 'HAT' : 'SHIRT') + ': ' + it.name, 110);
   } else {
     if (!canPay(it.price)) { sfx.bump(); toast('NOT ENOUGH COINS', 80); return; }
     pay(it.price); sfx.coin();
@@ -2295,13 +2382,13 @@ function updateGarage() {
 }
 function openSettings(back) { G.back = back; G.state = 'settings'; G.confirmReset = false; sfx.select(); }
 function settingsButtons() {
-  const w = 190, x = ((VW - w) / 2) | 0, sk = SKINS.find(s => s.id === save.skin) || SKINS[0];
+  const w = 190, x = ((VW - w) / 2) | 0;
   const items = [
     ['DEVICE: ' + (isTouch() ? 'PHONE (TOUCH CONTROLS)' : 'COMPUTER (KEYBOARD)'), () => { save.device = isTouch() ? 'keys' : 'touch'; G.dirty = true; }],
     ['SOUND EFFECTS: ' + (save.sfx ? 'ON' : 'OFF'), () => { save.sfx = !save.sfx; applyVolumes(); G.dirty = true; }],
     ['MUSIC: ' + (save.music ? 'ON' : 'OFF'), () => { save.music = !save.music; applyVolumes(); G.dirty = true; }],
     ['ADMIN MODE: ' + (save.admin ? 'ON' : 'OFF'), () => { save.admin = !save.admin; G.dirty = true; }],
-    ['CHARACTER: ' + sk.name + '  >', () => { const i = save.skins.indexOf(save.skin); save.skin = save.skins[(i + 1) % save.skins.length]; G.dirty = true; }],
+    ['BACKUP SAVE  >', () => { G.state = 'backup'; }],
     [G.confirmReset ? 'SURE? TAP AGAIN' : 'RESET GAME', () => { if (!G.confirmReset) { G.confirmReset = true; return; } resetSave(); }],
     ['CLOSE', closeSettings],
   ];
@@ -2316,6 +2403,25 @@ function keysButtons() {
   items.push(['BACK', () => { G.state = 'settings'; G.keyWait = null; persist(); }]);
   let y = ((VH - items.length * 19) / 2 | 0) + 10;
   return items.map(([label, act]) => { const b = { x, y, w, h: 16, label, act }; y += 19; return b; });
+}
+function saveCode() { return btoa(unescape(encodeURIComponent(JSON.stringify(save)))); }
+function backupButtons() {
+  const w = 190, x = ((VW - w) / 2) | 0;
+  const items = [
+    ['COPY SAVE CODE', () => { persist(); const code = saveCode(); const done = () => toast('SAVE CODE COPIED', 120); try { navigator.clipboard.writeText(code).then(done, () => window.prompt('COPY YOUR SAVE CODE', code)); } catch (e) { window.prompt('COPY YOUR SAVE CODE', code); } }],
+    ['LOAD SAVE CODE', () => { const c = window.prompt('PASTE YOUR SAVE CODE'); if (!c) return; try { const obj = JSON.parse(decodeURIComponent(escape(atob(c.trim())))); save = Object.assign(defaultSave(), obj); migrateSave(); persist(); toast('SAVE LOADED!', 140); player = null; G.state = 'play'; goto(() => loadVillage(null)); } catch (e) { sfx.bump(); toast('INVALID CODE', 120); } }],
+    ['BACK', () => { G.state = 'settings'; }],
+  ];
+  let y = ((VH - items.length * 19) / 2 | 0) + 14;
+  return items.map(([label, act]) => { const b = { x, y, w, h: 16, label, act }; y += 19; return b; });
+}
+function drawBackup() {
+  ctx.fillStyle = 'rgba(10,8,20,0.78)'; ctx.fillRect(0, 0, VW, VH);
+  const bs = backupButtons(), top = bs[0].y - 34, bottom = bs[bs.length - 1].y + 24;
+  panel(bs[0].x - 10, top, bs[0].w + 20, bottom - top + 8, 0.96, '#f5c542');
+  text('BACKUP SAVE', VW / 2, top + 8, '#f5c542', 2, 'center');
+  text('PROGRESS IS SAVED AUTOMATICALLY', VW / 2, top + 22, '#b8b2cc', 1, 'center');
+  for (const b of bs) uiButton(b);
 }
 function closeSettings() { G.state = G.back === 'pause' ? 'pause' : G.back; persist(); }
 function resetSave() {
@@ -2452,6 +2558,7 @@ function update() {
       } else { inBtns(keysButtons()); for (const k of keyTaps) if (k === 'Escape') G.state = 'settings'; }
       break;
     case 'shop': updateShop(); break;
+    case 'backup': inBtns(backupButtons()); for (const k of keyTaps) if (k === 'Escape') G.state = 'settings'; break;
     case 'garage': updateGarage(); break;
   }
   taps.length = 0; keyTaps.length = 0;
@@ -2592,7 +2699,7 @@ function drawProp(type, sx, gy, live) {
     }
     case 'statua': {
       fr(sx + 2, gy - 10, 28, 10, OUT); fr(sx + 3, gy - 9, 26, 9, '#8a90a8'); fr(sx + 3, gy - 9, 26, 1, '#c8ccd8');
-      if (!STATUE) STATUE = silhouette(getHero('classico').stand.r, '#b8bccc');
+      if (!STATUE) STATUE = silhouette(getHero('red').stand.r, '#b8bccc');
       DC.drawImage(STATUE, sx + 4, gy - 42, 24, 32);
       break;
     }
@@ -2754,7 +2861,7 @@ function drawPlayer() {
   const sx = Math.round(p.x - CX) - 1, sy = Math.round(p.y - CY) - 2;
   if (p.zip) fr(sx + 3, sy - 3, 7, 3, '#8a90a8');
   if (p.invisT > 0) ctx.globalAlpha = p.invisT < 60 && (G.t >> 2) % 2 ? 0.7 : 0.28;
-  ctx.drawImage(H[f][dir], sx, sy); ctx.globalAlpha = 1;
+  ctx.drawImage(H[f][dir], sx, sy); drawHat(save.hat, sx, sy, dir); ctx.globalAlpha = 1;
   if (f === 'punch') {
     const fx = p.face > 0 ? sx + 12 : sx - 5;
     ctx.drawImage(H.fist[dir], fx, sy + 10);
@@ -3013,7 +3120,7 @@ function drawControls(L) {
     if (dir === 0) { for (let i = 0; i < 6; i++) ctx.fillRect(cx - (5 - i), cy - 3 + i, (5 - i) * 2 + 1, 1); }
     else for (let i = 0; i < 6; i++) ctx.fillRect(dir > 0 ? cx - 3 + i : cx + 2 - i, cy - (5 - i), 1, (5 - i) * 2 + 1);
   };
-  pad(L.left, btn.left, -1); pad(L.right, btn.right, 1); pad(L.down, btn.down, 0);
+  pad(L.left, btn.left, -1); pad(L.right, btn.right, 1); if (G.downOn) pad(L.down, btn.down, 0);
   const round = (c, on, col, colOn, label, sub) => {
     circ(c.cx, c.cy, c.r + 1, 'rgba(255,255,255,0.35)'); circ(c.cx, c.cy, c.r, on ? colOn : col);
     text(label, c.cx, c.cy - 4, '#ffffff', 2, 'center');
@@ -3035,7 +3142,6 @@ function drawSettings() {
   panel(bs[0].x - 10, top, bs[0].w + 20, bottom - top + 8, 0.96, '#f5c542');
   text('SETTINGS', VW / 2, top + 8, '#f5c542', 2, 'center');
   for (const b of bs) uiButton(b, false, b.label.startsWith('SURE') ? '#ff6a6a' : null);
-  const H = getHero(save.skin).stand.r; ctx.drawImage(H, bs[3].x + bs[3].w - 18, bs[3].y + 1);
 }
 function drawKeys() {
   ctx.fillStyle = 'rgba(10,8,20,0.78)'; ctx.fillRect(0, 0, VW, VH);
@@ -3101,7 +3207,7 @@ function drawShopUI() {
   text('SHOP', S.px + 8, S.py + 5, '#f5c542', 2);
   const ct = coinsLabel(); ctx.drawImage(COIN[0], S.px + S.pw - 36 - textW(ct), S.py + 5); text(ct, S.px + S.pw - 26 - textW(ct), S.py + 7, '#ffffff');
   panel(S.close.x, S.close.y, S.close.w, S.close.h, 0.9); text('X', S.close.x + 6, S.close.y + 4, '#ffffff');
-  const TAB_L = { skin: 'CHARACTERS', powers: 'POWERS', blocks: 'BLOCKS', props: 'DECOR' };
+  const TAB_L = { skin: 'OUTFITS', powers: 'POWERS', blocks: 'BLOCKS', props: 'DECOR' };
   for (const t of S.tabs) { const on = G.shop.tab === t.id; panel(t.x, t.y, t.w, t.h, on ? 0.95 : 0.6, on ? '#f5c542' : '#6a6480'); text(TAB_L[t.id], t.x + t.w / 2, t.y + 5, on ? '#f5c542' : '#b8b2cc', 1, 'center'); }
   for (const b of S.cells) {
     const e = b.e, it = e.it;
@@ -3109,10 +3215,10 @@ function drawShopUI() {
     ctx.fillStyle = hov ? 'rgba(245,197,66,0.15)' : 'rgba(255,255,255,0.07)'; ctx.fillRect(b.x, b.y, b.w, b.h);
     ctx.fillStyle = '#4a4460'; ctx.fillRect(b.x, b.y + b.h - 1, b.w, 1);
     let sub, right, can;
-    if (e.kind === 'skin') {
-      ctx.drawImage(getHero(it.id).stand.r, b.x + 4, b.y + 4);
-      const owned = save.skins.includes(it.id);
-      sub = owned ? (save.skin === it.id ? 'IN USE' : 'TAP TO WEAR') : 'NEW CHARACTER';
+    if (e.kind === 'hat' || e.kind === 'shirt') {
+      ctx.drawImage(getHero(e.kind === 'shirt' ? it.id : save.skin).stand.r, b.x + 4, b.y + 7); drawHat(e.kind === 'hat' ? it.id : save.hat, b.x + 4, b.y + 7, 'r');
+      const owned = (e.kind === 'hat' ? save.hats : save.skins).includes(it.id), worn = (e.kind === 'hat' ? save.hat : save.skin) === it.id;
+      sub = owned ? (worn ? 'WEARING' : 'TAP TO WEAR') : (e.kind === 'hat' ? 'HAT' : 'SHIRT');
       right = owned ? '' : String(it.price); can = owned || canPay(it.price);
     } else if (e.kind === 'power') {
       drawOrb(it.id, b.x + 7, b.y + 8); sub = save.power === it.id ? 'ACTIVE' : 'KEEP IT UNTIL YOU GET HIT'; right = save.power === it.id ? '' : String(it.price); can = canPay(it.price);
@@ -3285,7 +3391,7 @@ function drawWorlds() {
   const p = wselPos(W.cur), b = Math.abs(Math.sin(G.t * 0.08)) * 3 | 0;
   const c = (G.t >> 3) % 2 ? '#ffffff' : '#f5c542';
   for (const [dx, dy, w, h] of [[-26, -22, 8, 2], [-26, -22, 2, 8], [18, -22, 8, 2], [24, -22, 2, 8], [-26, 20, 8, 2], [-26, 14, 2, 8], [18, 20, 8, 2], [24, 14, 2, 8]]) fr(p.x + dx, p.y + dy, w, h, c);
-  if (W.cur < PLAYABLE || save.admin) ctx.drawImage(getHero(save.skin, save.power).stand.r, p.x - 6, p.y - 24 - b);
+  if (W.cur < PLAYABLE || save.admin) { ctx.drawImage(getHero(save.skin, save.power).stand.r, p.x - 6, p.y - 24 - b); drawHat(save.hat, p.x - 6, p.y - 24 - b, 'r'); }
   panel(4, 4, 150, 16); text('CHOOSE A WORLD', 10, 9, '#f5c542', 1);
   const B = worldsButtons();
   hudButton(B.gear, iconGear, false); uiButton(B.back);
@@ -3321,7 +3427,7 @@ function drawTransition() {
 }
 function render() {
   ctx.imageSmoothingEnabled = false; DC = ctx;
-  const s = G.state, under = (s === 'settings' || s === 'keys') ? G.back : (s === 'shop' || s === 'garage') ? 'play' : s;
+  const s = G.state, under = (s === 'settings' || s === 'keys' || s === 'backup') ? G.back : (s === 'shop' || s === 'garage') ? 'play' : s;
   if (under === 'worlds') drawWorlds();
   else if (world) {
     renderWorld();
@@ -3334,6 +3440,7 @@ function render() {
   if (s === 'garage') drawGarageUI();
   if (s === 'settings') drawSettings();
   if (s === 'keys') drawKeys();
+  if (s === 'backup') drawBackup();
   drawTransition();
   if (save.admin && G.state !== 'title') { panel((VW / 2 | 0) - 18, VH - 12, 36, 10, 0.85, '#ff6a3a'); text('ADMIN', VW / 2, VH - 9, '#ff9a6a', 1, 'center'); }
   if (G.goT > 0) { const a = Math.min(1, G.goT / 15); ctx.globalAlpha = a; textOut('GAME OVER', VW / 2, (VH / 2 | 0) - 8, '#ff5a5a', OUT, 3, 'center'); ctx.globalAlpha = 1; }
@@ -3381,7 +3488,8 @@ Music.set('meadow');
 // Test deep links: #village | #worlds | #world=1 | #level=1-4 | #home
 const hsh = location.hash; let m_;
 const dev = () => { if (!save.device) save.device = 'keys'; };
-if (/village|villaggio/.test(hsh)) { dev(); loadVillage(null); }
+if ((m_ = /under=(\w+)/.exec(hsh))) { dev(); loadLevel(makeSpec(0, 1), false); enterUnder({ k: 9, wet: m_[1] === 'flooded', variant: m_[1], exitX: 6 * TS, exitY: 13 * TS }); }
+else if (/village|villaggio/.test(hsh)) { dev(); loadVillage(null); }
 else if (/worlds|mondi/.test(hsh)) { dev(); loadVillage('guide'); enterWorlds(); }
 else if ((m_ = /(?:world|mondo)=(\d)/.exec(hsh))) { dev(); loadHub(+m_[1] - 1, null); }
 else if ((m_ = /(?:level|livello)=(\d)-(\d+)/.exec(hsh))) { dev(); loadLevel(makeSpec(+m_[1] - 1, clamp(+m_[2], 1, 16)), false); }

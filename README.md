@@ -80,14 +80,14 @@ The mechanic sells machines that are clearly meant for later worlds and feel alm
 
 Vehicles take the hits instead of you, and they wear out. You can't dig while driving: get off first. When one breaks, the mechanic can fix it for a fraction of what a new one costs.
 
-### Characters to unlock
-Buy new looks at the shop or find **hidden gift boxes** inside levels. Some characters can only be found, never bought.
+### One hero, many outfits
+There is only one hero. Dress him up with **hats** (cap, beanie, knight helmet, top hat, pirate bandana, wizard hat, crown) and **shirts** in different colours. Buy them at the shop or find **hidden gift boxes** inside levels; some items can only be found, never bought.
 
 ### Your own land
 After a few levels, the door of your house opens onto **your own plot of land**. Place and remove blocks, and fill it with houses, a villa, trees, fountains, lamps and a statue. The plot grows wider with every world you complete.
 
 ### Everything is saved
-Progress, coins, characters, vehicles, the doors you have opened, the blocks you have broken and your land are all **saved automatically** in the browser.
+Progress, coins, outfits, vehicles, the doors you have opened, the blocks you have broken and your land are all **saved automatically** in the browser, and game updates keep your progress. *Settings → Backup save* gives you a code you can copy and load on another device or browser.
 
 ---
 
