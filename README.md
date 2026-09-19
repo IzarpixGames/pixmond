@@ -129,11 +129,11 @@ Useful links for testing (add them to the end of the URL):
 
 | Hash | Goes to |
 |---|---|
-| `#villaggio` | The village |
-| `#mondi` | The world map |
-| `#mondo=1` | World 1's portal plain |
-| `#livello=1-4` | A specific level (world-level) |
-| `#casa` | Your own land |
+| `#village` | The village |
+| `#worlds` | The world map |
+| `#world=1` | World 1's portal plain |
+| `#level=1-4` | A specific level (world-level) |
+| `#home` | Your own land |
 
 ---
 
@@ -147,7 +147,7 @@ Useful links for testing (add them to the end of the URL):
 - **Local saves** through `localStorage`.
 
 ### Current test mode
-**Infinite money** is switched on so that everything in the shops can be tried out. Turn it off in *Settings → Monete infinite (test)* to play with the coins you actually earn.
+**Infinite money** is switched on so that everything in the shops can be tried out. Turn it off in *Settings → Infinite coins (test)* to play with the coins you actually earn.
 
 ---
 

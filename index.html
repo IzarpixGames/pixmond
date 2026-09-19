@@ -35,7 +35,7 @@
 <div id="wrap"><canvas id="game" width="400" height="200"></canvas></div>
 <div id="rotate" hidden>
   <div class="ph"></div>
-  <p><b>PIXMOND</b><br>Gira il telefono<br>in orizzontale</p>
+  <p><b>PIXMOND</b><br>Rotate your phone<br>to landscape</p>
 </div>
 
 <script>
@@ -132,16 +132,16 @@ const LEGS = {
   jump: ['.kbbbbbbbbk.', '.kBBk..kbbk.', '..kk....kBBk'],
 };
 const SKINS = [
-  { id: 'classico', name: 'Classico', price: 0, wmin: 0, pal: {} },
-  { id: 'esploratore', name: 'Esploratore', price: 80, wmin: 0, gift: true, pal: { h: '#8a5a2e', H: '#5a3a1e', L: '#b8844e', r: '#6a8a3a', R: '#46602a', y: '#3a2a1a', b: '#8a6a3a', B: '#4a3020' } },
+  { id: 'classico', name: 'Classic', price: 0, wmin: 0, pal: {} },
+  { id: 'esploratore', name: 'Explorer', price: 80, wmin: 0, gift: true, pal: { h: '#8a5a2e', H: '#5a3a1e', L: '#b8844e', r: '#6a8a3a', R: '#46602a', y: '#3a2a1a', b: '#8a6a3a', B: '#4a3020' } },
   { id: 'ninja', name: 'Ninja', price: 150, wmin: 0, gift: true, pal: { h: '#2a2a3a', H: '#15151f', L: '#4a4a5e', r: '#2e2e40', R: '#1a1a26', y: '#d8433b', b: '#22222e', B: '#15151f' } },
-  { id: 'pirata', name: 'Pirata', price: 200, wmin: 0, gift: true, pal: { h: '#d8433b', H: '#9c2c36', L: '#ff7a6a', r: '#f4ecdc', R: '#b8b0a0', y: '#3a2a1a', b: '#3a2a5a', B: '#2a1a10' } },
-  { id: 'cavaliere', name: 'Cavaliere', price: 150, wmin: 0, pal: { h: '#c8ccd8', H: '#8a90a8', L: '#ffffff', r: '#9aa0b8', R: '#6a7090', y: '#f5c542', b: '#5a5f78', B: '#3a3c50' } },
-  { id: 'principessa', name: 'Principessa', price: 200, wmin: 0, pal: { h: '#ff8ac8', H: '#d05a9a', L: '#ffc0e0', r: '#b07aff', R: '#7a4ac0', y: '#f5c542', b: '#b07aff', B: '#7a4ac0' } },
+  { id: 'pirata', name: 'Pirate', price: 200, wmin: 0, gift: true, pal: { h: '#d8433b', H: '#9c2c36', L: '#ff7a6a', r: '#f4ecdc', R: '#b8b0a0', y: '#3a2a1a', b: '#3a2a5a', B: '#2a1a10' } },
+  { id: 'cavaliere', name: 'Knight', price: 150, wmin: 0, pal: { h: '#c8ccd8', H: '#8a90a8', L: '#ffffff', r: '#9aa0b8', R: '#6a7090', y: '#f5c542', b: '#5a5f78', B: '#3a3c50' } },
+  { id: 'principessa', name: 'Princess', price: 200, wmin: 0, pal: { h: '#ff8ac8', H: '#d05a9a', L: '#ffc0e0', r: '#b07aff', R: '#7a4ac0', y: '#f5c542', b: '#b07aff', B: '#7a4ac0' } },
   { id: 'robot', name: 'Robot', price: 300, wmin: 0, pal: { s: '#b8c0d0', S: '#8890a8', h: '#5a6278', H: '#3a4050', L: '#8a94aa', r: '#3d7fe3', R: '#2753a8', y: '#ffd23a', b: '#5a6278', B: '#3a4050', w: '#7affff' } },
-  { id: 'mago', name: 'Mago', price: 350, wmin: 1, pal: { h: '#6a3ab0', H: '#4a2280', L: '#9a6ae0', r: '#6a3ab0', R: '#4a2280', y: '#ffd23a', b: '#3a2250', B: '#2a1638' } },
-  { id: 'vampiro', name: 'Vampiro', price: 400, wmin: 2, pal: { s: '#e8dcec', S: '#b8a8c8', h: '#1b1626', H: '#0d0b16', L: '#3a3050', r: '#1b1626', R: '#8a1a2a', y: '#d8433b', b: '#1b1626', B: '#3a1a2a' } },
-  { id: 'dorato', name: 'Dorato', price: 999, wmin: 7, pal: { h: '#ffd23a', H: '#c89a1a', L: '#fff2a0', r: '#f5c542', R: '#c8901a', y: '#ffffff', b: '#c8901a', B: '#8a5a10' } },
+  { id: 'mago', name: 'Wizard', price: 350, wmin: 1, pal: { h: '#6a3ab0', H: '#4a2280', L: '#9a6ae0', r: '#6a3ab0', R: '#4a2280', y: '#ffd23a', b: '#3a2250', B: '#2a1638' } },
+  { id: 'vampiro', name: 'Vampire', price: 400, wmin: 2, pal: { s: '#e8dcec', S: '#b8a8c8', h: '#1b1626', H: '#0d0b16', L: '#3a3050', r: '#1b1626', R: '#8a1a2a', y: '#d8433b', b: '#1b1626', B: '#3a1a2a' } },
+  { id: 'dorato', name: 'Golden', price: 999, wmin: 7, pal: { h: '#ffd23a', H: '#c89a1a', L: '#fff2a0', r: '#f5c542', R: '#c8901a', y: '#ffffff', b: '#c8901a', B: '#8a5a10' } },
 ];
 const HERO_CACHE = {};
 const POWER_PAL = {
@@ -257,37 +257,37 @@ const T = { AIR: 0, GROUND: 1, BEDROCK: 2, STONE: 3, WOOD: 4, BRICK: 5, GLASS: 6
 const SOLID = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1];
 const UNI_SLOT = { 3: 0, 4: 1, 5: 2, 6: 3, 7: 4, 9: 7, 10: 8, 11: 9, 14: 18, 15: 20 };
 const ITEMS = [
-  { id: 'terra', tile: T.GROUND, name: 'Terra', pack: 5, price: 5, wmin: 0 },
-  { id: 'pietra', tile: T.STONE, name: 'Pietra', pack: 5, price: 8, wmin: 0 },
-  { id: 'legno', tile: T.WOOD, name: 'Legno', pack: 5, price: 8, wmin: 0 },
-  { id: 'foglie', tile: T.LEAF, name: 'Foglie', pack: 5, price: 5, wmin: 0 },
-  { id: 'piatt', tile: T.PLAT, name: 'Ponte', pack: 5, price: 8, wmin: 1 },
-  { id: 'mattoni', tile: T.BRICK, name: 'Mattoni', pack: 5, price: 10, wmin: 1 },
-  { id: 'vetro', tile: T.GLASS, name: 'Vetro', pack: 5, price: 12, wmin: 2 },
-  { id: 'lanterna', tile: T.LANTERN, name: 'Lanterna', pack: 2, price: 15, wmin: 3 },
+  { id: 'terra', tile: T.GROUND, name: 'Dirt', pack: 5, price: 5, wmin: 0 },
+  { id: 'pietra', tile: T.STONE, name: 'Stone', pack: 5, price: 8, wmin: 0 },
+  { id: 'legno', tile: T.WOOD, name: 'Wood', pack: 5, price: 8, wmin: 0 },
+  { id: 'foglie', tile: T.LEAF, name: 'Leaves', pack: 5, price: 5, wmin: 0 },
+  { id: 'piatt', tile: T.PLAT, name: 'Bridge', pack: 5, price: 8, wmin: 1 },
+  { id: 'mattoni', tile: T.BRICK, name: 'Bricks', pack: 5, price: 10, wmin: 1 },
+  { id: 'vetro', tile: T.GLASS, name: 'Glass', pack: 5, price: 12, wmin: 2 },
+  { id: 'lanterna', tile: T.LANTERN, name: 'Lantern', pack: 2, price: 15, wmin: 3 },
 ];
 const TILE_ITEM = { 1: 'terra', 3: 'pietra', 4: 'legno', 5: 'mattoni', 6: 'vetro', 15: 'foglie', 10: 'piatt', 14: 'lanterna', 9: 'pietra', 16: 'terra' };
 const VEH = {
-  moto: { name: 'MOTO', price: 600, hp: 8, speed: 3.1, jump: -7, desc: 'VELOCISSIMA, SALTA ALTO' },
-  auto: { name: 'MACCHINA', price: 900, hp: 12, speed: 2.6, jump: -5.6, desc: 'CORAZZATA, TRAVOLGE TUTTO' },
-  heli: { name: 'ELICOTTERO', price: 1500, hp: 6, speed: 2.4, fly: true, desc: 'VOLA SOPRA OGNI OSTACOLO' },
+  moto: { name: 'MOTORBIKE', price: 600, hp: 8, speed: 3.1, jump: -7, desc: 'SUPER FAST, HUGE JUMPS' },
+  auto: { name: 'CAR', price: 900, hp: 12, speed: 2.6, jump: -5.6, desc: 'ARMOURED, FLATTENS EVERYTHING' },
+  heli: { name: 'HELICOPTER', price: 1500, hp: 6, speed: 2.4, fly: true, desc: 'FLIES OVER EVERYTHING' },
 };
 const VEH_IDS = ['moto', 'auto', 'heli'];
 const POWERS = {
-  fire: { name: 'FUOCO', col: '#ff7a2e' },
-  ice: { name: 'GHIACCIO', col: '#8fd4ff' },
-  thunder: { name: 'FULMINE', col: '#ffe14a' },
+  fire: { name: 'FIRE', col: '#ff7a2e' },
+  ice: { name: 'ICE', col: '#8fd4ff' },
+  thunder: { name: 'THUNDER', col: '#ffe14a' },
 };
 const PROPS = [
-  { id: 'casa', name: 'Casa', w: 3, h: 46, price: 120, wmin: 0 },
-  { id: 'albero', name: 'Albero', w: 2, h: 40, price: 30, wmin: 0 },
-  { id: 'fiori', name: 'Fiori', w: 1, h: 10, price: 10, wmin: 0 },
-  { id: 'recinto', name: 'Recinto', w: 1, h: 12, price: 10, wmin: 0 },
-  { id: 'lampione', name: 'Lampione', w: 1, h: 32, price: 40, wmin: 1 },
-  { id: 'negozio', name: 'Bottega', w: 3, h: 46, price: 200, wmin: 2 },
-  { id: 'fontana', name: 'Fontana', w: 2, h: 28, price: 180, wmin: 3 },
+  { id: 'casa', name: 'House', w: 3, h: 46, price: 120, wmin: 0 },
+  { id: 'albero', name: 'Tree', w: 2, h: 40, price: 30, wmin: 0 },
+  { id: 'fiori', name: 'Flowers', w: 1, h: 10, price: 10, wmin: 0 },
+  { id: 'recinto', name: 'Fence', w: 1, h: 12, price: 10, wmin: 0 },
+  { id: 'lampione', name: 'Lamp', w: 1, h: 32, price: 40, wmin: 1 },
+  { id: 'negozio', name: 'Shop', w: 3, h: 46, price: 200, wmin: 2 },
+  { id: 'fontana', name: 'Fountain', w: 2, h: 28, price: 180, wmin: 3 },
   { id: 'villa', name: 'Villa', w: 5, h: 66, price: 400, wmin: 4 },
-  { id: 'statua', name: 'Statua', w: 2, h: 44, price: 300, wmin: 5 },
+  { id: 'statua', name: 'Statue', w: 2, h: 44, price: 300, wmin: 5 },
 ];
 
 function buildUni() {
@@ -417,16 +417,16 @@ const MEADOW_BG = {
   bedrock: '#3a2430', tuft: ['#7dd65a', '#3c8f3e'],
 };
 const THEMES = {
-  home: Object.assign({ name: 'IL MIO MONDO', kind: 'outdoor', decos: ['tuft', 'flower', 'tuft'], particles: 'petals', music: { root: 65, scale: [0, 2, 4, 7, 9], bpm: 96, lead: 'triangle' }, enemies: [], pits: [] }, MEADOW_BG),
+  home: Object.assign({ name: 'MY LAND', kind: 'outdoor', decos: ['tuft', 'flower', 'tuft'], particles: 'petals', music: { root: 65, scale: [0, 2, 4, 7, 9], bpm: 96, lead: 'triangle' }, enemies: [], pits: [] }, MEADOW_BG),
   meadow: Object.assign({
-    name: 'PRATI VERDI', kind: 'outdoor', decos: ['tuft', 'tuft', 'flower', 'flower', 'bush', 'mushroom'],
+    name: 'GREEN MEADOWS', kind: 'outdoor', decos: ['tuft', 'tuft', 'flower', 'flower', 'bush', 'mushroom'],
     particles: 'petals', music: { root: 60, scale: [0, 2, 4, 7, 9], bpm: 112, lead: 'square' },
     enemies: [['slime', 'green'], ['walker', 'goblin'], ['bat', 'crow']], pits: ['void', 'water'],
-    boss: { kind: 'walker', pal: 'goblin', name: 'RE GOBLIN' },
+    boss: { kind: 'walker', pal: 'goblin', name: 'GOBLIN KING' },
     map: { base: '#6cc24a', tex: '#5aac40', path: '#f0d8a0', pathD: '#b8905a', deco: ['round', 'round', 'bush', 'flower'], treeCol: ['#4fae4a', '#3a8a3e', '#86d86a'] },
   }, MEADOW_BG),
   desert: {
-    name: 'DUNE DORATE', kind: 'outdoor',
+    name: 'GOLDEN DUNES', kind: 'outdoor',
     sky: '#f6d59a', clouds: ['#3a3558', '#57527a', '#7b78a0', '#a8a2c0'],
     mountains: [{ top: 0.32, amp: 0.26, base: '#f0c050', light: '#fbe08a', shade: '#e29a3a', f: 0.08, seed: 31 }],
     hills: [
@@ -438,11 +438,11 @@ const THEMES = {
     bedrock: '#a84a2c', tuft: ['#c8a040', '#9a7a2a'], decos: ['cactus', 'skull', 'rock', 'tuft', 'cactus'],
     particles: 'dust', music: { root: 57, scale: [0, 1, 4, 5, 7, 8, 10], bpm: 104, lead: 'square' },
     enemies: [['walker', 'mummy'], ['slime', 'sand'], ['bat', 'vulture']], pits: ['void', 'spikes'],
-    boss: { kind: 'walker', pal: 'mummy', name: 'FARAONE MUMMIA' }, stairTile: T.BRICK,
+    boss: { kind: 'walker', pal: 'mummy', name: 'MUMMY PHARAOH' }, stairTile: T.BRICK,
     map: { base: '#f2cc6a', tex: '#e0b050', path: '#fff0c0', pathD: '#c8864a', deco: ['cactus', 'rock', 'dune', 'dune'], treeCol: ['#4a9a4a', '#357a3a', '#8ad06a'] },
   },
   snow: {
-    name: 'PICCHI GELATI', kind: 'outdoor',
+    name: 'FROZEN PEAKS', kind: 'outdoor',
     sky: '#c3d6ee', clouds: ['#2a2f4e', '#3e4568', '#586087', '#7880a6'],
     mountains: [
       { top: 0.18, amp: 0.34, base: '#6f7aa0', light: '#8d98bc', shade: '#58628a', snow: '#e4ecf8', snowShade: '#b8c6de', snowD: 0.45, f: 0.06, seed: 21 },
@@ -454,11 +454,11 @@ const THEMES = {
     bedrock: '#343a56', tuft: ['#b3c2da', '#8d9cba'], decos: ['pine', 'rock', 'snowman', 'tuft', 'pine'],
     particles: 'snow', music: { root: 62, scale: [0, 2, 4, 7, 9, 11], bpm: 96, lead: 'triangle' },
     enemies: [['walker', 'yeti'], ['slime', 'ice'], ['bat', 'icebat']], pits: ['water', 'void'],
-    boss: { kind: 'walker', pal: 'yeti', name: 'RE YETI' },
+    boss: { kind: 'walker', pal: 'yeti', name: 'YETI KING' },
     map: { base: '#e8f0fa', tex: '#c8d6ea', path: '#a8bcd8', pathD: '#7a90b8', deco: ['pine', 'pine', 'rock'], treeCol: ['#3f8a62', '#2e6a4e', '#ffffff'] },
   },
   sea: {
-    name: 'ABISSO BLU', kind: 'water',
+    name: 'BLUE ABYSS', kind: 'water',
     water: ['#5ec4ee', '#3a9ad8', '#2a78c0', '#1e5aa0', '#15437e', '#0f2f5e'],
     rocks: [
       { top: 0.42, amp: 0.25, col: '#1c5c98', dark: '#174e84', light: '#2a6aa8', f: 0.1, seed: 51 },
@@ -469,22 +469,22 @@ const THEMES = {
     bedrock: '#3a3040', tuft: ['#3aa05a', '#2a7a4a'], decos: ['seaweed', 'seaweed', 'coral', 'shell', 'rock'],
     particles: 'bubbles', music: { root: 64, scale: [0, 2, 4, 7, 9], bpm: 84, lead: 'triangle' },
     enemies: [['fish', 'fish'], ['jelly', 'jelly'], ['slime', 'octo'], ['fish', 'fish2']], pits: [],
-    boss: { kind: 'jelly', pal: 'jelly', name: 'MEDUSA REGINA' },
+    boss: { kind: 'jelly', pal: 'jelly', name: 'JELLYFISH QUEEN' },
     map: { base: '#2a78c0', tex: '#3a8ad0', path: '#fff0c0', pathD: '#c8a060', land: '#e6cf88', deco: ['wave', 'wave', 'wave', 'rockw'], water: true },
   },
   cave: {
-    name: 'GROTTE ANTICHE', kind: 'indoor',
+    name: 'ANCIENT CAVES', kind: 'indoor',
     wall: { style: 'cave' },
     top: { style: 'dirt', base: '#9a6640', light: '#b8804e', dark: '#6a4430', depth: 3 },
     fill: { style: 'speckle', base: '#6a4430', light: '#7e5238', dark: '#4e3022' },
     bedrock: '#2a1a14', tuft: ['#b8804e', '#6a4430'], decos: ['crystal', 'mushroom', 'rock', 'bones', 'crystal'],
     particles: 'motes', music: { root: 57, scale: [0, 2, 3, 5, 7, 9, 10], bpm: 100, lead: 'triangle' },
     enemies: [['bat', 'bat'], ['slime', 'crystal'], ['walker', 'troll']], pits: ['spikes', 'void'],
-    boss: { kind: 'slime', pal: 'crystal', name: 'GOLEM DI CRISTALLO' }, dark: 0.35,
+    boss: { kind: 'slime', pal: 'crystal', name: 'CRYSTAL GOLEM' }, dark: 0.35,
     map: { base: '#3a2a24', tex: '#4a3830', path: '#a07a54', pathD: '#6a4a30', deco: ['crystal', 'stal', 'stal', 'rock'] },
   },
   volcano: {
-    name: 'MONTE BRACE', kind: 'outdoor',
+    name: 'EMBER MOUNTAIN', kind: 'outdoor',
     sky: '#6a2c3a', clouds: ['#1a1822', '#26232f', '#34303d', '#4a4452'],
     mountains: [{ top: 0.26, amp: 0.24, base: '#5a5762', light: '#76737e', shade: '#46434e', lava: true, f: 0.07, seed: 41 }],
     lavaBand: { top: 0.52, f: 0.14 },
@@ -494,29 +494,29 @@ const THEMES = {
     bedrock: '#1e1c22', tuft: ['#76737e', '#46434e'], decos: ['rock', 'vent', 'bones', 'rock'],
     particles: 'embers', music: { root: 52, scale: [0, 2, 3, 5, 7, 8, 10], bpm: 128, lead: 'sawtooth' },
     enemies: [['slime', 'fire'], ['walker', 'imp'], ['bat', 'firebat']], pits: ['lava'],
-    boss: { kind: 'slime', pal: 'fire', name: 'SIGNORE DEL MAGMA' },
+    boss: { kind: 'slime', pal: 'fire', name: 'MAGMA LORD' },
     map: { base: '#3a3842', tex: '#4c4a55', path: '#9a8a80', pathD: '#5a5460', deco: ['rocks', 'rock', 'rocks'], lava: true, treeCol: ['#5c5964', '#2c2a33', '#76737e'] },
   },
   haunted: {
-    name: 'VILLA SPETTRALE', kind: 'indoor',
+    name: 'HAUNTED VILLA', kind: 'indoor',
     wall: { style: 'paper', base: '#3a2350', light: '#44295c', dark: '#2c1a3e', trim: '#5a3a2a', trimL: '#7a5238' },
     top: { style: 'plank', base: '#7a5238', light: '#9a6a48', dark: '#553624', depth: 5 },
     fill: { style: 'plank', base: '#5a3a2a', light: '#6e4a34', dark: '#3e281e' },
     bedrock: '#1a1020', tuft: ['#7a5238', '#553624'], decos: ['candle', 'pumpkin', 'candle', 'bones'],
     particles: 'wisps', music: { root: 50, scale: [0, 1, 3, 6, 7, 10], bpm: 88, lead: 'triangle' },
     enemies: [['ghost', 'ghost'], ['bat', 'bat'], ['walker', 'zombie']], pits: ['spikes', 'void'],
-    boss: { kind: 'ghost', pal: 'ghost', name: 'BARONE FANTASMA' }, stairTile: T.WOOD, dark: 0.5,
+    boss: { kind: 'ghost', pal: 'ghost', name: 'BARON GHOST' }, stairTile: T.WOOD, dark: 0.5,
     map: { base: '#2c2238', tex: '#3a2e4a', path: '#7a6a80', pathD: '#4a3a58', deco: ['deadtree', 'tomb', 'tomb', 'deadtree'] },
   },
   castle: {
-    name: 'CASTELLO GRIGIO', kind: 'indoor',
+    name: 'GREY CASTLE', kind: 'indoor',
     wall: { style: 'brick', base: '#474b68', light: '#565b7c', dark: '#373a52', mortar: '#2c2e42' },
     top: { style: 'slab', base: '#9aa0ba', light: '#c4c9dc', dark: '#6a7090', depth: 5 },
     fill: { style: 'brick', base: '#62677f', light: '#7a8098', dark: '#4a4e64' },
     bedrock: '#24253a', tuft: ['#6a7090', '#4a4e64'], decos: ['barrel', 'pot', 'bones', 'barrel'],
     particles: 'motes', music: { root: 55, scale: [0, 2, 3, 5, 7, 8, 10], bpm: 116, lead: 'square' },
     enemies: [['walker', 'skel'], ['bat', 'bat'], ['slime', 'green']], pits: ['spikes', 'lava'],
-    boss: { kind: 'walker', pal: 'darkking', name: 'RE DEGLI SCHELETRI' }, stairTile: T.BRICK, dark: 0.4,
+    boss: { kind: 'walker', pal: 'darkking', name: 'SKELETON KING' }, stairTile: T.BRICK, dark: 0.4,
     map: { base: '#7a7e94', tex: '#6a6e84', path: '#d8d0b8', pathD: '#9a9078', deco: ['tower', 'rock', 'tower', 'flagm'] },
   },
 };
@@ -528,8 +528,8 @@ const sheetOf = id => SHEETS[id] || (SHEETS[id] = buildSheet(THEMES[id]));
 // ---- World structure: 16 levels in a row, each one gives the key to the next door ----
 const LEVEL_SEQ = ['normal', 'normal', 'sky', 'cave', 'bonus', 'normal', 'sky', 'timed', 'cave', 'normal', 'secret', 'sky', 'arena', 'normal', 'treasure', 'boss'];
 const SKIN_LEVELS = { 4: 'esploratore', 9: 'pirata', 12: 'ninja' };
-const TYPE_NAME = { sky: 'CIELI SOSPESI', cave: 'SOTTERRANEI', bonus: 'STANZA BONUS', secret: 'PASSAGGIO SEGRETO', timed: 'CORSA A TEMPO', arena: 'ARENA DEI MOSTRI', treasure: 'SALA DEL TESORO', boss: 'FORTEZZA' };
-const NORMAL_NAMES = ['SENTIERO', 'COLLINE', 'PIANURA', 'VALLE', 'CRESTA', 'RADURA', 'PASSO'];
+const TYPE_NAME = { sky: 'FLOATING SKIES', cave: 'UNDERGROUND', bonus: 'BONUS ROOM', secret: 'SECRET PASSAGE', timed: 'TIME TRIAL', arena: 'MONSTER ARENA', treasure: 'TREASURE ROOM', boss: 'FORTRESS' };
+const NORMAL_NAMES = ['TRAIL', 'HILLS', 'PLAINS', 'VALLEY', 'RIDGE', 'CLEARING', 'PASS'];
 function levelLabel(wi, n) { const ty = LEVEL_SEQ[n - 1]; return (wi + 1) + '-' + n + ' ' + (ty === 'normal' ? NORMAL_NAMES[(n + wi) % NORMAL_NAMES.length] : TYPE_NAME[ty]); }
 function makeSpec(wi, n) {
   const ty = LEVEL_SEQ[n - 1];
@@ -778,9 +778,9 @@ const isTouch = () => save.device === 'touch';
 const canPay = n => save.testMoney || save.coins >= n;
 const pay = n => { if (!save.testMoney) save.coins -= n; };
 const coinsLabel = () => save.testMoney ? 'INFINITE' : String(save.coins);
-const KEY_NAMES = { ArrowLeft: 'FRECCIA SX', ArrowRight: 'FRECCIA DX', ArrowUp: 'FRECCIA SU', ArrowDown: 'FRECCIA GIU', Space: 'SPAZIO', Enter: 'INVIO', ShiftLeft: 'SHIFT', ShiftRight: 'SHIFT DX', ControlLeft: 'CTRL', ControlRight: 'CTRL DX', AltLeft: 'ALT', AltRight: 'ALT DX', Tab: 'TAB', Backspace: 'CANC' };
+const KEY_NAMES = { ArrowLeft: 'LEFT ARROW', ArrowRight: 'RIGHT ARROW', ArrowUp: 'UP ARROW', ArrowDown: 'DOWN ARROW', Space: 'SPACE', Enter: 'ENTER', ShiftLeft: 'SHIFT', ShiftRight: 'RIGHT SHIFT', ControlLeft: 'CTRL', ControlRight: 'RIGHT CTRL', AltLeft: 'ALT', AltRight: 'RIGHT ALT', Tab: 'TAB', Backspace: 'BACKSPACE' };
 const keyName = c => KEY_NAMES[c] || String(c).replace(/^Key/, '').replace(/^Digit/, '').replace(/^Numpad/, 'NUM ').toUpperCase();
-const KEYMAP_ROWS = [['left', 'SINISTRA'], ['right', 'DESTRA'], ['jump', 'SALTO'], ['action', 'PUGNO / USA / SPARA'], ['vehicle', 'SALI / SCENDI VEICOLO']];
+const KEYMAP_ROWS = [['left', 'LEFT'], ['right', 'RIGHT'], ['jump', 'JUMP'], ['action', 'PUNCH / USE / SHOOT'], ['vehicle', 'GET ON / OFF VEHICLE']];
 
 // =====================================================================
 //  AUDIO (WebAudio chiptune)
@@ -1089,14 +1089,14 @@ function genUnder(spec, u) {
   if (!u.wet && gk.length) for (let x = 20; x < W - 12; x += 16 + ((Rn() * 10) | 0)) { const [k, pal] = gk[(Rn() * gk.length) | 0]; spawnEnemy(L, k, pal, x * TS + 8, hs[x] * TS); }
   for (let x = 4; x < W - 4; x += 8) if (!u.wet) L.decos.push({ type: 'torch', x: x * TS + 6, y: hs[x] * TS - 36, ground: false });
   for (let x = 3; x < W - 6; x++) if (Rn() < 0.25) { const t = (u.wet ? THEMES.sea : THEMES.cave).decos[(Rn() * 5) | 0]; L.decos.push({ type: t, x: x * TS + 4, y: hs[x] * TS, v: (Rn() * 4) | 0, h: 10 + ((Rn() * 16) | 0), ground: true }); }
-  L.doors.push({ x: (W - 4) * TS + 8, y: hs[W - 4] * TS, kind: 'door', label: 'USCITA', to: 'surface' });
+  L.doors.push({ x: (W - 4) * TS + 8, y: hs[W - 4] * TS, kind: 'door', label: 'EXIT', to: 'surface' });
   L.spawn = { x: 3 * TS, y: hs[3] * TS - 14 };
   const ed = save.lvl[spec.wi + ':' + sub.node]; if (ed) for (const k in ed) { const i = +k; if (i >= 0 && i < map.length) map[i] = ed[k]; }
   return L;
 }
 function enterUnder(u) {
   G.mainWorld = world; world = genUnder(world.spec, u); placePlayer(true);
-  G.banner = { text: 'SOTTERRANEO', t: 110 }; Music.set(u.wet ? 'sea' : 'cave', 0.95);
+  G.banner = { text: 'UNDERGROUND', t: 110 }; Music.set(u.wet ? 'sea' : 'cave', 0.95);
 }
 function returnSurface() {
   const u = world.under; world = G.mainWorld; G.mainWorld = null;
@@ -1109,7 +1109,7 @@ function genWorldHub(wi) {
   const L = baseLevel(wid, W, { isHub: true, hubW: wi, topSolid: false, dark: 0, portals: [], gates: [] });
   const hs = new Int16Array(W).fill(15), pit = new Array(W).fill(null);
   fillColumns(L, hs, pit);
-  L.doors.push({ x: 3 * TS + 8, y: 15 * TS, kind: 'door', label: 'VILLAGGIO', to: 'village' });
+  L.doors.push({ x: 3 * TS + 8, y: 15 * TS, kind: 'door', label: 'VILLAGE', to: 'village' });
   const ws = save.worlds[wi], block = new Set([2, 3, 4]);
   for (let n = 1; n <= 16; n++) {
     const px = portalX(n); L.portals.push({ n, x: px * TS + 8, y: 15 * TS }); for (let k = px - 2; k <= px + 2; k++) block.add(k);
@@ -1130,9 +1130,9 @@ function genVillage() {
   const W = 110, L = baseLevel('home', W, { village: true, topSolid: false, npcs: [] });
   const hs = new Int16Array(W).fill(15), pit = new Array(W).fill(null);
   fillColumns(L, hs, pit);
-  L.npcs.push({ type: 'merchant', x: 22 * TS + 8, y: 15 * TS, label: 'NEGOZIO' });
-  L.npcs.push({ type: 'guide', x: 44 * TS + 8, y: 15 * TS, label: 'MAPPA DEI MONDI' });
-  L.npcs.push({ type: 'mechanic', x: 58 * TS + 8, y: 15 * TS, label: 'OFFICINA' });
+  L.npcs.push({ type: 'merchant', x: 22 * TS + 8, y: 15 * TS, label: 'SHOP' });
+  L.npcs.push({ type: 'guide', x: 44 * TS + 8, y: 15 * TS, label: 'WORLD MAP' });
+  L.npcs.push({ type: 'mechanic', x: 58 * TS + 8, y: 15 * TS, label: 'GARAGE' });
   L.structs.push({ type: 'house', x: 3 * TS, y: 15 * TS });
   L.doors.push({ x: 3 * TS + 24, y: 15 * TS, kind: 'door', label: '', to: 'home', hidden: true });
   L.decos.push({ type: 'sign', x: 8 * TS + 8, y: 15 * TS, text: 'PIXMOND', ground: true });
@@ -1148,7 +1148,7 @@ function genHome() {
   const L = baseLevel('home', W, { home: true, topSolid: false });
   const hs = new Int16Array(W).fill(15), pit = new Array(W).fill(null);
   fillColumns(L, hs, pit);
-  L.doors.push({ x: 2 * TS + 8, y: 15 * TS, kind: 'door', label: 'VILLAGGIO', to: 'village' });
+  L.doors.push({ x: 2 * TS + 8, y: 15 * TS, kind: 'door', label: 'VILLAGE', to: 'village' });
   L.spawn = { x: 5 * TS, y: 15 * TS - 14 };
   L.structs.push({ type: 'tower', x: (W - 4) * TS, y: 15 * TS });
   for (let x = 6; x < W - 8; x += 3) if (hash(x, 1, 3) < 0.4) L.decos.push({ type: 'tuft', x: x * TS + 4, y: 15 * TS, ground: true });
@@ -1197,7 +1197,7 @@ function loadLevel(spec, fromCheck) {
 }
 function loadHome() {
   world = genHome(); world.spawn = { x: 5 * TS, y: 15 * TS - 14 }; placePlayer(); G.state = 'play';
-  G.banner = { text: 'IL MIO MONDO', t: 150 }; Music.set('home');
+  G.banner = { text: 'MY LAND', t: 150 }; Music.set('home');
 }
 function goto(cb) { if (G.trans) return; G.trans = { phase: 'out', t: 0, cb }; }
 const toLevel = spec => goto(() => loadLevel(spec, false));
@@ -1206,7 +1206,7 @@ function loadHub(wi, n) {
   save.cur = wi; world = genWorldHub(wi);
   if (n) world.spawn = { x: portalX(n) * TS + 3, y: 15 * TS - 14 };
   placePlayer(); G.state = 'play';
-  G.banner = { text: 'MONDO ' + (wi + 1) + ': ' + THEMES[WORLDS[wi]].name, t: 150 }; Music.set(WORLDS[wi], 0.85);
+  G.banner = { text: 'WORLD ' + (wi + 1) + ': ' + THEMES[WORLDS[wi]].name, t: 150 }; Music.set(WORLDS[wi], 0.85);
 }
 function loadVillage(from) {
   world = genVillage();
@@ -1214,7 +1214,7 @@ function loadVillage(from) {
   const at = from === 'guide' ? world.npcs[1].x - 30 : from === 'hub' ? world.npcs[1].x + 20 : world.doors[0].x - 5;
   world.spawn = { x: at, y: 15 * TS - 14 };
   placePlayer(); G.state = 'play'; G.doorAnim = atHouse ? 40 : 0;
-  G.banner = { text: 'VILLAGGIO DI PIXMOND', t: 150 }; Music.set('home');
+  G.banner = { text: 'PIXMOND VILLAGE', t: 150 }; Music.set('home');
 }
 function enterWorlds() {
   G.state = 'worlds'; G.wsel = { cur: clamp(save.cur, 0, 7) }; sfx.door();
@@ -1318,7 +1318,7 @@ function hitBlock(tx, ty) {
       const [k, pal] = ens[(Math.random() * ens.length) | 0];
       spawnEnemy(world, k, pal, cx, ty * TS); const e = world.enemies[world.enemies.length - 1];
       e.vy = -3; e.dir = player.x + 5 < cx ? -1 : 1; e.baseY = e.y - 8; e.homeX = cx; e.hurt = 20;
-      sfx.boss(); puff(cx, ty * TS - 6, 10, '#ff9a9a'); toast('ATTENTO: UN MOSTRO!', 70);
+      sfx.boss(); puff(cx, ty * TS - 6, 10, '#ff9a9a'); toast('WATCH OUT: A MONSTER!', 70);
     } else if (r < 0.58) {
       const kinds = Object.keys(POWERS); world.pickups.push({ type: 'power', kind: kinds[(Math.random() * kinds.length) | 0], x: tx * TS + 4, y: ty * TS - 11, t: 0 }); sfx.item(); puff(cx, ty * TS - 6, 6, '#ffffff');
     } else if (player.hp < save.maxHp && r < 0.72) { sfx.item(); world.pickups.push({ type: 'heart', x: tx * TS + 4, y: ty * TS - 10, t: 0 }); }
@@ -1330,7 +1330,7 @@ function hurtPlayer(srcX, respawn = false) {
   const p = player; if (G.state !== 'play' || G.trans) return;
   if (!respawn && p.inv > 0) return;
   if (!respawn && p.ride) { vehicleHit(1); return; }
-  if (!respawn && p.power) { p.morphOther = p.power; p.morph = 48; p.power = null; save.power = null; p.inv = 90; sfx.hurt(); toast('HAI PERSO IL POTERE', 70); p.vy = -3; p.vx = (srcX != null && p.x + p.w / 2 < srcX ? -1 : 1) * 2; p.knock = 12; return; }
+  if (!respawn && p.power) { p.morphOther = p.power; p.morph = 48; p.power = null; save.power = null; p.inv = 90; sfx.hurt(); toast('POWER LOST', 70); p.vy = -3; p.vx = (srcX != null && p.x + p.w / 2 < srcX ? -1 : 1) * 2; p.knock = 12; return; }
   p.hp--; p.inv = 90; sfx.hurt(); G.shake = 6;
   if (p.hp <= 0) { gameOver(); return; }
   if (respawn) { p.x = p.safe.x; p.y = p.safe.y; p.vx = 0; p.vy = 0; puff(p.x + 5, p.y + 7, 8); }
@@ -1339,7 +1339,7 @@ function hurtPlayer(srcX, respawn = false) {
 function gameOver() {
   player.inv = 9999; player.power = null; save.power = null; sfx.lose();
   const spec = world.parentSpec || world.spec, fromCheck = G.checkOn;
-  G.goT = 75; if (fromCheck) toast('RIPARTI DAL CHECKPOINT', 110);
+  G.goT = 75; if (fromCheck) toast('BACK TO THE CHECKPOINT', 110);
   goto(() => loadLevel(spec, fromCheck));
 }
 function killEnemy(e) {
@@ -1349,14 +1349,14 @@ function killEnemy(e) {
 function vehicleHit(n) {
   const p = player, v = save.vehicles[p.ride]; if (!v) { p.ride = null; return; }
   v.hp = Math.max(0, v.hp - n); p.inv = 60; sfx.hit(); G.shake = 5; G.dirty = true;
-  if (v.hp <= 0) { const name = VEH[p.ride].name; p.ride = null; p.vy = -4.5; sfx.brk(); puff(p.x + 5, p.y + 6, 18, '#ffb02e'); debris(p.x + 5, p.y + 8, ['#3a3440', '#8a90a8', '#e0453c']); toast(name + ' DISTRUTTA!', 140); }
+  if (v.hp <= 0) { const name = VEH[p.ride].name; p.ride = null; p.vy = -4.5; sfx.brk(); puff(p.x + 5, p.y + 6, 18, '#ffb02e'); debris(p.x + 5, p.y + 8, ['#3a3440', '#8a90a8', '#e0453c']); toast(name + ' DESTROYED!', 140); }
 }
 function toggleRide() {
   const p = player; if (world.home) return;
   if (p.ride) { p.ride = null; sfx.select(); puff(p.x + 5, p.y + 12, 6); return; }
   const id = save.ride, v = id && save.vehicles[id];
   if (!v) { sfx.bump(); return; }
-  if (v.hp <= 0) { sfx.bump(); toast(VEH[id].name + ' ROTTA', 90); return; }
+  if (v.hp <= 0) { sfx.bump(); toast(VEH[id].name + ' BROKEN', 90); return; }
   p.ride = id; sfx.door(); puff(p.x + 5, p.y + 12, 10);
 }
 function fireShot() {
@@ -1396,7 +1396,7 @@ function hitBoss(b, dmg) {
   if (b.hp <= 0) {
     b.defeated = true; sfx.win(); G.shake = 12; puff(b.x + b.w / 2, b.y + b.h / 2, 30, '#ffffff');
     for (let i = 0; i < 6; i++) popCoin(b.x + b.w / 2 + (i - 3) * 6, b.y + b.h / 2);
-    world.bshots.length = 0; Music.set(world.spec.wid); toast(b.name + ' SCONFITTO!', 160);
+    world.bshots.length = 0; Music.set(world.spec.wid); toast(b.name + ' DEFEATED!', 160);
   }
   return true;
 }
@@ -1445,22 +1445,22 @@ function levelClear(msg) {
   if (G.state !== 'play' || !world.spec) return;
   const sp = world.spec, ws = save.worlds[sp.wi];
   ws.cleared[sp.node] = true; ws.node = sp.node; G.dirty = true; persist();
-  G.state = 'clear'; G.clearT = 0; G.clearMsg = msg || 'CHIAVE CONQUISTATA!'; sfx.win();
+  G.state = 'clear'; G.clearT = 0; G.clearMsg = msg || 'KEY OBTAINED!'; sfx.win();
 }
 function findNear() {
   const p = player, pcx = p.x + p.w / 2, feet = p.y + p.h;
   const near = (x, y, r = 12) => Math.abs(pcx - x) < r && Math.abs(feet - y) < 20;
-  for (const d of world.doors) if (near(d.x, d.y)) return { type: 'door', d, label: d.to === 'home' ? 'IL MIO TERRENO' : d.to === 'surface' ? 'TORNA IN SUPERFICIE' : 'TORNA AL VILLAGGIO' };
-  for (const n of world.npcs || []) if (near(n.x, n.y, 22)) return { type: n.type, label: n.type === 'merchant' ? 'PARLA COL COMMERCIANTE' : 'APRI LA MAPPA DEI MONDI' };
-  for (const pt of world.portals || []) if (near(pt.x, pt.y)) return { type: 'portal', pt, label: 'ENTRA: ' + levelLabel(world.hubW, pt.n) };
-  const c = world.chest; if (c && !c.open && near(c.x, c.y, 16)) return { type: 'chest', label: 'APRI IL FORZIERE' };
+  for (const d of world.doors) if (near(d.x, d.y)) return { type: 'door', d, label: d.to === 'home' ? 'MY LAND' : d.to === 'surface' ? 'BACK TO THE SURFACE' : 'BACK TO THE VILLAGE' };
+  for (const n of world.npcs || []) if (near(n.x, n.y, 22)) return { type: n.type, label: n.type === 'merchant' ? 'TALK TO THE MERCHANT' : 'OPEN THE WORLD MAP' };
+  for (const pt of world.portals || []) if (near(pt.x, pt.y)) return { type: 'portal', pt, label: 'ENTER: ' + levelLabel(world.hubW, pt.n) };
+  const c = world.chest; if (c && !c.open && near(c.x, c.y, 16)) return { type: 'chest', label: 'OPEN THE CHEST' };
   return null;
 }
 function interact(n) {
   if (n.type === 'door') {
     if (n.d.to === 'home' && !homeUnlocked()) { sfx.bump(); return; }
     if (n.d.to === 'surface') { sfx.door(); goto(returnSurface); }
-    else if (n.d.to === 'home') { if (homeUnlocked()) { sfx.door(); toHome(); } else { sfx.bump(); toast('COMPLETA 3 LIVELLI PER SBLOCCARE IL TUO TERRENO', 150); } }
+    else if (n.d.to === 'home') { if (homeUnlocked()) { sfx.door(); toHome(); } else { sfx.bump(); toast('CLEAR 3 LEVELS TO UNLOCK YOUR LAND', 150); } }
     else { sfx.door(); const from = world.home ? 'home' : 'hub'; goto(() => loadVillage(from)); }
   }
   else if (n.type === 'merchant') openShop(save.maxWorld);
@@ -1477,13 +1477,13 @@ function updateGates() {
     if (Math.abs(pcx - g.x) < 22 && Math.abs(player.y + player.h - g.y) < 24) {
       if (ws.cleared['L' + g.n]) {
         g.open = true; ws.open[g.n] = true; setTile(g.tx, 13, T.AIR); setTile(g.tx, 14, T.AIR); G.dirty = true;
-        sfx.unlock(); puff(g.x, g.y - 16, 14, '#ffd23a'); toast('PORTA APERTA CON LA CHIAVE DEL LIVELLO ' + (world.hubW + 1) + '-' + g.n + '!', 150);
+        sfx.unlock(); puff(g.x, g.y - 16, 14, '#ffd23a'); toast('DOOR OPENED WITH THE KEY OF LEVEL ' + (world.hubW + 1) + '-' + g.n + '!', 150);
       } else if (!g.msg) { g.msg = true; sfx.bump(); }
     } else g.msg = false;
   }
 }
 function openChest(c) {
-  if (world.boss && !world.boss.defeated) { toast('SCONFIGGI PRIMA ' + world.boss.name + '!', 110); sfx.bump(); return; }
+  if (world.boss && !world.boss.defeated) { toast('FIRST DEFEAT ' + world.boss.name + '!', 110); sfx.bump(); return; }
   const sp = world.spec, ws = save.worlds[sp.wi];
   c.open = true; sfx.win();
   for (let i = 0; i < 8; i++) setTimeout(() => world && world.chest === c && popCoin(c.x, c.y - 14, 0), i * 70);
@@ -1492,13 +1492,13 @@ function openChest(c) {
     if (sp.wi < 7) save.maxWorld = Math.max(save.maxWorld, sp.wi + 1);
     const allDone = save.worlds.every(w => w.done);
     if (allDone && !save.skins.includes('dorato')) save.skins.push('dorato');
-    toast('TESORO DEL MONDO! +100 MONETE', 200);
-    G.pending = 90; G.pendingMsg = allDone ? 'HAI SALVATO PIXMOND!' : 'MONDO ' + (sp.wi + 1) + ' COMPLETATO!';
+    toast('WORLD TREASURE! +100 COINS', 200);
+    G.pending = 90; G.pendingMsg = allDone ? 'YOU SAVED PIXMOND!' : 'WORLD ' + (sp.wi + 1) + ' CLEARED!';
   } else {
     const first = !ws.treasure; ws.treasure = true; addCoins(first ? 150 : 20);
-    if (first && save.maxHp < 8) { save.maxHp++; player.hp = save.maxHp; toast('CUORE EXTRA! ORA HAI ' + save.maxHp + ' CUORI', 200); }
-    toast(first ? 'TESORO SEGRETO! +150 MONETE' : '+20 MONETE', 180);
-    G.pending = 90; G.pendingMsg = 'TESORO TROVATO!';
+    if (first && save.maxHp < 8) { save.maxHp++; player.hp = save.maxHp; toast('EXTRA HEART! NOW YOU HAVE ' + save.maxHp + ' HEARTS', 200); }
+    toast(first ? 'SECRET TREASURE! +150 COINS' : '+20 COINS', 180);
+    G.pending = 90; G.pendingMsg = 'TREASURE FOUND!';
   }
   G.dirty = true;
 }
@@ -1562,7 +1562,7 @@ function updatePlayer() {
   const txs = [Math.floor((p.x + 2) / TS), Math.floor((p.x + p.w - 2) / TS)], tys = [Math.floor((p.y + 2) / TS), Math.floor((p.y + p.h - 1) / TS)];
   let lava = false, spike = false;
   for (const tx of txs) for (const ty of tys) { const t = tileAt(tx, ty); if (t === T.LAVA && p.y + p.h > ty * TS + 6) lava = true; if (t === T.SPIKE && p.y + p.h > ty * TS + 7) spike = true; }
-  if (lava) { if (!G.trans && p.inv < 9000) { if (p.ride) { save.vehicles[p.ride].hp = 0; p.ride = null; } puff(p.x + 5, p.y + p.h, 14, '#ffb02e'); p.hp = 0; p.power = null; save.power = null; G.shake = 10; sfx.hurt(); toast('SEI CADUTO NELLA LAVA!', 140); gameOver(); } }
+  if (lava) { if (!G.trans && p.inv < 9000) { if (p.ride) { save.vehicles[p.ride].hp = 0; p.ride = null; } puff(p.x + 5, p.y + p.h, 14, '#ffb02e'); p.hp = 0; p.power = null; save.power = null; G.shake = 10; sfx.hurt(); toast('YOU FELL IN THE LAVA!', 140); gameOver(); } }
   else if (spike && p.inv <= 0) { hurtPlayer(p.x + p.w / 2 - p.face * 4); p.vy = -5; }
   if (p.y > world.h * TS + 24 && !G.trans && p.inv < 9000) { p.hp = 0; p.power = null; save.power = null; sfx.hurt(); gameOver(); }
   if (p.inv > 0) p.inv--;
@@ -1633,8 +1633,8 @@ function updateArena() {
   if (world.enemies.length) return;
   if (++G.arenaT < A.delay) return;
   G.arenaT = 0; A.wave++;
-  if (A.wave > A.waves) { world.goal.active = true; toast('ARENA SUPERATA!', 120); sfx.win(); return; }
-  toast('ONDATA ' + A.wave + ' DI ' + A.waves, 90); sfx.boss();
+  if (A.wave > A.waves) { world.goal.active = true; toast('ARENA CLEARED!', 120); sfx.win(); return; }
+  toast('WAVE ' + A.wave + ' OF ' + A.waves, 90); sfx.boss();
   const th = world.th, n = 2 + A.wave + Math.round(world.spec.diff * 2);
   for (let i = 0; i < n; i++) {
     const [k, p] = th.enemies[(Math.random() * th.enemies.length) | 0];
@@ -1670,9 +1670,9 @@ function updatePlay() {
     if (overlap(pb, box)) {
       c.got = true;
       if (c.type === 'coin') { addCoins(1); sfx.coin(); sparkle(c.x + 4, c.y + 4); }
-      else if (c.type === 'heart') { p.hp = Math.min(save.maxHp, p.hp + 1); sfx.item(); toast('+1 CUORE', 70); }
-      else if (c.type === 'power') { p.morphOther = p.power; p.morph = 48; save.power = c.kind; G.dirty = true; p.power = c.kind; sfx.key(); puff(c.x + 4, c.y + 4, 10, POWERS[c.kind].col); toast('POTERE DEL ' + POWERS[c.kind].name + '!', 120); }
-      else if (c.type === 'skin') { if (!save.skins.includes(c.skin)) save.skins.push(c.skin); save.skin = c.skin; G.dirty = true; persist(); sfx.key(); puff(c.x + 5, c.y + 5, 14, '#ffd23a'); toast('REGALO! NUOVO PERSONAGGIO: ' + (SKINS.find(k => k.id === c.skin) || {}).name, 200); }
+      else if (c.type === 'heart') { p.hp = Math.min(save.maxHp, p.hp + 1); sfx.item(); toast('+1 HEART', 70); }
+      else if (c.type === 'power') { p.morphOther = p.power; p.morph = 48; save.power = c.kind; G.dirty = true; p.power = c.kind; sfx.key(); puff(c.x + 4, c.y + 4, 10, POWERS[c.kind].col); toast('POWER: ' + POWERS[c.kind].name + '!', 120); }
+      else if (c.type === 'skin') { if (!save.skins.includes(c.skin)) save.skins.push(c.skin); save.skin = c.skin; G.dirty = true; persist(); sfx.key(); puff(c.x + 5, c.y + 5, 14, '#ffd23a'); toast('GIFT! NEW CHARACTER: ' + (SKINS.find(k => k.id === c.skin) || {}).name, 200); }
     }
   }
   world.pickups = world.pickups.filter(c => !c.got);
@@ -1683,7 +1683,7 @@ function updatePlay() {
   if (world.timer > 0 && G.state === 'play') {
     world.timer--;
     if (world.timer % 60 === 0 && world.timer <= 600 && world.timer > 0) sfx.tick();
-    if (world.timer === 0) { sfx.lose(); player.inv = 9999; toHub('TEMPO SCADUTO! RIPROVA LA CORSA'); }
+    if (world.timer === 0) { sfx.lose(); player.inv = 9999; toHub('TIME IS UP! TRY AGAIN'); }
   }
   if (G.pending > 0 && --G.pending === 0) levelClear(G.pendingMsg);
   const tx = p.x + p.w / 2 - VW / 2 + p.face * 22, ty = p.y + p.h / 2 - VH * 0.64;
@@ -1740,29 +1740,29 @@ function buildTap(pt) {
   const wx = pt.x + cam.x, wy = pt.y + cam.y, tx = Math.floor(wx / TS), ty = Math.floor(wy / TS);
   if (tx < 0 || ty < 0 || tx >= world.w || ty >= world.h) return;
   const pcx = player.x + player.w / 2, pcy = player.y + player.h / 2;
-  if (Math.hypot(tx * TS + 8 - pcx, ty * TS + 8 - pcy) > 7 * TS) { toast('TROPPO LONTANO! AVVICINATI', 60); sfx.bump(); return; }
+  if (Math.hypot(tx * TS + 8 - pcx, ty * TS + 8 - pcy) > 7 * TS) { toast('TOO FAR! GET CLOSER', 60); sfx.bump(); return; }
   G.cursor = { tx, ty, t: 20 };
   const pi = propAt(wx, wy);
   if (pi >= 0) { const pr = save.home.props.splice(pi, 1)[0]; save.props[pr.type] = (save.props[pr.type] | 0) + 1; G.dirty = true; sfx.brk(); puff(wx, wy, 10); return; }
   const sel = hotbarList()[G.sel];
   const t = world.map[ty * world.w + tx];
   if (sel && sel.kind === 'prop') {
-    if (SOLID[t]) { toast('TOCCA UNO SPAZIO LIBERO SOPRA IL TERRENO', 90); sfx.bump(); return; }
+    if (SOLID[t]) { toast('TAP AN EMPTY SPOT ABOVE THE GROUND', 90); sfx.bump(); return; }
     const P = sel.it;
-    if ((save.props[P.id] | 0) <= 0) { toast('NON HAI ' + P.name + '! COMPRALO NEI NEGOZI', 110); sfx.bump(); return; }
+    if ((save.props[P.id] | 0) <= 0) { toast('NO ' + P.name + '! BUY IT AT THE SHOP', 110); sfx.bump(); return; }
     let gy = ty; while (gy < world.h && !SOLID[world.map[gy * world.w + tx]]) gy++;
     const px = clamp(tx - (P.w >> 1), 0, world.w - P.w);
-    for (const o of save.home.props) { const Q = PROPS.find(q => q.id === o.type); if (px < o.x + Q.w && px + P.w > o.x && Math.abs(o.y - gy) < 4) { toast('QUI C\'E GIA QUALCOSA', 80); sfx.bump(); return; } }
+    for (const o of save.home.props) { const Q = PROPS.find(q => q.id === o.type); if (px < o.x + Q.w && px + P.w > o.x && Math.abs(o.y - gy) < 4) { toast('SOMETHING IS ALREADY HERE', 80); sfx.bump(); return; } }
     save.home.props.push({ type: P.id, x: px, y: gy }); save.props[P.id]--; G.dirty = true; sfx.place(); puff(px * TS + P.w * 8, gy * TS - 8, 10);
     return;
   }
   if (t === T.AIR) {
     const it = sel.it;
-    if ((save.inv[it.id] | 0) <= 0) { toast('NIENTE ' + it.name + '! COMPRALO NEI NEGOZI', 110); sfx.bump(); return; }
+    if ((save.inv[it.id] | 0) <= 0) { toast('NO ' + it.name + '! BUY IT AT THE SHOP', 110); sfx.bump(); return; }
     const box = { x: tx * TS, y: ty * TS, w: TS, h: TS };
     if (SOLID[it.tile] && overlap(box, player)) return;
     setTile(tx, ty, it.tile); save.inv[it.id]--; sfx.place(); puff(tx * TS + 8, ty * TS + 8, 4, '#ffffff');
-  } else if (t === T.BEDROCK) { toast('ROCCIA INDISTRUTTIBILE', 60); sfx.bump(); }
+  } else if (t === T.BEDROCK) { toast('UNBREAKABLE ROCK', 60); sfx.bump(); }
   else {
     const id = TILE_ITEM[t]; setTile(tx, ty, T.AIR);
     if (id) save.inv[id] = (save.inv[id] | 0) + 1;
@@ -1775,11 +1775,11 @@ function buildTap(pt) {
 // =====================================================================
 const WSEL_POS = [[0.12, 0.34], [0.3, 0.24], [0.48, 0.34], [0.66, 0.24], [0.86, 0.36], [0.72, 0.72], [0.5, 0.78], [0.28, 0.72]];
 const wselPos = i => ({ x: Math.round(WSEL_POS[i][0] * VW), y: Math.round(34 + WSEL_POS[i][1] * (VH - 70)) });
-function worldsButtons() { return { gear: { x: VW - 24, y: 4, w: 20, h: 18 }, back: { x: VW - 84, y: 4, w: 56, h: 18, label: '< VILLAGGIO' }, enter: { x: VW - 62, y: VH - 26, w: 58, h: 22 } }; }
+function worldsButtons() { return { gear: { x: VW - 24, y: 4, w: 20, h: 18 }, back: { x: VW - 84, y: 4, w: 56, h: 18, label: '< VILLAGE' }, enter: { x: VW - 62, y: VH - 26, w: 58, h: 22 } }; }
 function worldsEnter() {
   const i = G.wsel.cur;
-  if (i >= PLAYABLE) { sfx.bump(); toast('MONDO ' + (i + 1) + ' ' + THEMES[WORLDS[i]].name + ': IN COSTRUZIONE', 150); return; }
-  if (i > save.maxWorld) { sfx.bump(); toast('COMPLETA IL MONDO ' + i + ' PER SBLOCCARLO', 120); return; }
+  if (i >= PLAYABLE) { sfx.bump(); toast('WORLD ' + (i + 1) + ' ' + THEMES[WORLDS[i]].name + ': UNDER CONSTRUCTION', 150); return; }
+  if (i > save.maxWorld) { sfx.bump(); toast('CLEAR WORLD ' + i + ' TO UNLOCK', 120); return; }
   save.cur = i; sfx.door(); goto(() => loadHub(i, null));
 }
 function worldsBack() { sfx.select(); if (world && world.village) G.state = 'play'; else goto(() => loadVillage('guide')); }
@@ -1821,11 +1821,11 @@ function shopLayout() {
 function shopBuy(e) {
   const it = e.it;
   if (e.kind === 'skin') {
-    if (save.skins.includes(it.id)) { save.skin = it.id; G.dirty = true; sfx.select(); toast('ORA SEI: ' + it.name, 80); return; }
-    if (!canPay(it.price)) { sfx.bump(); toast('MONETE INSUFFICIENTI', 80); return; }
-    pay(it.price); save.skins.push(it.id); save.skin = it.id; sfx.item(); toast('NUOVO PERSONAGGIO: ' + it.name, 110);
+    if (save.skins.includes(it.id)) { save.skin = it.id; G.dirty = true; sfx.select(); toast('NOW PLAYING AS: ' + it.name, 80); return; }
+    if (!canPay(it.price)) { sfx.bump(); toast('NOT ENOUGH COINS', 80); return; }
+    pay(it.price); save.skins.push(it.id); save.skin = it.id; sfx.item(); toast('NEW CHARACTER: ' + it.name, 110);
   } else {
-    if (!canPay(it.price)) { sfx.bump(); toast('MONETE INSUFFICIENTI', 80); return; }
+    if (!canPay(it.price)) { sfx.bump(); toast('NOT ENOUGH COINS', 80); return; }
     pay(it.price); sfx.coin();
     if (e.kind === 'block') { save.inv[it.id] = (save.inv[it.id] | 0) + it.pack; toast('+' + it.pack + ' ' + it.name, 70); }
     else { save.props[it.id] = (save.props[it.id] | 0) + 1; toast('+1 ' + it.name, 80); }
@@ -1860,8 +1860,8 @@ function updateGarage() {
     for (const r of S.rows) {
       const V = VEH[r.id], v = save.vehicles[r.id];
       if (inR(t, r.buy)) {
-        if (!v) { if (!canPay(V.price)) { sfx.bump(); toast('MONETE INSUFFICIENTI', 80); } else { pay(V.price); save.vehicles[r.id] = { hp: V.hp }; save.ride = r.id; G.dirty = true; sfx.item(); toast(V.name + '!', 100); } }
-        else if (v.hp < V.hp) { const c = repairCost(r.id); if (!canPay(c)) { sfx.bump(); toast('MONETE INSUFFICIENTI', 80); } else { pay(c); v.hp = V.hp; G.dirty = true; sfx.unlock(); toast(V.name + ' RIPARATA!', 100); } }
+        if (!v) { if (!canPay(V.price)) { sfx.bump(); toast('NOT ENOUGH COINS', 80); } else { pay(V.price); save.vehicles[r.id] = { hp: V.hp }; save.ride = r.id; G.dirty = true; sfx.item(); toast(V.name + '!', 100); } }
+        else if (v.hp < V.hp) { const c = repairCost(r.id); if (!canPay(c)) { sfx.bump(); toast('NOT ENOUGH COINS', 80); } else { pay(c); v.hp = V.hp; G.dirty = true; sfx.unlock(); toast(V.name + ' REPAIRED!', 100); } }
         return;
       }
       if (v && inR(t, r.use)) { save.ride = r.id; G.dirty = true; sfx.select(); return; }
@@ -1873,23 +1873,23 @@ function openSettings(back) { G.back = back; G.state = 'settings'; G.confirmRese
 function settingsButtons() {
   const w = 190, x = ((VW - w) / 2) | 0, sk = SKINS.find(s => s.id === save.skin) || SKINS[0];
   const items = [
-    ['DISPOSITIVO: ' + (isTouch() ? 'TELEFONO (COMANDI TOUCH)' : 'COMPUTER (TASTIERA)'), () => { save.device = isTouch() ? 'keys' : 'touch'; G.dirty = true; }],
-    ['EFFETTI SONORI: ' + (save.sfx ? 'SI' : 'NO'), () => { save.sfx = !save.sfx; applyVolumes(); G.dirty = true; }],
-    ['MUSICA: ' + (save.music ? 'SI' : 'NO'), () => { save.music = !save.music; applyVolumes(); G.dirty = true; }],
-    ['MONETE INFINITE (TEST): ' + (save.testMoney ? 'SI' : 'NO'), () => { save.testMoney = !save.testMoney; G.dirty = true; }],
-    ['PERSONAGGIO: ' + sk.name + '  >', () => { const i = save.skins.indexOf(save.skin); save.skin = save.skins[(i + 1) % save.skins.length]; G.dirty = true; }],
-    [G.confirmReset ? 'SICURO? TOCCA DI NUOVO' : 'AZZERA PARTITA', () => { if (!G.confirmReset) { G.confirmReset = true; return; } resetSave(); }],
-    ['CHIUDI', closeSettings],
+    ['DEVICE: ' + (isTouch() ? 'PHONE (TOUCH CONTROLS)' : 'COMPUTER (KEYBOARD)'), () => { save.device = isTouch() ? 'keys' : 'touch'; G.dirty = true; }],
+    ['SOUND EFFECTS: ' + (save.sfx ? 'ON' : 'OFF'), () => { save.sfx = !save.sfx; applyVolumes(); G.dirty = true; }],
+    ['MUSIC: ' + (save.music ? 'ON' : 'OFF'), () => { save.music = !save.music; applyVolumes(); G.dirty = true; }],
+    ['INFINITE COINS (TEST): ' + (save.testMoney ? 'ON' : 'OFF'), () => { save.testMoney = !save.testMoney; G.dirty = true; }],
+    ['CHARACTER: ' + sk.name + '  >', () => { const i = save.skins.indexOf(save.skin); save.skin = save.skins[(i + 1) % save.skins.length]; G.dirty = true; }],
+    [G.confirmReset ? 'SURE? TAP AGAIN' : 'RESET GAME', () => { if (!G.confirmReset) { G.confirmReset = true; return; } resetSave(); }],
+    ['CLOSE', closeSettings],
   ];
-  if (!isTouch()) items.splice(1, 0, ['COMANDI TASTIERA  >', () => { G.state = 'keys'; G.keyWait = null; }]);
+  if (!isTouch()) items.splice(1, 0, ['KEYBOARD CONTROLS  >', () => { G.state = 'keys'; G.keyWait = null; }]);
   let y = ((VH - items.length * 19) / 2 | 0) + 10;
   return items.map(([label, act]) => { const b = { x, y, w, h: 16, label, act }; y += 19; return b; });
 }
 function keysButtons() {
   const w = 200, x = ((VW - w) / 2) | 0;
-  const items = KEYMAP_ROWS.map(([id, lab]) => [lab + ': ' + (G.keyWait === id ? 'PREMI UN TASTO...' : keyName(save.keys[id])), () => { G.keyWait = id; }]);
-  items.push(['RIPRISTINA PREDEFINITI', () => { save.keys = defaultSave().keys; G.dirty = true; }]);
-  items.push(['INDIETRO', () => { G.state = 'settings'; G.keyWait = null; persist(); }]);
+  const items = KEYMAP_ROWS.map(([id, lab]) => [lab + ': ' + (G.keyWait === id ? 'PRESS A KEY...' : keyName(save.keys[id])), () => { G.keyWait = id; }]);
+  items.push(['RESTORE DEFAULTS', () => { save.keys = defaultSave().keys; G.dirty = true; }]);
+  items.push(['BACK', () => { G.state = 'settings'; G.keyWait = null; persist(); }]);
   let y = ((VH - items.length * 19) / 2 | 0) + 10;
   return items.map(([label, act]) => { const b = { x, y, w, h: 16, label, act }; y += 19; return b; });
 }
@@ -1900,22 +1900,22 @@ function resetSave() {
 }
 function pauseButtons() {
   const w = 160, x = ((VW - w) / 2) | 0;
-  const items = [['RIPRENDI', () => { G.state = 'play'; }]];
-  if (world.spec) { items.push(['RICOMINCIA IL LIVELLO', () => { G.state = 'play'; const s = world.parentSpec || world.spec; goto(() => loadLevel(s, false)); }]); items.push(['TORNA AL MONDO', () => { G.state = 'play'; toHub(); }]); }
-  else if (!world.village) items.push(['TORNA AL VILLAGGIO', () => { G.state = 'play'; const from = world.home ? 'home' : 'hub'; goto(() => loadVillage(from)); }]);
-  items.push(['IMPOSTAZIONI', () => openSettings('pause')]);
+  const items = [['RESUME', () => { G.state = 'play'; }]];
+  if (world.spec) { items.push(['RESTART LEVEL', () => { G.state = 'play'; const s = world.parentSpec || world.spec; goto(() => loadLevel(s, false)); }]); items.push(['BACK TO THE WORLD', () => { G.state = 'play'; toHub(); }]); }
+  else if (!world.village) items.push(['BACK TO THE VILLAGE', () => { G.state = 'play'; const from = world.home ? 'home' : 'hub'; goto(() => loadVillage(from)); }]);
+  items.push(['SETTINGS', () => openSettings('pause')]);
   let y = ((VH - items.length * 22) / 2 | 0) + 10;
   return items.map(([label, act]) => { const b = { x, y, w, h: 18, label, act }; y += 22; return b; });
 }
 function titleButtons() {
   const w = 120, x = ((VW - w) / 2) | 0, y = (VH * 0.56) | 0;
   if (!save.device) return [
-    { x: (VW / 2 | 0) - 126, y: y + 12, w: 120, h: 22, label: 'TELEFONO / TABLET', act: () => { save.device = 'touch'; G.dirty = true; startGame(); } },
+    { x: (VW / 2 | 0) - 126, y: y + 12, w: 120, h: 22, label: 'PHONE / TABLET', act: () => { save.device = 'touch'; G.dirty = true; startGame(); } },
     { x: (VW / 2 | 0) + 6, y: y + 12, w: 120, h: 22, label: 'COMPUTER', act: () => { save.device = 'keys'; G.dirty = true; startGame(); } },
   ];
   return [
-    { x, y, w, h: 20, label: 'GIOCA', act: startGame },
-    { x, y: y + 25, w, h: 16, label: 'IMPOSTAZIONI', act: () => openSettings('title') },
+    { x, y, w, h: 20, label: 'PLAY', act: startGame },
+    { x, y: y + 25, w, h: 16, label: 'SETTINGS', act: () => openSettings('title') },
   ];
 }
 function startGame() { if (G.trans) return; initAudio(); sfx.door(); persist(); goto(() => loadVillage(null)); }
@@ -2008,7 +2008,7 @@ function update() {
     }
     case 'clear':
       G.clearT++;
-      if (G.clearT === 150) toHub(world.spec.n === 16 ? 'MONDO COMPLETATO!' : null);
+      if (G.clearT === 150) toHub(world.spec.n === 16 ? 'WORLD CLEARED!' : null);
       break;
     case 'pause':
       inBtns(pauseButtons());
@@ -2395,15 +2395,15 @@ function drawHUD() {
   ctx.drawImage(COIN[COIN_SEQ[(G.t >> 3) % 4]], x, 8); text(save.coins, x + 11, 10, '#ffffff');
   if (hasKey) ctx.drawImage(save.worlds[sp.wi].keys[sp.node] ? KEY : KEY_OFF, x + 15 + cw, 10);
   if (p.power) drawOrb(p.power, x + 15 + cw + (hasKey ? 14 : 0), 8);
-  textOut(world.home ? 'IL MIO TERRENO' : world.village ? 'VILLAGGIO DI PIXMOND' : world.isHub ? 'MONDO ' + (world.hubW + 1) + ': ' + world.th.name + '   LIVELLI ' + levelsDone(world.hubW) + '/16' : world.parentSpec ? sp.label + ' - SOTTERRANEO' : sp.label, 6, 24, '#d8d2ea', OUT, 1);
+  textOut(world.home ? 'MY LAND' : world.village ? 'PIXMOND VILLAGE' : world.isHub ? 'WORLD ' + (world.hubW + 1) + ': ' + world.th.name + '   LEVELS ' + levelsDone(world.hubW) + '/16' : world.parentSpec ? sp.label + ' - UNDERGROUND' : sp.label, 6, 24, '#d8d2ea', OUT, 1);
   hudButton(L.pause, iconPause, false);
   if (!world.home && save.ride && save.vehicles[save.ride]) { const r = L.ride, v = save.vehicles[save.ride]; hudButton(r, () => {}, !!p.ride); drawIconFit(vehicleIcon(save.ride), r.x + 3, r.y + 2, r.w - 6, r.h - 4); if (v.hp === 0) { fr(r.x + 3, r.y + 8, r.w - 6, 2, '#ff5a5a'); } if (p.ride) { const V = VEH[p.ride]; fr(6, 32, 42, 4, OUT); fr(7, 33, Math.round(40 * v.hp / V.hp), 2, v.hp < V.hp / 2 ? '#f5c542' : '#5ae07a'); } }
   if (world.home) hudButton(L.build, iconHammer, G.build);
   if (world.timer > 0 || (sp && sp.type === 'timed')) {
-    const s = Math.ceil(world.timer / 60), txt = 'TEMPO ' + s, w = textW(txt, 2) + 12, low = s <= 10;
+    const s = Math.ceil(world.timer / 60), txt = 'TIME ' + s, w = textW(txt, 2) + 12, low = s <= 10;
     panel((VW - w) / 2, 4, w, 16, 0.9, low ? '#ff6a6a' : '#e9e4f5'); text(txt, VW / 2, 7, low && (G.t >> 3) % 2 ? '#ff6a6a' : '#ffffff', 2, 'center');
   }
-  if (world.arena && world.arena.wave <= world.arena.waves) { const txt = 'ONDATA ' + Math.max(1, world.arena.wave) + '/' + world.arena.waves; const w = textW(txt) + 12; panel((VW - w) / 2, 4, w, 13, 0.9); text(txt, VW / 2, 8, '#ffffff', 1, 'center'); }
+  if (world.arena && world.arena.wave <= world.arena.waves) { const txt = 'WAVE ' + Math.max(1, world.arena.wave) + '/' + world.arena.waves; const w = textW(txt) + 12; panel((VW - w) / 2, 4, w, 13, 0.9); text(txt, VW / 2, 8, '#ffffff', 1, 'center'); }
   const bo = world.boss;
   if (bo && bo.active && !bo.defeated) {
     const w = Math.min(150, VW - 150), bx = ((VW - w) / 2) | 0;
@@ -2431,7 +2431,7 @@ function drawHotbar() {
     textOut(n, r.x + r.w - 2, r.y + r.h - 7, n > 0 ? '#ffffff' : '#ff7a7a', OUT, 1, 'right');
   });
   const rs2 = rs[G.sel + 1]; if (rs2 && list[G.sel]) textOut(list[G.sel].it.name, rs2.x + rs2.w / 2, rs2.y + rs2.h + 3, '#f5c542', OUT, 1, 'center');
-  textOut(G.tab === 'blocks' ? 'BLOCCHI' : 'ARREDI', r0.x + r0.w / 2, r0.y + r0.h + 3, '#9ad0ff', OUT, 1, 'center');
+  textOut(G.tab === 'blocks' ? 'BLOCKS' : 'DECOR', r0.x + r0.w / 2, r0.y + r0.h + 3, '#9ad0ff', OUT, 1, 'center');
 }
 function drawControls(L) {
   const pad = (r, on, dir) => {
@@ -2446,30 +2446,30 @@ function drawControls(L) {
     circ(c.cx, c.cy, c.r + 1, 'rgba(255,255,255,0.35)'); circ(c.cx, c.cy, c.r, on ? colOn : col);
     text(label, c.cx, c.cy - 4, '#ffffff', 2, 'center');
   };
-  round(L.jump, btn.jump, 'rgba(224,69,60,0.55)', 'rgba(255,110,90,0.9)', 'A', 'SALTO');
+  round(L.jump, btn.jump, 'rgba(224,69,60,0.55)', 'rgba(255,110,90,0.9)', 'A', 'JUMP');
   const near = G.near && !G.trans;
-  round(L.punch, btn.punch, near ? 'rgba(61,170,90,0.7)' : 'rgba(61,127,227,0.55)', 'rgba(110,170,255,0.9)', 'B', near ? 'USA' : 'PUGNO');
+  round(L.punch, btn.punch, near ? 'rgba(61,170,90,0.7)' : 'rgba(61,127,227,0.55)', 'rgba(110,170,255,0.9)', 'B', near ? 'USE' : 'PUNCH');
 }
 function drawPause() {
   ctx.fillStyle = 'rgba(10,8,20,0.72)'; ctx.fillRect(0, 0, VW, VH);
   const bs = pauseButtons(), top = bs[0].y - 26, bottom = bs[bs.length - 1].y + 26;
   panel(bs[0].x - 12, top, bs[0].w + 24, bottom - top + 8, 0.95);
-  text('PAUSA', VW / 2, top + 8, '#f5c542', 2, 'center');
+  text('PAUSED', VW / 2, top + 8, '#f5c542', 2, 'center');
   for (const b of bs) uiButton(b);
 }
 function drawSettings() {
   ctx.fillStyle = 'rgba(10,8,20,0.78)'; ctx.fillRect(0, 0, VW, VH);
   const bs = settingsButtons(), top = bs[0].y - 26, bottom = bs[bs.length - 1].y + 24;
   panel(bs[0].x - 10, top, bs[0].w + 20, bottom - top + 8, 0.96, '#f5c542');
-  text('IMPOSTAZIONI', VW / 2, top + 8, '#f5c542', 2, 'center');
-  for (const b of bs) uiButton(b, false, b.label.startsWith('SICURO') ? '#ff6a6a' : null);
+  text('SETTINGS', VW / 2, top + 8, '#f5c542', 2, 'center');
+  for (const b of bs) uiButton(b, false, b.label.startsWith('SURE') ? '#ff6a6a' : null);
   const H = getHero(save.skin).stand.r; ctx.drawImage(H, bs[3].x + bs[3].w - 18, bs[3].y + 1);
 }
 function drawKeys() {
   ctx.fillStyle = 'rgba(10,8,20,0.78)'; ctx.fillRect(0, 0, VW, VH);
   const bs = keysButtons(), top = bs[0].y - 26, bottom = bs[bs.length - 1].y + 24;
   panel(bs[0].x - 10, top, bs[0].w + 20, bottom - top + 8, 0.96, '#f5c542');
-  text('COMANDI TASTIERA', VW / 2, top + 8, '#f5c542', 2, 'center');
+  text('KEYBOARD CONTROLS', VW / 2, top + 8, '#f5c542', 2, 'center');
   bs.forEach((b, i) => uiButton(b, !!(KEYMAP_ROWS[i] && G.keyWait === KEYMAP_ROWS[i][0])));
 }
 function drawVehicle(id, cx, gy, d, head) {
@@ -2504,7 +2504,7 @@ function drawGarageUI() {
   ctx.fillStyle = 'rgba(10,8,20,0.6)'; ctx.fillRect(0, 0, VW, VH);
   const S = garageLayout();
   panel(S.px, S.py, S.pw, S.ph, 0.96, '#f5c542');
-  text('OFFICINA', S.px + 8, S.py + 5, '#f5c542', 2);
+  text('GARAGE', S.px + 8, S.py + 5, '#f5c542', 2);
   const ct = coinsLabel(); ctx.drawImage(COIN[0], S.px + S.pw - 36 - textW(ct), S.py + 5); text(ct, S.px + S.pw - 26 - textW(ct), S.py + 7, '#ffffff');
   panel(S.close.x, S.close.y, S.close.w, S.close.h, 0.9); text('X', S.close.x + 6, S.close.y + 4, '#ffffff');
   for (const r of S.rows) {
@@ -2514,11 +2514,11 @@ function drawGarageUI() {
     text(V.name, S.px + 54, r.y + 4, '#ffffff'); text(V.desc, S.px + 54, r.y + 12, '#9a94b0');
     if (v) {
       const bw = 60; fr(S.px + 54, r.y + 21, bw + 2, 5, OUT); fr(S.px + 55, r.y + 22, Math.round(bw * v.hp / V.hp), 3, v.hp === 0 ? '#ff5a5a' : v.hp < V.hp / 2 ? '#f5c542' : '#5ae07a');
-      text(v.hp === 0 ? 'ROTTA' : v.hp + '/' + V.hp, S.px + 120, r.y + 21, v.hp === 0 ? '#ff6a6a' : '#b8b2cc');
+      text(v.hp === 0 ? 'BROKEN' : v.hp + '/' + V.hp, S.px + 120, r.y + 21, v.hp === 0 ? '#ff6a6a' : '#b8b2cc');
     }
-    const lab = !v ? 'COMPRA ' + V.price : v.hp < V.hp ? 'RIPARA ' + repairCost(r.id) : 'INTEGRA';
+    const lab = !v ? 'BUY ' + V.price : v.hp < V.hp ? 'REPAIR ' + repairCost(r.id) : 'INTACT';
     uiButton(Object.assign({ label: lab }, r.buy), false, !v || v.hp < V.hp ? '#f5c542' : '#6a6480');
-    if (v) uiButton(Object.assign({ label: save.ride === r.id ? 'SELEZIONATA' : 'SCEGLI' }, r.use), save.ride === r.id);
+    if (v) uiButton(Object.assign({ label: save.ride === r.id ? 'SELECTED' : 'SELECT' }, r.use), save.ride === r.id);
   }
   drawToasts(S.py + S.ph - 16 > VH - 20 ? 4 : S.py + S.ph + 2);
 }
@@ -2526,10 +2526,10 @@ function drawShopUI() {
   ctx.fillStyle = 'rgba(10,8,20,0.6)'; ctx.fillRect(0, 0, VW, VH);
   const S = shopLayout();
   panel(S.px, S.py, S.pw, S.ph, 0.96, '#f5c542');
-  text('NEGOZIO', S.px + 8, S.py + 5, '#f5c542', 2);
+  text('SHOP', S.px + 8, S.py + 5, '#f5c542', 2);
   const ct = coinsLabel(); ctx.drawImage(COIN[0], S.px + S.pw - 36 - textW(ct), S.py + 5); text(ct, S.px + S.pw - 26 - textW(ct), S.py + 7, '#ffffff');
   panel(S.close.x, S.close.y, S.close.w, S.close.h, 0.9); text('X', S.close.x + 6, S.close.y + 4, '#ffffff');
-  const TAB_L = { skin: 'PERSONAGGI', blocks: 'BLOCCHI', props: 'ARREDI' };
+  const TAB_L = { skin: 'CHARACTERS', blocks: 'BLOCKS', props: 'DECOR' };
   for (const t of S.tabs) { const on = G.shop.tab === t.id; panel(t.x, t.y, t.w, t.h, on ? 0.95 : 0.6, on ? '#f5c542' : '#6a6480'); text(TAB_L[t.id], t.x + t.w / 2, t.y + 5, on ? '#f5c542' : '#b8b2cc', 1, 'center'); }
   for (const b of S.cells) {
     const e = b.e, it = e.it;
@@ -2540,12 +2540,12 @@ function drawShopUI() {
     if (e.kind === 'skin') {
       ctx.drawImage(getHero(it.id).stand.r, b.x + 4, b.y + 4);
       const owned = save.skins.includes(it.id);
-      sub = owned ? (save.skin === it.id ? 'IN USO' : 'TOCCA PER INDOSSARE') : 'NUOVO PERSONAGGIO';
+      sub = owned ? (save.skin === it.id ? 'IN USE' : 'TAP TO WEAR') : 'NEW CHARACTER';
       right = owned ? '' : String(it.price); can = owned || canPay(it.price);
     } else if (e.kind === 'block') {
-      tileIcon(it.tile, b.x + 3, b.y + 4); sub = 'X' + it.pack + '  (HAI ' + (save.inv[it.id] | 0) + ')'; right = String(it.price); can = canPay(it.price);
+      tileIcon(it.tile, b.x + 3, b.y + 4); sub = 'X' + it.pack + '  (OWNED ' + (save.inv[it.id] | 0) + ')'; right = String(it.price); can = canPay(it.price);
     } else {
-      drawIconFit(propIcon(it.id), b.x + 2, b.y + 2, 20, 20); sub = 'PER IL TUO MONDO (HAI ' + (save.props[it.id] | 0) + ')'; right = String(it.price); can = canPay(it.price);
+      drawIconFit(propIcon(it.id), b.x + 2, b.y + 2, 20, 20); sub = 'FOR YOUR LAND (OWNED ' + (save.props[it.id] | 0) + ')'; right = String(it.price); can = canPay(it.price);
     }
     text(it.name, b.x + 24, b.y + 5, '#ffffff'); text(sub, b.x + 24, b.y + 14, '#9a94b0');
     if (right) { const px = b.x + b.w - 4 - textW(right); text(right, px, b.y + 5, can ? '#f5c542' : '#8a6a6a'); ctx.drawImage(COIN[0], px - 10, b.y + 3); }
@@ -2560,7 +2560,7 @@ function drawClear() {
   textOut(G.clearMsg, VW / 2, y, '#f5c542', OUT, 2, 'center');
   const ws = save.worlds[world.spec.wi];
   textOut(world.spec.label, VW / 2, y + 18, '#ffffff', OUT, 1, 'center');
-  const line = 'LIVELLI ' + levelsDone(world.spec.wi) + '/16' + (ws.done ? '   MONDO COMPLETATO' : '');
+  const line = 'LEVELS ' + levelsDone(world.spec.wi) + '/16' + (ws.done ? '   WORLD CLEARED' : '');
   textOut(line, VW / 2, y + 30, '#d8d2ea', OUT, 1, 'center');
   if (world.spec.n < 16) { const b = Math.round(Math.sin(G.t * 0.1) * 2); ctx.drawImage(KEY, (VW / 2 - 20) | 0, y - 26 + b, 40, 20); }
   else if ((G.t >> 3) % 2) for (let i = 0; i < 3; i++) ctx.drawImage(STARI, (VW / 2 - 16 + i * 12) | 0, y - 14);
@@ -2604,7 +2604,7 @@ function drawGate(g) {
 function drawNPC(n) {
   const sx = Math.round(n.x - CX), gy = Math.round(n.y - CY);
   if (sx < -60 || sx > VW + 60) return;
-  if (n.type === 'merchant') { drawProp('negozio', sx - 24, gy, true); signAt('NEGOZIO', sx, gy - 58, '#3a1e0e'); return; }
+  if (n.type === 'merchant') { drawProp('negozio', sx - 24, gy, true); signAt('SHOP', sx, gy - 58, '#3a1e0e'); return; }
   if (n.type === 'mechanic') {
     const x = sx - 20;
     fr(x - 3, gy - 46, 66, 6, OUT); fr(x - 2, gy - 45, 64, 4, '#d8433b');
@@ -2614,7 +2614,7 @@ function drawNPC(n) {
     fr(x + 42, gy - 36, 12, 3, '#c8ccd8'); fr(x + 42, gy - 37, 3, 5, '#c8ccd8'); fr(x + 51, gy - 37, 3, 5, '#c8ccd8');
     const bob = (G.t >> 5) % 2, img = getESpr('walker', 'mechanic').f[0][player.x + 5 < n.x ? 'l' : 'r'];
     ctx.drawImage(img, x - 16, gy - 15 + bob); fr(x - 16, gy - 16 + bob, 11, 3, '#3d7fe3'); fr(x - 18 + (player.x + 5 < n.x ? 0 : 11), gy - 14 + bob, 4, 1, '#3d7fe3');
-    signAt('OFFICINA', sx + 10, gy - 60);
+    signAt('GARAGE', sx + 10, gy - 60);
     return;
   }
   fr(sx + 6, gy - 28, 24, 18, OUT); fr(sx + 7, gy - 27, 22, 16, '#f0e0b0');
@@ -2623,7 +2623,7 @@ function drawNPC(n) {
   const bob = (G.t >> 5) % 2, img = getESpr('walker', 'guide').f[0][player.x + 5 < n.x ? 'l' : 'r'];
   ctx.drawImage(img, sx - 12, gy - 15 + bob);
   fr(sx - 13, gy - 16 + bob, 14, 2, '#8a5a2e'); fr(sx - 10, gy - 19 + bob, 8, 3, '#8a5a2e'); fr(sx - 10, gy - 17 + bob, 8, 1, '#f2c14e');
-  signAt('MAPPA DEI MONDI', sx + 6, gy - 44);
+  signAt('WORLD MAP', sx + 6, gy - 44);
 }
 function mapDeco(g, t, x, y, h, cols) {
   const r = (X, Y, w, hh, col) => { g.fillStyle = col; g.fillRect(X | 0, Y | 0, w, hh); };
@@ -2710,15 +2710,15 @@ function drawWorlds() {
   const c = (G.t >> 3) % 2 ? '#ffffff' : '#f5c542';
   for (const [dx, dy, w, h] of [[-26, -22, 8, 2], [-26, -22, 2, 8], [18, -22, 8, 2], [24, -22, 2, 8], [-26, 20, 8, 2], [-26, 14, 2, 8], [18, 20, 8, 2], [24, 14, 2, 8]]) fr(p.x + dx, p.y + dy, w, h, c);
   if (W.cur < PLAYABLE) ctx.drawImage(getHero(save.skin, save.power).stand.r, p.x - 6, p.y - 24 - b);
-  panel(4, 4, 150, 16); text('SCEGLI IL MONDO', 10, 9, '#f5c542', 1);
+  panel(4, 4, 150, 16); text('CHOOSE A WORLD', 10, 9, '#f5c542', 1);
   const B = worldsButtons();
   hudButton(B.gear, iconGear, false); uiButton(B.back);
-  const th = THEMES[WORLDS[W.cur]], info = 'MONDO ' + (W.cur + 1) + ': ' + th.name;
-  const sub = W.cur >= PLAYABLE ? 'IN COSTRUZIONE: PRESTO DISPONIBILE' : W.cur > save.maxWorld ? 'BLOCCATO' : 'LIVELLI ' + levelsDone(W.cur) + '/16' + (save.worlds[W.cur].done ? '  -  TESORO TROVATO' : '');
+  const th = THEMES[WORLDS[W.cur]], info = 'WORLD ' + (W.cur + 1) + ': ' + th.name;
+  const sub = W.cur >= PLAYABLE ? 'UNDER CONSTRUCTION: COMING SOON' : W.cur > save.maxWorld ? 'LOCKED' : 'LEVELS ' + levelsDone(W.cur) + '/16' + (save.worlds[W.cur].done ? '  -  TREASURE FOUND' : '');
   const iw = Math.min(VW - 76, Math.max(textW(info), textW(sub)) + 14);
   panel(4, VH - 26, iw, 22, 0.92); text(info, 10, VH - 22, '#ffffff'); text(sub, 10, VH - 13, '#b8b2cc');
   const ok = W.cur < PLAYABLE && W.cur <= save.maxWorld, e = B.enter;
-  panel(e.x, e.y, e.w, e.h, 0.95, ok ? '#f5c542' : '#6a6480'); text('ENTRA', e.x + e.w / 2, e.y + 6, ok ? '#ffffff' : '#6a6480', 2, 'center');
+  panel(e.x, e.y, e.w, e.h, 0.95, ok ? '#f5c542' : '#6a6480'); text('ENTER', e.x + e.w / 2, e.y + 6, ok ? '#ffffff' : '#6a6480', 2, 'center');
   drawToasts(26);
 }
 function drawTitle() {
@@ -2728,11 +2728,11 @@ function drawTitle() {
   text(title, cx, y, '#f5c542', sc, 'center');
   ctx.save(); ctx.beginPath(); ctx.rect(0, y, VW, sc * 2); ctx.clip(); text(title, cx, y, '#fff2a0', sc, 'center'); ctx.restore();
   ctx.save(); ctx.beginPath(); ctx.rect(0, y + sc * 4, VW, sc); ctx.clip(); text(title, cx, y, '#e0902a', sc, 'center'); ctx.restore();
-  textOut('MONDO 1: 16 LIVELLI - ALTRI 7 MONDI IN COSTRUZIONE', cx, y + sc * 5 + 10, '#ffffff', OUT, 1, 'center');
-  if (!save.device) textOut('SU COSA STAI GIOCANDO?', cx, (VH * 0.56 | 0) - 2, '#f5c542', OUT, 1, 'center');
-  for (const b of titleButtons()) uiButton(b, b.label === 'GIOCA');
+  textOut('WORLD 1: 16 LEVELS - 7 MORE WORLDS COMING SOON', cx, y + sc * 5 + 10, '#ffffff', OUT, 1, 'center');
+  if (!save.device) textOut('WHAT ARE YOU PLAYING ON?', cx, (VH * 0.56 | 0) - 2, '#f5c542', OUT, 1, 'center');
+  for (const b of titleButtons()) uiButton(b, b.label === 'PLAY');
   const done = save.worlds.filter(w => w.done).length;
-  if (save.tut) textOut('MONETE ' + save.coins + '   MONDI COMPLETATI ' + done + '/8', cx, VH - 12, '#d8d2ea', OUT, 1, 'center');
+  if (save.tut) textOut('COINS ' + save.coins + '   WORLDS CLEARED ' + done + '/8', cx, VH - 12, '#d8d2ea', OUT, 1, 'center');
 }
 function drawTransition() {
   const tr = G.trans; if (!tr) return;
@@ -2800,14 +2800,14 @@ world = genLevel(makeSpec(0, 1));
 player = newPlayer(world.spawn.x, world.spawn.y);
 initWeather();
 Music.set('meadow');
-// Test deep links: #villaggio | #mondi | #mondo=1 | #livello=1-4 | #casa
+// Test deep links: #village | #worlds | #world=1 | #level=1-4 | #home
 const hsh = location.hash; let m_;
 const dev = () => { if (!save.device) save.device = 'keys'; };
-if (/villaggio/.test(hsh)) { dev(); loadVillage(null); }
-else if (/mondi/.test(hsh)) { dev(); loadVillage('guide'); enterWorlds(); }
-else if ((m_ = /mondo=(\d)/.exec(hsh))) { dev(); loadHub(+m_[1] - 1, null); }
-else if ((m_ = /livello=(\d)-(\d+)/.exec(hsh))) { dev(); loadLevel(makeSpec(+m_[1] - 1, clamp(+m_[2], 1, 16)), false); }
-else if (/casa/.test(hsh)) { dev(); loadHome(); }
+if (/village|villaggio/.test(hsh)) { dev(); loadVillage(null); }
+else if (/worlds|mondi/.test(hsh)) { dev(); loadVillage('guide'); enterWorlds(); }
+else if ((m_ = /(?:world|mondo)=(\d)/.exec(hsh))) { dev(); loadHub(+m_[1] - 1, null); }
+else if ((m_ = /(?:level|livello)=(\d)-(\d+)/.exec(hsh))) { dev(); loadLevel(makeSpec(+m_[1] - 1, clamp(+m_[2], 1, 16)), false); }
+else if (/home|casa/.test(hsh)) { dev(); loadHome(); }
 requestAnimationFrame(frame);
 })();
 </script>
