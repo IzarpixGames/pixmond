@@ -153,6 +153,8 @@ const POWER_PAL = {
   fire: { r: '#f4f0e6', R: '#c8c0b0', b: '#e0453c', B: '#9c2c36', y: '#ffb02e' },
   ice: { r: '#dff6ff', R: '#9ab8d8', b: '#3d7fe3', B: '#2753a8', y: '#8fd4ff' },
   thunder: { r: '#ffe14a', R: '#c8a01a', b: '#2a2a3a', B: '#15151f', y: '#ffffff' },
+  invis: { r: '#e8e0ff', R: '#b8a8e0', b: '#8a7ab8', B: '#6a5a98', y: '#ffffff' },
+  magnet: { r: '#ff5a8a', R: '#c02a5a', b: '#3a3a4a', B: '#22222e', y: '#c8ccd8' },
 };
 function getHero(id, pw) {
   const key = id + '|' + (pw || '');
@@ -196,10 +198,41 @@ const E_SPR = {
     ['...kkkk...', '.kkLLaakk.', 'kLLaaaaaak', 'kLaepaepak', 'kaaaaaaaak', 'kAAAAAAAAk', '.kckckckk.', '..c.c.c.c.', '..c.c..c.c', '.c...c..c.', '..c...c..c'],
   ],
 };
-const E_BOX = { slime: { w: 10, h: 9 }, walker: { w: 9, h: 14 }, bat: { w: 12, h: 7 }, ghost: { w: 10, h: 12 }, fish: { w: 12, h: 7 }, jelly: { w: 8, h: 10 } };
-const EPAL_BASE = { k: '#1b1626', e: '#ffffff', p: '#1b1626', m: '#7a1f3a', c: '#8a5a3a', C: '#5a3a2a' };
+Object.assign(E_SPR, {
+  hedgehog: [
+    ['...k.k.k.....', '..kCkCkCk....', '.kCcCcCcCkkk.', 'kCcCcCcCaaaak', 'kCcCcCcaaepak', 'kCcCcCcaaaamk', '.kCCCCCaaaak.', '..kAkk.kAk...', '..kk....kk...'],
+    ['...k.k.k.....', '..kCkCkCk....', '.kCcCcCcCkkk.', 'kCcCcCcCaaaak', 'kCcCcCcaaepak', 'kCcCcCcaaaamk', '.kCCCCCaaaak.', '...kAk.kAk...', '...kk..kk....'],
+  ],
+  frog: [
+    ['..kk....kk..', '.kepk..kepk.', '.kaakkkkaak.', 'kaaaaaaaaaak', 'kaLLaaaaaaak', 'kammmmmmmmak', 'kAaaaaaaaaAk', 'kAAk....kAAk', '.kk......kk.'],
+    ['..kk....kk..', '.kepk..kepk.', '.kaakkkkaak.', 'kaaaaaaaaaak', 'kaLLaaaaaaak', 'kammmmmmmmak', '.kAaaaaaaAk.', '.kAk....kAk.', 'kAk......kAk'],
+  ],
+  boar: [
+    ['...kkkkkk.....', '..kaaaaaakk...', '.kaaaaaaaaakk.', 'kaaaaaaaaaaepk', 'kaaaaaaaaaaLLk', 'kAaaaaaaaaLLLk', '.kAAaaaaaAkwk.', '..kAk.kAk.kk..', '..kk..kk......'],
+    ['...kkkkkk.....', '..kaaaaaakk...', '.kaaaaaaaaakk.', 'kaaaaaaaaaaepk', 'kaaaaaaaaaaLLk', 'kAaaaaaaaaLLLk', '.kAAaaaaaAkwk.', '...kAkkAk.kk..', '...kk.kk......'],
+  ],
+  plant: [
+    ['..kkkkkk..', '.kaaLLaak.', 'kaaaaaaaak', 'kaepaaaaak', 'kaaaaakkkk', 'kaaaaak...', 'kaaaaaakkk', '.kaaaaaak.', '..kkkkkk..', '....kCk...', '..kCkCkCk.', '.kCCkCkCCk', '....kCk...', '...kCCCk..'],
+    ['..kkkkkk..', '.kaaLLaak.', 'kaaaaaaaak', 'kaepaaaaak', 'kaaaaaaaak', 'kaaaammmak', 'kaaaaaaaak', '.kaaaaaak.', '..kkkkkk..', '....kCk...', '..kCkCkCk.', '.kCCkCkCCk', '....kCk...', '...kCCCk..'],
+  ],
+  mole: [
+    ['...kkkkkk...', '..kaaaaaak..', '.kaepaaepak.', '.kaaaLLaaak.', '.kaaLkkLaak.', 'kkaaaaaaaakk', 'kcckaaaakcck', '.kkaaaaaakk.', '..kaaaaaak..', '...kkkkkk...'],
+    ['...kkkkkk...', '..kaaaaaak..', '.kaepaaepak.', '.kaaaLLaaak.', '.kaaLkkLaak.', 'kkaaaaaaaakk', '.kcckaakcck.', '.kkaaaaaakk.', '..kaaaaaak..', '...kkkkkk...'],
+  ],
+});
+E_SPR.dropper = E_SPR.bat;
+const GROUND_KINDS = new Set(['walker', 'slime', 'hedgehog', 'frog', 'boar', 'plant', 'mole']);
+const E_BOX = { slime: { w: 10, h: 9 }, walker: { w: 9, h: 14 }, bat: { w: 12, h: 7 }, ghost: { w: 10, h: 12 }, fish: { w: 12, h: 7 }, hedgehog: { w: 11, h: 8 }, frog: { w: 10, h: 8 }, boar: { w: 12, h: 8 }, plant: { w: 8, h: 14 }, dropper: { w: 12, h: 7 }, mole: { w: 10, h: 9 }, jelly: { w: 8, h: 10 } };
+const EPAL_BASE = { k: '#1b1626', e: '#ffffff', p: '#1b1626', m: '#7a1f3a', c: '#8a5a3a', C: '#5a3a2a', w: '#fff4dc' };
 const EPAL = {
   green: { a: '#5cc94a', A: '#2f8a3e', L: '#a6f07a' },
+  hedge: { a: '#d8b08a', A: '#a8805a', L: '#f0d0b0', c: '#8a6a4a', C: '#4a2e20', m: '#3a1a10' },
+  frog: { a: '#5cc94a', A: '#2f8a3e', L: '#a6f07a', m: '#c83a4a' },
+  boar: { a: '#8a5a3a', A: '#5a3a2a', L: '#e0a0a0', e: '#ffe14a' },
+  plant: { a: '#e0453c', A: '#9c2c36', L: '#ff9a8a', m: '#5a0a1a', C: '#3a8a3e', c: '#5fc24a' },
+  bird: { a: '#4a6ab0', A: '#2a4a8a', L: '#8aaae0', m: '#f0a030' },
+  mole: { a: '#6a4a5a', A: '#4a3040', L: '#f0a8b8', c: '#f4ecdc' },
+  cactusp: { a: '#4a9a4a', A: '#357a3a', L: '#8ad06a', C: '#c8a040', c: '#f0c85a', m: '#1b1626' },
   goblin: { a: '#7ac05a', A: '#4a8a3a', L: '#a8e07a', m: '#3a1a2a' },
   crow: { a: '#3a3a4a', A: '#22222e', L: '#5a5a6e', e: '#ffe14a', m: '#f0a030' },
   ice: { a: '#8fd4ff', A: '#4c8fd0', L: '#e0f6ff', m: '#2a3a8a' },
@@ -222,6 +255,10 @@ const EPAL = {
   zombie: { a: '#8ac07a', A: '#5a8a5a', L: '#b8e0a0', p: '#c02a2a', m: '#3a1a2a', c: '#6a5aa0', C: '#4a3a7a' },
   crystal: { a: '#b07aff', A: '#7a4ac0', L: '#e8d0ff', m: '#3a1a5a' },
   troll: { a: '#9a8a6a', A: '#6a5a44', L: '#c0b090', e: '#ffe14a', m: '#2a1a10', c: '#5a4a8a', C: '#3a2e5a' },
+  v1: { a: '#f7c8a0', A: '#d08e68', L: '#ffe0c0', m: '#9c2c36', c: '#d8433b', C: '#9c2c36' },
+  v2: { a: '#f7c8a0', A: '#d08e68', L: '#ffe0c0', m: '#9c2c36', c: '#f5c542', C: '#c8901a' },
+  v3: { a: '#c89070', A: '#a06848', L: '#e0b090', m: '#6a1a2a', c: '#3a8a3e', C: '#23562e' },
+  v4: { a: '#c89070', A: '#a06848', L: '#e0b090', m: '#6a1a2a', c: '#b07aff', C: '#7a4ac0' },
   mechanic: { a: '#f7c8a0', A: '#d08e68', L: '#ffe0c0', m: '#9c2c36', c: '#3d7fe3', C: '#2753a8' },
   guide: { a: '#f7c8a0', A: '#d08e68', L: '#ffe0c0', m: '#9c2c36', c: '#3a8a3e', C: '#23562e' },
   merchant: { a: '#f7c8a0', A: '#d08e68', L: '#ffe0c0', m: '#9c2c36', c: '#6a4ab0', C: '#4a2e80' },
@@ -258,9 +295,10 @@ const LOCK_OPEN = spr(['..kkkkk..', '.kg...gk.', '.kg.......', 'kkkkkkkkk', 'kgg
 // =====================================================================
 //  TILES
 // =====================================================================
-const T = { AIR: 0, GROUND: 1, BEDROCK: 2, STONE: 3, WOOD: 4, BRICK: 5, GLASS: 6, STAR: 7, QBLOCK: 8, USED: 9, PLAT: 10, SPIKE: 11, LAVA: 12, WATER: 13, LANTERN: 14, LEAF: 15, CRACK: 16 };
-const SOLID = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1];
-const UNI_SLOT = { 3: 0, 4: 1, 5: 2, 6: 3, 7: 4, 9: 7, 10: 8, 11: 9, 14: 18, 15: 20 };
+const T = { AIR: 0, GROUND: 1, BEDROCK: 2, STONE: 3, WOOD: 4, BRICK: 5, GLASS: 6, STAR: 7, QBLOCK: 8, USED: 9, PLAT: 10, SPIKE: 11, LAVA: 12, WATER: 13, LANTERN: 14, LEAF: 15, CRACK: 16, LADDER: 17, CRUMBLE: 18, RED: 19, BLUE: 20, HCRACK: 21 };
+const SOLID = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1];
+function setSwitch(v) { G.sw = v; SOLID[T.RED] = v ? 0 : 1; SOLID[T.BLUE] = v ? 1 : 0; }
+const UNI_SLOT = { 3: 0, 4: 1, 5: 2, 6: 3, 7: 4, 9: 7, 10: 8, 11: 9, 14: 18, 15: 20, 17: 22, 18: 23 };
 const ITEMS = [
   { id: 'terra', tile: T.GROUND, name: 'Dirt', pack: 5, price: 5, wmin: 0 },
   { id: 'pietra', tile: T.STONE, name: 'Stone', pack: 5, price: 8, wmin: 0 },
@@ -269,20 +307,25 @@ const ITEMS = [
   { id: 'piatt', tile: T.PLAT, name: 'Bridge', pack: 5, price: 8, wmin: 1 },
   { id: 'mattoni', tile: T.BRICK, name: 'Bricks', pack: 5, price: 10, wmin: 1 },
   { id: 'vetro', tile: T.GLASS, name: 'Glass', pack: 5, price: 12, wmin: 2 },
+  { id: 'scala', tile: T.LADDER, name: 'Ladder', pack: 5, price: 10, wmin: 0 },
   { id: 'lanterna', tile: T.LANTERN, name: 'Lantern', pack: 2, price: 15, wmin: 3 },
 ];
-const TILE_ITEM = { 1: 'terra', 3: 'pietra', 4: 'legno', 5: 'mattoni', 6: 'vetro', 15: 'foglie', 10: 'piatt', 14: 'lanterna', 9: 'pietra', 16: 'terra' };
+const TILE_ITEM = { 1: 'terra', 3: 'pietra', 4: 'legno', 5: 'mattoni', 6: 'vetro', 15: 'foglie', 10: 'piatt', 14: 'lanterna', 9: 'pietra', 16: 'terra', 17: 'scala' };
 const VEH = {
   moto: { name: 'MOTORBIKE', price: 600, hp: 8, speed: 3.1, jump: -7, desc: 'SUPER FAST, HUGE JUMPS' },
   auto: { name: 'CAR', price: 900, hp: 12, speed: 2.6, jump: -5.6, desc: 'ARMOURED, FLATTENS EVERYTHING' },
-  heli: { name: 'HELICOPTER', price: 1500, hp: 6, speed: 2.4, fly: true, desc: 'FLIES OVER EVERYTHING' },
+  heli: { name: 'HELICOPTER', price: 1200, hp: 3, speed: 2.6, fly: true, gun: true, desc: 'FLIES AND SHOOTS. FRAGILE!' },
 };
 const VEH_IDS = ['moto', 'auto', 'heli'];
+const POWER_PRICE = { fire: 150, ice: 200, thunder: 250, invis: 300, magnet: 120 };
 const POWERS = {
   fire: { name: 'FIRE', col: '#ff7a2e' },
   ice: { name: 'ICE', col: '#8fd4ff' },
   thunder: { name: 'THUNDER', col: '#ffe14a' },
+  invis: { name: 'INVISIBILITY', col: '#c8b8ff' },
+  magnet: { name: 'COIN MAGNET', col: '#ff5a8a' },
 };
+const SHOOTERS = new Set(['fire', 'ice', 'thunder']);
 const PROPS = [
   { id: 'casa', name: 'House', w: 3, h: 46, price: 120, wmin: 0 },
   { id: 'albero', name: 'Tree', w: 2, h: 40, price: 30, wmin: 0 },
@@ -296,7 +339,7 @@ const PROPS = [
 ];
 
 function buildUni() {
-  const c = mk(22 * 16, 16), g = c.getContext('2d');
+  const c = mk(28 * 16, 16), g = c.getContext('2d');
   let o = 0;
   const r = (x, y, w, h, col) => { g.fillStyle = col; g.fillRect(o + x, y, w, h); };
   const bevel = (base, light, dark, out) => { r(0, 0, 16, 16, out); r(1, 1, 14, 14, base); r(1, 1, 14, 1, light); r(1, 1, 1, 14, light); r(1, 14, 14, 1, dark); r(14, 1, 1, 14, dark); };
@@ -339,6 +382,12 @@ function buildUni() {
   o = 21 * 16;
   for (const [x, y, w, h] of [[3, 1, 1, 3], [4, 4, 2, 1], [6, 5, 1, 3], [7, 8, 3, 1], [10, 9, 1, 3], [11, 12, 2, 1], [11, 3, 1, 3], [12, 6, 2, 1], [2, 10, 3, 1], [5, 11, 1, 2]]) { r(x, y, w, h, '#1b1626'); r(x + 1, y + 1, w, h, 'rgba(255,255,255,0.28)'); }
   r(0, 0, 16, 1, 'rgba(255,255,255,0.35)'); r(0, 0, 1, 16, 'rgba(255,255,255,0.2)');
+  o = 22 * 16; for (const x of [2, 12]) { r(x, 0, 2, 16, '#6a3e22'); r(x, 0, 1, 16, '#b0743e'); } for (let y = 2; y < 16; y += 4) { r(4, y, 8, 2, '#8a5430'); r(4, y, 8, 1, '#c0844c'); }
+  o = 23 * 16; r(0, 0, 16, 16, '#5a3a1e'); r(1, 1, 14, 14, '#c8a070'); r(1, 1, 14, 1, '#e8c890'); r(1, 14, 14, 1, '#a07a4a');
+  for (const [x, y, w] of [[3, 4, 3], [5, 5, 1], [9, 7, 4], [8, 8, 1], [4, 10, 2], [11, 3, 1], [12, 11, 2]]) r(x, y, w, 1, '#5a3a1e');
+  const sw = (on, base, lite, dark) => { if (on) { bevel(base, lite, dark, OUT); r(6, 3, 4, 6, '#ffffff'); r(6, 10, 4, 3, '#ffffff'); } else { for (let i = 0; i < 16; i += 2) { r(i, 0, 1, 1, base); r(i, 15, 1, 1, base); r(0, i, 1, 1, base); r(15, i, 1, 1, base); } r(7, 7, 2, 2, base); } };
+  o = 24 * 16; sw(true, '#d8433b', '#ff7a6a', '#9c2c36'); o = 25 * 16; sw(false, '#d8433b');
+  o = 26 * 16; sw(true, '#3d7fe3', '#7db4ff', '#2753a8'); o = 27 * 16; sw(false, '#3d7fe3');
   return c;
 }
 const UNI = buildUni();
@@ -396,6 +445,7 @@ function drawTop(g, ox, th, v) {
     case 'ash': for (let i = 0; i < 3; i++) p((Rn() * 15) | 0, 1 + ((Rn() * 2) | 0), 1, 1, '#ff7a2e'); break;
     case 'slab': p(v % 2 ? 4 : 11, 1, 1, t.depth - 1, t.dark); break;
     case 'plank': p(v % 2 ? 5 : 12, 1, 1, t.depth - 1, t.dark); p(2, 2, 1, 1, t.dark); break;
+    case 'road': p(0, 3, 16, 1, t.dark); for (let x = 0; x < 16; x++) { if ((x + v * 2) % 6 === 0) p(x, 1, 1, 2, t.dark); if ((x + v * 2 + 3) % 6 === 0) p(x, 4, 1, 1, t.dark); } for (let i = 0; i < 3; i++) p((Rn() * 14) | 0, 2, 2, 1, t.light); break;
   }
 }
 function buildSheet(th) {
@@ -426,7 +476,7 @@ const THEMES = {
   meadow: Object.assign({
     name: 'GREEN MEADOWS', kind: 'outdoor', decos: ['tuft', 'tuft', 'flower', 'flower', 'bush', 'mushroom'],
     particles: 'petals', music: { root: 60, scale: [0, 2, 4, 7, 9], bpm: 112, lead: 'square' },
-    enemies: [['slime', 'green'], ['walker', 'goblin'], ['bat', 'crow']], pits: ['void', 'water'],
+    enemies: [['slime', 'green'], ['walker', 'goblin'], ['bat', 'crow'], ['hedgehog', 'hedge'], ['frog', 'frog'], ['boar', 'boar'], ['plant', 'plant'], ['dropper', 'bird'], ['mole', 'mole']], pits: ['void', 'water'],
     boss: { kind: 'walker', pal: 'goblin', name: 'GOBLIN KING' },
     map: { base: '#6cc24a', tex: '#5aac40', path: '#f0d8a0', pathD: '#b8905a', deco: ['round', 'round', 'bush', 'flower'], treeCol: ['#4fae4a', '#3a8a3e', '#86d86a'] },
   }, MEADOW_BG),
@@ -442,7 +492,7 @@ const THEMES = {
     fill: { style: 'strata', base: '#e8a23c', light: '#f4c05a', dark: '#c87830' },
     bedrock: '#a84a2c', tuft: ['#c8a040', '#9a7a2a'], decos: ['cactus', 'skull', 'rock', 'tuft', 'cactus'],
     particles: 'dust', music: { root: 57, scale: [0, 1, 4, 5, 7, 8, 10], bpm: 104, lead: 'square' },
-    enemies: [['walker', 'mummy'], ['slime', 'sand'], ['bat', 'vulture']], pits: ['void', 'spikes'],
+    enemies: [['walker', 'mummy'], ['slime', 'sand'], ['bat', 'vulture'], ['plant', 'cactusp'], ['mole', 'sand'], ['dropper', 'vulture'], ['hedgehog', 'sand']], pits: ['void', 'spikes'],
     boss: { kind: 'walker', pal: 'mummy', name: 'MUMMY PHARAOH' }, stairTile: T.BRICK,
     map: { base: '#f2cc6a', tex: '#e0b050', path: '#fff0c0', pathD: '#c8864a', deco: ['cactus', 'rock', 'dune', 'dune'], treeCol: ['#4a9a4a', '#357a3a', '#8ad06a'] },
   },
@@ -458,7 +508,7 @@ const THEMES = {
     fill: { style: 'cobble', base: '#7d8aab', light: '#a0acc8', dark: '#58638a' },
     bedrock: '#343a56', tuft: ['#b3c2da', '#8d9cba'], decos: ['pine', 'rock', 'snowman', 'tuft', 'pine'],
     particles: 'snow', music: { root: 62, scale: [0, 2, 4, 7, 9, 11], bpm: 96, lead: 'triangle' },
-    enemies: [['walker', 'yeti'], ['slime', 'ice'], ['bat', 'icebat']], pits: ['water', 'void'],
+    enemies: [['walker', 'yeti'], ['slime', 'ice'], ['bat', 'icebat'], ['boar', 'yeti'], ['frog', 'ice'], ['dropper', 'icebat']], pits: ['water', 'void'],
     boss: { kind: 'walker', pal: 'yeti', name: 'YETI KING' },
     map: { base: '#e8f0fa', tex: '#c8d6ea', path: '#a8bcd8', pathD: '#7a90b8', deco: ['pine', 'pine', 'rock'], treeCol: ['#3f8a62', '#2e6a4e', '#ffffff'] },
   },
@@ -484,7 +534,7 @@ const THEMES = {
     fill: { style: 'speckle', base: '#6a4430', light: '#7e5238', dark: '#4e3022' },
     bedrock: '#2a1a14', tuft: ['#b8804e', '#6a4430'], decos: ['crystal', 'mushroom', 'rock', 'bones', 'crystal'],
     particles: 'motes', music: { root: 57, scale: [0, 2, 3, 5, 7, 9, 10], bpm: 100, lead: 'triangle' },
-    enemies: [['bat', 'bat'], ['slime', 'crystal'], ['walker', 'troll']], pits: ['spikes', 'void'],
+    enemies: [['bat', 'bat'], ['slime', 'crystal'], ['walker', 'troll'], ['mole', 'mole'], ['hedgehog', 'crystal'], ['frog', 'troll']], pits: ['spikes', 'void'],
     boss: { kind: 'slime', pal: 'crystal', name: 'CRYSTAL GOLEM' }, dark: 0.35,
     map: { base: '#3a2a24', tex: '#4a3830', path: '#a07a54', pathD: '#6a4a30', deco: ['crystal', 'stal', 'stal', 'rock'] },
   },
@@ -498,7 +548,7 @@ const THEMES = {
     fill: { style: 'cobble', base: '#48454f', light: '#5c5964', dark: '#302e36' },
     bedrock: '#1e1c22', tuft: ['#76737e', '#46434e'], decos: ['rock', 'vent', 'bones', 'rock'],
     particles: 'embers', music: { root: 52, scale: [0, 2, 3, 5, 7, 8, 10], bpm: 128, lead: 'sawtooth' },
-    enemies: [['slime', 'fire'], ['walker', 'imp'], ['bat', 'firebat']], pits: ['lava'],
+    enemies: [['slime', 'fire'], ['walker', 'imp'], ['bat', 'firebat'], ['boar', 'imp'], ['plant', 'fire'], ['dropper', 'firebat']], pits: ['lava'],
     boss: { kind: 'slime', pal: 'fire', name: 'MAGMA LORD' },
     map: { base: '#3a3842', tex: '#4c4a55', path: '#9a8a80', pathD: '#5a5460', deco: ['rocks', 'rock', 'rocks'], lava: true, treeCol: ['#5c5964', '#2c2a33', '#76737e'] },
   },
@@ -509,7 +559,7 @@ const THEMES = {
     fill: { style: 'plank', base: '#5a3a2a', light: '#6e4a34', dark: '#3e281e' },
     bedrock: '#1a1020', tuft: ['#7a5238', '#553624'], decos: ['candle', 'pumpkin', 'candle', 'bones'],
     particles: 'wisps', music: { root: 50, scale: [0, 1, 3, 6, 7, 10], bpm: 88, lead: 'triangle' },
-    enemies: [['ghost', 'ghost'], ['bat', 'bat'], ['walker', 'zombie']], pits: ['spikes', 'void'],
+    enemies: [['ghost', 'ghost'], ['bat', 'bat'], ['walker', 'zombie'], ['dropper', 'bat'], ['frog', 'zombie'], ['hedgehog', 'zombie']], pits: ['spikes', 'void'],
     boss: { kind: 'ghost', pal: 'ghost', name: 'BARON GHOST' }, stairTile: T.WOOD, dark: 0.5,
     map: { base: '#2c2238', tex: '#3a2e4a', path: '#7a6a80', pathD: '#4a3a58', deco: ['deadtree', 'tomb', 'tomb', 'deadtree'] },
   },
@@ -520,25 +570,59 @@ const THEMES = {
     fill: { style: 'brick', base: '#62677f', light: '#7a8098', dark: '#4a4e64' },
     bedrock: '#24253a', tuft: ['#6a7090', '#4a4e64'], decos: ['barrel', 'pot', 'bones', 'barrel'],
     particles: 'motes', music: { root: 55, scale: [0, 2, 3, 5, 7, 8, 10], bpm: 116, lead: 'square' },
-    enemies: [['walker', 'skel'], ['bat', 'bat'], ['slime', 'green']], pits: ['spikes', 'lava'],
+    enemies: [['walker', 'skel'], ['bat', 'bat'], ['slime', 'green'], ['boar', 'skel'], ['plant', 'plant'], ['hedgehog', 'darkking']], pits: ['spikes', 'lava'],
     boss: { kind: 'walker', pal: 'darkking', name: 'SKELETON KING' }, stairTile: T.BRICK, dark: 0.4,
     map: { base: '#7a7e94', tex: '#6a6e84', path: '#d8d0b8', pathD: '#9a9078', deco: ['tower', 'rock', 'tower', 'flagm'] },
   },
 };
 const PLAYABLE = 1; // worlds 2-8 are work in progress
+THEMES.village = Object.assign({}, THEMES.home, { name: 'PIXMOND VILLAGE', houses: true, top: { style: 'road', base: '#c8b89a', light: '#e8dcc0', dark: '#8a7a62', depth: 6 } });
 const WORLDS = ['meadow', 'desert', 'snow', 'sea', 'cave', 'volcano', 'haunted', 'castle'];
 const SHEETS = {};
 const sheetOf = id => SHEETS[id] || (SHEETS[id] = buildSheet(THEMES[id]));
 
 // ---- World structure: 16 levels in a row, each one gives the key to the next door ----
-const LEVEL_SEQ = ['normal', 'normal', 'sky', 'cave', 'bonus', 'normal', 'sky', 'timed', 'cave', 'normal', 'secret', 'sky', 'arena', 'normal', 'treasure', 'boss'];
+const LEVELS = [
+  { style: 'intro', type: 'normal', name: 'GREEN TRAIL' },
+  { style: 'pond', type: 'normal', name: 'FROG POND' },
+  { style: 'islands', type: 'sky', name: 'FLOATING ISLES' },
+  { style: 'mines', type: 'cave', name: 'MOLE MINES' },
+  { style: 'bonus', type: 'bonus', name: 'BONUS ROOM' },
+  { style: 'cliffs', type: 'normal', name: 'LADDER CLIFFS' },
+  { style: 'lifts', type: 'sky', name: 'SKY LIFTS' },
+  { style: 'rush', type: 'timed', name: 'TIME TRIAL' },
+  { style: 'canyon', type: 'normal', name: 'CRUMBLING CANYON' },
+  { style: 'switches', type: 'normal', name: 'SWITCH GARDEN' },
+  { style: 'secret', type: 'secret', name: 'SECRET PASSAGE' },
+  { style: 'treetops', type: 'sky', name: 'TREETOPS' },
+  { style: 'arena', type: 'arena', name: 'MONSTER ARENA' },
+  { style: 'stampede', type: 'normal', name: 'BOAR STAMPEDE' },
+  { style: 'treasure', type: 'treasure', name: 'TREASURE ROOM' },
+  { style: 'boss', type: 'boss', name: 'FORTRESS' },
+];
+const LEVEL_SEQ = LEVELS.map(l => l.type);
+const STYLE = {
+  intro: { segs: { flat: 4, step: 3, pit: 2, blocks: 3, stairs: 2 }, kinds: ['slime', 'walker', 'frog'], enemyMul: 0.6 },
+  pond: { segs: { flat: 2, pond: 5, blocks: 2, step: 1 }, kinds: ['frog', 'dropper', 'slime'] },
+  islands: { segs: { islands: 1 }, kinds: ['frog', 'dropper', 'bat'] },
+  mines: { segs: { flat: 2, step: 2, cliff: 2, tower: 2, pit: 1, blocks: 1 }, kinds: ['mole', 'bat', 'slime', 'hedgehog'] },
+  cliffs: { segs: { cliff: 4, tower: 3, flat: 2, step: 1 }, kinds: ['walker', 'plant', 'dropper'] },
+  lifts: { segs: { movers: 5, flat: 1, zip: 1 }, kinds: ['dropper', 'bat', 'plant'] },
+  rush: { segs: { flat: 3, pit: 3, step: 2, zip: 1 }, kinds: ['boar', 'slime'] },
+  canyon: { segs: { crumble: 4, zip: 3, flat: 2, pit: 1 }, kinds: ['dropper', 'frog', 'hedgehog'] },
+  switches: { segs: { switch: 4, flat: 2, blocks: 2, stairs: 1 }, kinds: ['walker', 'plant', 'hedgehog'] },
+  secret: { segs: { flat: 2, pit: 2, blocks: 2, cliff: 1, crumble: 1 } },
+  treetops: { segs: { trees: 1 }, kinds: ['dropper', 'bat', 'frog'] },
+  stampede: { segs: { flat: 5, stairs: 2, blocks: 1, pit: 1 }, kinds: ['boar', 'hedgehog'], enemyMul: 1.6 },
+  boss: { segs: { flat: 3, step: 2, pit: 2, blocks: 2, cliff: 1 } },
+};
 const SKIN_LEVELS = { 4: 'esploratore', 9: 'pirata', 12: 'ninja' };
 const TYPE_NAME = { sky: 'FLOATING SKIES', cave: 'UNDERGROUND', bonus: 'BONUS ROOM', secret: 'SECRET PASSAGE', timed: 'TIME TRIAL', arena: 'MONSTER ARENA', treasure: 'TREASURE ROOM', boss: 'FORTRESS' };
 const NORMAL_NAMES = ['TRAIL', 'HILLS', 'PLAINS', 'VALLEY', 'RIDGE', 'CLEARING', 'PASS'];
-function levelLabel(wi, n) { const ty = LEVEL_SEQ[n - 1]; return (wi + 1) + '-' + n + ' ' + (ty === 'normal' ? NORMAL_NAMES[(n + wi) % NORMAL_NAMES.length] : TYPE_NAME[ty]); }
+function levelLabel(wi, n) { return (wi + 1) + '-' + n + ' ' + LEVELS[n - 1].name; }
 function makeSpec(wi, n) {
   const ty = LEVEL_SEQ[n - 1];
-  return { wi, wid: WORLDS[wi], node: 'L' + n, n, type: ty, diff: clamp(wi * 0.12 + n * 0.028, 0, 1), key: false, skin: SKIN_LEVELS[n] || null, seed: hashStr(WORLDS[wi] + ':L' + n) + wi * 977, label: levelLabel(wi, n) };
+  return { wi, wid: WORLDS[wi], node: 'L' + n, n, type: ty, style: LEVELS[n - 1].style, diff: clamp(wi * 0.12 + n * 0.028, 0, 1), key: false, skin: SKIN_LEVELS[n] || null, seed: hashStr(WORLDS[wi] + ':L' + n) + wi * 977, label: levelLabel(wi, n) };
 }
 const levelsDone = wi => { let c = 0; for (let n = 1; n <= 16; n++) if (save.worlds[wi].cleared['L' + n]) c++; return c; };
 const homeUnlocked = () => save.admin || save.worlds.reduce((s, w) => s + Object.keys(w.cleared).length, 0) >= 3;
@@ -716,6 +800,20 @@ function wallLayer(W, H, th) {
   g.fillStyle = gr; g.fillRect(0, 0, W, H);
   return c;
 }
+function housesLayer(W, H) {
+  const c = mk(W, H), g = c.getContext('2d'), r = (x, y, w, h, col) => { g.fillStyle = col; g.fillRect(x | 0, y | 0, w, h); };
+  const Rn = mulberry32(77), base = Math.round(H * 0.64);
+  for (let x = 12; x < W - 60;) {
+    const w = 26 + ((Rn() * 22) | 0), h = 18 + ((Rn() * 18) | 0), top = base - h;
+    const wall = ['#d8cbb4', '#c8d0dc', '#e0d0b0', '#d0b8a8'][(Rn() * 4) | 0], roof = ['#a85048', '#5a6aa0', '#8a5a48', '#6a8a5a'][(Rn() * 4) | 0];
+    r(x, top, w, h + 50, wall); r(x + w - 3, top, 3, h + 50, 'rgba(0,0,0,0.12)');
+    for (let k = 0; k < 11; k++) { const half = 3 + ((w / 2 + 1) * k / 10) | 0; r(x + w / 2 - half, top - 11 + k, half * 2, 1, roof); }
+    r(x + w - 10, top - 13, 4, 7, '#7a6a6a');
+    for (let wx = x + 4; wx < x + w - 6; wx += 9) r(wx, top + 6, 5, 6, Rn() < 0.6 ? '#ffd88a' : '#5a6078');
+    x += w + 4 + ((Rn() * 18) | 0);
+  }
+  return c;
+}
 const BG_CACHE = {};
 function getBG(id) {
   const key = id + ':' + VH;
@@ -726,7 +824,7 @@ function getBG(id) {
     for (let i = n - 1; i >= 0; i--) layers.push({ c: cloudBand(BGW, H, H * (0.08 + 0.11 * i), th.clouds[i], hashStr(id) + i, 10 + i * 3, 22 + i * 5), f: 0.02 + 0.012 * (n - i), drift: 1 + (n - i) * 0.6 });
     for (const m of th.mountains || []) layers.push({ c: mountainLayer(BGW, H, m), f: m.f });
     if (th.lavaBand) layers.push({ c: lavaBandLayer(BGW, H, th.lavaBand.top), f: th.lavaBand.f });
-    for (const hl of th.hills || []) layers.push({ c: hillLayer(BGW, H, hl), f: hl.f });
+    for (const hl of th.hills || []) { layers.push({ c: hillLayer(BGW, H, hl), f: hl.f }); if (th.houses && hl === th.hills[0]) layers.push({ c: housesLayer(BGW, H), f: 0.19 }); }
   } else if (th.kind === 'water') {
     layers.push({ c: waterLayer(BGW, H, th), f: 0 });
     for (const rl of th.rocks) layers.push({ c: hillLayer(BGW, H, rl), f: rl.f });
@@ -768,15 +866,15 @@ const SAVE_KEY = 'pixelia-save-v2';
 const newWorldSave = () => ({ cleared: {}, keys: {}, open: {}, node: 'start', done: false, treasure: false });
 const defaultSave = () => ({
   coins: 0, maxHp: 3, sfx: true, music: true, device: null, skin: 'classico', skins: ['classico'],
-  inv: { terra: 10, pietra: 6, legno: 10, foglie: 6, piatt: 4, mattoni: 0, vetro: 0, lanterna: 0 },
+  inv: { scala: 4, terra: 10, pietra: 6, legno: 10, foglie: 6, piatt: 4, mattoni: 0, vetro: 0, lanterna: 0 },
   props: { casa: 1, albero: 2, fiori: 3, recinto: 4 },
-  keys: { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', action: 'Space', vehicle: 'KeyV' }, lvl: {}, crackTut: false, power: null, vehicles: {}, ride: null, admin: false, villTut: false, hubTut: false,
+  keys: { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', down: 'ArrowDown', action: 'Space', vehicle: 'KeyV' }, lvl: {}, crackTut: false, power: null, vehicles: {}, ride: null, admin: false, villTut: false, hubTut: false,
   cur: 0, maxWorld: 0, worlds: Array.from({ length: 8 }, newWorldSave), home: { edits: {}, props: [] }, tut: false, mapTut: false,
 });
 let save = defaultSave();
 try {
   const s = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null');
-  if (s) { save = Object.assign(defaultSave(), s); for (let i = 0; i < 8; i++) save.worlds[i] = Object.assign(newWorldSave(), save.worlds[i] || {}); save.keys = Object.assign(defaultSave().keys, save.keys || {}); }
+  if (s) { save = Object.assign(defaultSave(), s); for (let i = 0; i < 8; i++) save.worlds[i] = Object.assign(newWorldSave(), save.worlds[i] || {}); save.keys = Object.assign(defaultSave().keys, save.keys || {}); for (const id in save.vehicles || {}) if (VEH[id]) save.vehicles[id].hp = Math.min(save.vehicles[id].hp, VEH[id].hp); }
 } catch (e) { /* storage unavailable */ }
 function persist() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); } catch (e) { /* ignore */ } }
 const isTouch = () => save.device === 'touch';
@@ -785,7 +883,7 @@ const pay = n => { if (!save.admin) save.coins -= n; };
 const coinsLabel = () => save.admin ? 'INFINITE' : String(save.coins);
 const KEY_NAMES = { ArrowLeft: 'LEFT ARROW', ArrowRight: 'RIGHT ARROW', ArrowUp: 'UP ARROW', ArrowDown: 'DOWN ARROW', Space: 'SPACE', Enter: 'ENTER', ShiftLeft: 'SHIFT', ShiftRight: 'RIGHT SHIFT', ControlLeft: 'CTRL', ControlRight: 'RIGHT CTRL', AltLeft: 'ALT', AltRight: 'RIGHT ALT', Tab: 'TAB', Backspace: 'BACKSPACE' };
 const keyName = c => KEY_NAMES[c] || String(c).replace(/^Key/, '').replace(/^Digit/, '').replace(/^Numpad/, 'NUM ').toUpperCase();
-const KEYMAP_ROWS = [['left', 'LEFT'], ['right', 'RIGHT'], ['jump', 'JUMP'], ['action', 'PUNCH / USE / SHOOT'], ['vehicle', 'GET ON / OFF VEHICLE']];
+const KEYMAP_ROWS = [['left', 'LEFT'], ['right', 'RIGHT'], ['jump', 'JUMP / CLIMB'], ['down', 'DOWN / CLIMB DOWN'], ['action', 'PUNCH / USE / SHOOT'], ['vehicle', 'GET ON / OFF VEHICLE']];
 
 // =====================================================================
 //  AUDIO (WebAudio chiptune)
@@ -886,7 +984,7 @@ function makePattern(m, seed) {
 // =====================================================================
 function spawnEnemy(L, kind, pal, cx, bottom) {
   const b = E_BOX[kind];
-  L.enemies.push({ kind, pal, x: cx - b.w / 2, y: bottom - b.h, w: b.w, h: b.h, vx: 0, vy: 0, dir: -1, hp: kind === 'walker' ? 2 : 1, t: (Math.random() * 100) | 0, timer: 40 + ((Math.random() * 60) | 0), homeX: cx, baseY: bottom - b.h, spd: 0.4 + Math.random() * 0.25, hurt: 0, onGround: false, shy: false });
+  L.enemies.push({ kind, pal, x: cx - b.w / 2, y: bottom - b.h, w: b.w, h: b.h, vx: 0, vy: 0, dir: -1, hp: ({ walker: 2, boar: 3, hedgehog: 2 })[kind] || 1, spiky: kind === 'hedgehog', st: null, shoot: 0, hidden: false, t: (Math.random() * 100) | 0, timer: 40 + ((Math.random() * 60) | 0), homeX: cx, baseY: bottom - b.h, spd: 0.4 + Math.random() * 0.25, hurt: 0, onGround: false, shy: false });
 }
 function baseLevel(themeId, W, extra) {
   const th = THEMES[themeId];
@@ -894,7 +992,7 @@ function baseLevel(themeId, W, extra) {
     id: themeId, th, w: W, h: 22, map: new Uint8Array(W * 22), sheet: sheetOf(themeId),
     enemies: [], pickups: [], doors: [], decos: [], structs: [], boss: null, chest: null, goal: null, check: null,
     underwater: th.kind === 'water', topSolid: th.kind !== 'outdoor', ceil: null, bgId: themeId, dark: th.dark || 0,
-    arena: null, timer: 0, home: false, shots: [], bshots: [], spec: null, spawn: { x: 4 * TS, y: 15 * TS - 14 },
+    arena: null, timer: 0, home: false, shots: [], bshots: [], movers: [], levers: [], zips: [], holes: [], holesUp: [], hatchDoors: [], crumbles: new Map(), spec: null, spawn: { x: 4 * TS, y: 15 * TS - 14 },
   }, extra || {});
 }
 function fillColumns(L, hs, pit) {
@@ -906,6 +1004,7 @@ function fillColumns(L, hs, pit) {
       const fl = Math.min(H - 2, h + 3);
       for (let y = h + 1; y < fl; y++) map[y * W + x] = p === 'lava' ? T.LAVA : T.WATER;
       for (let y = fl; y < H - 1; y++) map[y * W + x] = T.GROUND; map[(H - 1) * W + x] = T.BEDROCK;
+    } else if (p === 'float') { map[h * W + x] = T.GROUND; map[(h + 1) * W + x] = T.GROUND;
     } else if (p === 'spikes') {
       const fl = h + 2; map[(fl - 1) * W + x] = T.SPIKE;
       for (let y = fl; y < H - 1; y++) map[y * W + x] = T.GROUND; map[(H - 1) * W + x] = T.BEDROCK;
@@ -923,7 +1022,7 @@ function genLevel(spec) {
     dark: Math.max(th.dark || 0, caveLike ? (type === 'secret' ? 0.6 : 0.45) : 0),
   });
   const H = L.h, map = L.map, ws = save.worlds[spec.wi];
-  const hs = new Int16Array(W).fill(15), pit = new Array(W).fill(null), occ = new Uint8Array(W);
+  const hs = new Int16Array(W).fill(15), pit = new Array(W).fill(null), occ = new Uint8Array(W), capCeil = new Int16Array(W).fill(99);
   const blocks = [], ens = [], flyers = [];
   const coin = (tx, ty) => L.pickups.push({ type: 'coin', x: tx * TS + 4, y: ty * TS + 4, t: (Rn() * 60) | 0 });
   const pits = type === 'sky' ? (th.pits.length ? [...th.pits, 'void', 'void'] : []) : type === 'bonus' ? [] : th.pits;
@@ -933,7 +1032,8 @@ function genLevel(spec) {
   let placeKey = !!spec.skin && !save.skins.includes(spec.skin);
   const keyX = Math.floor(W * (type === 'bonus' ? 0.7 : 0.45 + Rn() * 0.2));
   const checkX = W >= 120 ? Math.floor(W * 0.5) : -1; let checkDone = false;
-  const enemyP = type === 'bonus' ? 0 : 0.45 + 0.4 * d, flyP = type === 'bonus' ? 0 : 0.25 + 0.35 * d;
+  const ST = STYLE[spec.style] || {};
+  const enemyP = type === 'bonus' ? 0 : (0.45 + 0.4 * d) * (ST.enemyMul || 1), flyP = type === 'bonus' ? 0 : 0.25 + 0.35 * d;
   const skyBias = type === 'sky' ? 0.14 : 0;
 
   const segments = endX => {
@@ -946,36 +1046,111 @@ function genLevel(spec) {
         placeKey = false; continue;
       }
       if (checkX > 0 && !checkDone && x >= checkX) { flat(5); L.check = { x: (s + 2) * TS + 8, y: h * TS, on: false }; occ[s + 2] = 1; checkDone = true; continue; }
-      const r = Rn();
       if (type === 'bonus') {
+        const r = Rn();
         if (r < 0.4) { const n = 6; flat(n); for (let i = 0; i < n; i++) { coin(s + i, h - 2); coin(s + i, h - 3); } }
         else if (r < 0.75) { flat(8); for (let i = 0; i < 5; i++) { blocks.push([s + 1 + i, h - 4, Rn() < 0.4 ? T.QBLOCK : T.STAR]); coin(s + 1 + i, h - 6); } }
         else { flat(9); [1, 2, 3, 3, 2, 1].forEach((k, i) => { for (let j = 1; j <= k; j++) blocks.push([s + 1 + i, h - j, T.STONE]); occ[s + 1 + i] = 1; coin(s + 1 + i, h - k - 2); }); }
         continue;
       }
-      if (r < 0.22 - skyBias) {
-        const n = 5 + ((Rn() * 6) | 0); flat(n);
-        if (Rn() < enemyP) ens.push([s + 2 + ((Rn() * (n - 3)) | 0), h]);
-        if (Rn() < 0.5) for (let i = 1; i < Math.min(n - 1, 6); i++) coin(s + i, h - 2);
-      } else if (r < 0.40 - skyBias) {
-        h = clamp(h + pick(water ? [-3, -2, 2, 3] : [-2, -1, 1, 2]), water ? 9 : 11, 17); flat(3 + ((Rn() * 4) | 0));
-      } else if (r < 0.56) {
-        if (pits.length) { const n = 2 + Math.floor(d * 1.6) + ((Rn() * 2) | 0); hole(n, pick(pits)); for (let i = -1; i <= n; i++) coin(s + i, h - 3 - (i >= 0 && i < n ? 1 : 0)); flat(3); }
-        else { flat(4); flyers.push([s + 2, h - 5]); }
-      } else if (r < 0.70) {
-        flat(8); const bl = 3 + ((Rn() * 3) | 0);
-        for (let i = 0; i < bl; i++) blocks.push([s + 2 + i, h - 4, Rn() < 0.3 ? T.QBLOCK : T.STAR]);
-        if (Rn() < enemyP) ens.push([s + 6, h]);
-      } else if (r < 0.80 - skyBias) {
-        flat(9);
-        [1, 2, 3, 3, 2, 1].forEach((k, i) => { for (let j = 1; j <= k; j++) blocks.push([s + 1 + i, h - j, th.stairTile || T.STONE]); occ[s + 1 + i] = 1; });
-        coin(s + 3, h - 5); coin(s + 4, h - 5);
-      } else {
-        if (pits.length) {
-          const n = 6 + ((Rn() * 3) | 0) + Math.floor(d * 2); hole(n, pick(pits));
+      const segW = ST.segs || { flat: 3, step: 2, pit: 2, blocks: 2, stairs: 1, platpit: 1, cliff: 1, tower: 1, movers: 1, crumble: 1 };
+      let tot = 0; for (const k in segW) tot += segW[k];
+      let roll = Rn() * tot, seg = 'flat'; for (const k in segW) { roll -= segW[k]; if (roll <= 0) { seg = k; break; } }
+      const needPit = ['pit', 'platpit', 'movers', 'crumble', 'zip', 'switch'];
+      const pitList = pits.length ? pits : ['void'];
+      if (needPit.includes(seg) && !pits.length && seg !== 'movers' && seg !== 'zip') seg = 'flat';
+      switch (seg) {
+        case 'flat': {
+          const n = 5 + ((Rn() * 6) | 0); flat(n);
+          if (Rn() < enemyP) ens.push([s + 2 + ((Rn() * (n - 3)) | 0), h]);
+          if (Rn() < 0.5) for (let i = 1; i < Math.min(n - 1, 6); i++) coin(s + i, h - 2);
+          break;
+        }
+        case 'step': h = clamp(h + pick(water ? [-3, -2, 2, 3] : [-2, -1, 1, 2]), water ? 9 : 11, 17); flat(3 + ((Rn() * 4) | 0)); break;
+        case 'pit': { const n = 2 + Math.floor(d * 1.6) + ((Rn() * 2) | 0); hole(n, pick(pitList)); for (let i = -1; i <= n; i++) coin(s + i, h - 3 - (i >= 0 && i < n ? 1 : 0)); flat(3); break; }
+        case 'blocks': {
+          flat(8); const bl = 3 + ((Rn() * 3) | 0);
+          for (let i = 0; i < bl; i++) blocks.push([s + 2 + i, h - 4, Rn() < 0.3 ? T.QBLOCK : T.STAR]);
+          if (Rn() < enemyP) ens.push([s + 6, h]);
+          break;
+        }
+        case 'stairs':
+          flat(9);
+          [1, 2, 3, 3, 2, 1].forEach((k, i) => { for (let j = 1; j <= k; j++) blocks.push([s + 1 + i, h - j, th.stairTile || T.STONE]); occ[s + 1 + i] = 1; });
+          coin(s + 3, h - 5); coin(s + 4, h - 5); if (Rn() < enemyP) ens.push([s + 8, h]);
+          break;
+        case 'platpit': {
+          const n = 6 + ((Rn() * 3) | 0) + Math.floor(d * 2); hole(n, pick(pitList));
           for (let px = s + 1; px < s + n - 1; px += 3) { const py = h - 2 - ((Rn() * 2) | 0); blocks.push([px, py, T.PLAT], [px + 1, py, T.PLAT]); coin(px, py - 2); }
-          flat(3);
-        } else { flat(6); flyers.push([s + 3, h - 5]); }
+          flat(3); break;
+        }
+        case 'cliff': {
+          flat(3); const lx = x - 1, h0 = h, h2 = Math.max(5, h - 6 - ((Rn() * 2) | 0));
+          for (let y = h2; y < h0; y++) blocks.push([lx, y, T.LADDER]); occ[lx] = 1;
+          h = h2; const n = 7 + ((Rn() * 5) | 0), s2 = x; flat(n);
+          for (let i = 1; i < n - 1; i++) coin(s2 + i, h - 2);
+          if (Rn() < 0.5) blocks.push([s2 + 3, h - 4, T.QBLOCK]);
+          if (Rn() < enemyP) ens.push([s2 + n - 2, h]);
+          for (let i = lx - 1; i < x; i++) capCeil[i] = Math.max(1, h2 - 3);
+          h = clamp(h0 + pick([-1, 0, 0, 1]), 11, 17); flat(2);
+          break;
+        }
+        case 'tower': {
+          flat(10); const px = s + 4, ph = h - 7;
+          for (let i = 0; i < 5; i++) { blocks.push([px + i, ph, T.STONE]); coin(px + i, ph - 1); }
+          for (let y = ph; y < h; y++) blocks.push([px - 1, y, T.LADDER]); occ[px - 1] = 1;
+          blocks.push([px + 2, ph - 4, T.QBLOCK]);
+          for (let i = px - 2; i < px + 6; i++) capCeil[i] = Math.max(1, ph - 6);
+          break;
+        }
+        case 'movers': {
+          const n = 8 + ((Rn() * 3) | 0); hole(n, pitList.includes('void') ? 'void' : pick(pitList));
+          const vert = Rn() < 0.4, cxp = (s + n / 2) * TS - 24, ay = (h - (vert ? 3 : 0)) * TS;
+          L.movers.push({ ax: cxp, ay, rx: vert ? 0 : (n / 2 - 2) * TS, ry: vert ? 2.5 * TS : 0, sp: 0.02 + Rn() * 0.01, ph: Rn() * 6, w: 48, h: 8, t: 0, x: cxp, y: ay, dx: 0, dy: 0 });
+          for (let i = 1; i < n - 1; i += 2) coin(s + i, h - 3);
+          flat(3); break;
+        }
+        case 'crumble': {
+          const n = 5 + ((Rn() * 3) | 0); hole(n, pick(pitList));
+          for (let i = 0; i < n; i++) { blocks.push([s + i, h, T.CRUMBLE]); coin(s + i, h - 2); }
+          flat(3); break;
+        }
+        case 'zip': {
+          flat(1); const s0 = x - 1, n = 10 + ((Rn() * 3) | 0); hole(n, pitList.includes('void') ? 'void' : pick(pitList)); flat(4);
+          L.zips.push({ x1: s0 * TS + 8, y1: (h - 3) * TS, x2: (s0 + n + 2) * TS + 8, y2: (h - 1) * TS + 4, g: h * TS });
+          occ[s0] = occ[s0 + n + 2] = 1;
+          for (let i = 3; i < n; i += 2) coin(s0 + i, h - 4);
+          break;
+        }
+        case 'switch': {
+          flat(4); L.levers.push({ x: (s + 1) * TS + 8, y: h * TS, cd: 0 }); occ[s + 1] = 1;
+          const wx = x; flat(1); for (let y = h - 7; y < h; y++) blocks.push([wx, y, T.RED]); occ[wx] = 1;
+          for (let i = wx - 1; i <= wx + 1; i++) capCeil[i] = Math.max(1, h - 8);
+          const n = 4 + ((Rn() * 2) | 0), s2 = x; hole(n, pick(pitList)); for (let i = 0; i < n; i++) blocks.push([s2 + i, h, T.BLUE]);
+          flat(3); break;
+        }
+        case 'pond': {
+          const n = 6 + ((Rn() * 4) | 0); hole(n, 'water');
+          for (let i = 1; i < n - 1; i += 3) { blocks.push([s + i, h, T.PLAT]); if (Rn() < enemyP) ens.push([s + i, h]); coin(s + i, h - 2); }
+          flat(3); break;
+        }
+        case 'islands': {
+          const gap = 2 + ((Rn() * 2) | 0) + (d > 0.3 ? 1 : 0); hole(gap, 'void');
+          h = clamp(h + pick([-3, -2, -1, 0, 1, 2, 3]), 8, 16);
+          const w = 3 + ((Rn() * 3) | 0), s2 = x; hole(w, 'float');
+          for (let i = 0; i < w; i++) coin(s2 + i, h - 2);
+          if (Rn() < enemyP * 0.5 && w > 3) ens.push([s2 + 2, h]);
+          if (Rn() < 0.2) blocks.push([s2 + 1, h - 4, T.QBLOCK]);
+          break;
+        }
+        case 'trees': {
+          const gap = 2 + ((Rn() * 2) | 0); hole(gap, 'void');
+          const w = 4 + ((Rn() * 3) | 0), ph = clamp(h + pick([-2, -1, 0, 1, 2]), 8, 15), s2 = x; hole(w, 'void');
+          for (let i = 0; i < w; i++) { blocks.push([s2 + i, ph, T.LEAF]); if (i > 0 && i < w - 1 && Rn() < 0.6) coin(s2 + i, ph - 2); }
+          const mid = s2 + (w >> 1); for (let y = ph + 1; y < H; y++) blocks.push([mid, y, T.WOOD]);
+          h = ph; if (Rn() < enemyP * 0.6) ens.push([mid, ph]);
+          break;
+        }
       }
       if (Rn() < flyP) flyers.push([x - 2, h - 4 - ((Rn() * 3) | 0)]);
     }
@@ -1009,7 +1184,7 @@ function genLevel(spec) {
   if (indoor) {
     L.ceil = new Int16Array(W);
     for (let cx = 0; cx < W; cx++) {
-      const c = Math.min(2 + Math.round(1.2 * Math.sin(cx * 0.15) + hash(cx >> 2, 0, 9) * 1.5), hs[cx] - 7);
+      const c = Math.min(2 + Math.round(1.2 * Math.sin(cx * 0.15) + hash(cx >> 2, 0, 9) * 1.5), hs[cx] - 7, capCeil[cx]);
       for (let y = 0; y < c; y++) map[y * W + cx] = y === 0 ? T.BEDROCK : T.GROUND;
       L.ceil[cx] = c;
     }
@@ -1032,14 +1207,21 @@ function genLevel(spec) {
       for (const cx of [a - 1, a, a + 1, a + 2, b - 1, b, b + 1]) if (pit[cx] || occ[cx] || hs[cx] > 16) ok = false;
       if (!ok) continue;
       used.push([a, b]);
-      const wet = Rn() < 0.4, ky = L.unders.length;
-      for (const cx of [a, a + 1]) {
-        const h0 = hs[cx];
-        if (wet) { map[h0 * W + cx] = T.AIR; for (let y = h0 + 1; y <= h0 + 3; y++) map[y * W + cx] = T.WATER; }
-        else { map[h0 * W + cx] = T.CRACK; map[(h0 + 1) * W + cx] = T.CRACK; map[(h0 + 2) * W + cx] = T.AIR; map[(h0 + 3) * W + cx] = T.AIR; }
-        occ[cx] = 1;
+      const kindU = pick(['crack', 'crack', 'pool', 'trapdoor', 'hidden', 'hidden']), wet = kindU === 'pool', ky = L.unders.length;
+      const htop = Math.max(hs[a], hs[a + 1]);
+      if (kindU === 'trapdoor') {
+        L.hatchDoors.push({ x: a * TS, y: hs[a] * TS, w: 2 * TS, k: ky });
+        L.decos.push({ type: 'trapdoor', x: a * TS, y: hs[a] * TS, ground: true });
+      } else {
+        for (const cx of [a, a + 1]) {
+          const h0 = hs[cx];
+          if (wet) { map[h0 * W + cx] = T.AIR; for (let y = h0 + 1; y < H; y++) map[y * W + cx] = T.WATER; }
+          else { const tt = kindU === 'hidden' ? T.HCRACK : T.CRACK; map[h0 * W + cx] = tt; map[(h0 + 1) * W + cx] = tt; for (let y = h0 + 2; y < H; y++) map[y * W + cx] = T.AIR; }
+        }
+        L.holes.push({ x: a * TS, y: (htop + (wet ? 1 : 2)) * TS, w: 2 * TS });
+        L.warps.push({ x: a * TS + 2, y: (htop + 5) * TS, w: 2 * TS - 4, h: 3 * TS, k: ky });
       }
-      L.warps.push({ x: a * TS + 2, y: (Math.max(hs[a], hs[a + 1]) + 3) * TS + 4, w: 2 * TS - 4, h: 12, k: ky });
+      occ[a] = occ[a + 1] = 1;
       L.unders.push({ k: ky, wet, exitX: b * TS + 4, exitY: hs[b] * TS - 14 });
       L.decos.push({ type: 'hatch', x: b * TS - 8, y: hs[b] * TS, ground: true }); occ[b] = occ[b - 1] = occ[b + 1] = 1;
       break;
@@ -1049,7 +1231,7 @@ function genLevel(spec) {
   // decorations
   const decoSet = caveLike ? THEMES.cave.decos : th.decos;
   for (let dx = 1; dx < W - 1; dx++) {
-    if (pit[dx] || occ[dx]) continue;
+    if ((pit[dx] && pit[dx] !== 'float') || occ[dx]) continue;
     if (Rn() < 0.33) { const t = pick(decoSet); L.decos.push({ type: t, x: dx * TS + ((Rn() * 6) | 0), y: hs[dx] * TS, v: (Rn() * 4) | 0, h: t === 'seaweed' ? 10 + ((Rn() * 22) | 0) : 12 + ((Rn() * 10) | 0), ground: true }); }
   }
   if (indoor) {
@@ -1059,8 +1241,9 @@ function genLevel(spec) {
     }
   }
   // enemies
-  const gk = th.enemies.filter(e => e[0] === 'walker' || e[0] === 'slime');
-  const fk = th.enemies.filter(e => !(e[0] === 'walker' || e[0] === 'slime'));
+  const epool = ST.kinds ? th.enemies.filter(e => ST.kinds.includes(e[0])) : th.enemies, esrc = epool.length ? epool : th.enemies;
+  let gk = esrc.filter(e => GROUND_KINDS.has(e[0])); if (!gk.length) gk = th.enemies.filter(e => GROUND_KINDS.has(e[0]));
+  let fk = esrc.filter(e => !GROUND_KINDS.has(e[0])); if (!fk.length) fk = th.enemies.filter(e => !GROUND_KINDS.has(e[0]));
   if (gk.length) for (const [ex, eh] of ens) { const [k, p] = pick(gk); spawnEnemy(L, k, p, ex * TS + 8, eh * TS); }
   if (fk.length) for (const [ex, ey] of flyers) {
     if (ex < 14 || ex > W - 20) continue;
@@ -1090,12 +1273,18 @@ function genUnder(spec, u) {
     else if (r < 0.65) { for (let i = 0; i < 5; i++) { coin(x + i, g - 2); coin(x + i, g - 3); } }
     else { for (let i = 0; i < 3; i++) map[(g - 3) * W + x + i] = T.PLAT; for (let i = 0; i < 3; i++) coin(x + i, g - 5); }
   }
-  const gk = th.enemies.filter(e => e[0] === 'walker' || e[0] === 'slime');
+  const gk = th.enemies.filter(e => GROUND_KINDS.has(e[0]));
   if (!u.wet && gk.length) for (let x = 20; x < W - 12; x += 16 + ((Rn() * 10) | 0)) { const [k, pal] = gk[(Rn() * gk.length) | 0]; spawnEnemy(L, k, pal, x * TS + 8, hs[x] * TS); }
   for (let x = 4; x < W - 4; x += 8) if (!u.wet) L.decos.push({ type: 'torch', x: x * TS + 6, y: hs[x] * TS - 36, ground: false });
   for (let x = 3; x < W - 6; x++) if (Rn() < 0.25) { const t = (u.wet ? THEMES.sea : THEMES.cave).decos[(Rn() * 5) | 0]; L.decos.push({ type: t, x: x * TS + 4, y: hs[x] * TS, v: (Rn() * 4) | 0, h: 10 + ((Rn() * 16) | 0), ground: true }); }
-  L.doors.push({ x: (W - 4) * TS + 8, y: hs[W - 4] * TS, kind: 'door', label: 'EXIT', to: 'surface' });
-  L.spawn = { x: 3 * TS, y: hs[3] * TS - 14 };
+  for (const cx of [3, 4]) { for (let y = 0; y < L.ceil[cx]; y++) map[y * W + cx] = u.wet ? T.WATER : T.AIR; }
+  L.holesUp.push({ x: 3 * TS, y: 0, w: 2 * TS, h: (L.ceil[3] + 2) * TS });
+  const ex = W - 5;
+  for (const cx of [ex, ex + 1]) for (let y = 0; y < L.ceil[cx]; y++) map[y * W + cx] = u.wet ? T.WATER : T.AIR;
+  for (let y = 0; y < hs[ex]; y++) map[y * W + ex] = T.LADDER;
+  L.holesUp.push({ x: ex * TS, y: 0, w: 2 * TS, h: (L.ceil[ex] + 2) * TS });
+  L.exitX = ex * TS; L.exitY = 1.5 * TS;
+  L.spawn = { x: 3 * TS + 3, y: TS };
   const ed = save.lvl[spec.wi + ':' + sub.node]; if (ed) for (const k in ed) { const i = +k; if (i >= 0 && i < map.length) map[i] = ed[k]; }
   return L;
 }
@@ -1106,6 +1295,7 @@ function enterUnder(u) {
 function returnSurface() {
   const u = world.under; world = G.mainWorld; G.mainWorld = null;
   world.spawn = { x: u.exitX, y: u.exitY }; placePlayer(true); Music.set(world.spec.wid, 1);
+  player.vy = -5.5; puff(player.x + 5, player.y + 14, 10, '#c8a070');
 }
 const HUB_GAP = 12;
 const portalX = n => 14 + (n - 1) * HUB_GAP;
@@ -1132,19 +1322,27 @@ function genWorldHub(wi) {
   return L;
 }
 function genVillage() {
-  const W = 110, L = baseLevel('home', W, { village: true, topSolid: false, npcs: [] });
+  const W = 120, L = baseLevel('village', W, { village: true, topSolid: false, npcs: [], villagers: [] });
   const hs = new Int16Array(W).fill(15), pit = new Array(W).fill(null);
   fillColumns(L, hs, pit);
-  L.npcs.push({ type: 'merchant', x: 22 * TS + 8, y: 15 * TS, label: 'SHOP' });
-  L.npcs.push({ type: 'guide', x: 44 * TS + 8, y: 15 * TS, label: 'WORLD MAP' });
-  L.npcs.push({ type: 'mechanic', x: 58 * TS + 8, y: 15 * TS, label: 'GARAGE' });
-  L.structs.push({ type: 'house', x: 3 * TS, y: 15 * TS });
-  L.doors.push({ x: 3 * TS + 24, y: 15 * TS, kind: 'door', label: '', to: 'home', hidden: true });
-  L.decos.push({ type: 'sign', x: 8 * TS + 8, y: 15 * TS, text: 'PIXMOND', ground: true });
-  for (const x of [15, 33, 51, 67, 80]) L.decos.push({ type: 'lamp', x: x * TS + 8, y: 15 * TS, ground: true });
-  L.structs.push({ type: 'tower', x: (W - 8) * TS, y: 15 * TS });
-  const block = new Set([2, 3, 4, 5, 6, 8, 15, 33, 51, 67, 80]); for (const c of [22, 44, 58]) for (let k = c - 3; k <= c + 3; k++) block.add(k);
-  for (let x = 1; x < W - 14; x++) if (!block.has(x) && hash(x, 9, 6) < 0.45) L.decos.push({ type: ['tuft', 'tuft', 'flower', 'bush', 'mushroom'][(hash(x, 1, 6) * 5) | 0], x: x * TS + 3, y: 15 * TS, v: (hash(x, 2, 6) * 4) | 0, ground: true });
+  const G_ = 15 * TS;
+  L.npcs.push({ type: 'merchant', x: 22 * TS + 8, y: G_, label: 'SHOP' });
+  L.npcs.push({ type: 'guide', x: 51 * TS + 8, y: G_, label: 'WORLD MAP' });
+  L.npcs.push({ type: 'mechanic', x: 65 * TS + 8, y: G_, label: 'GARAGE' });
+  L.structs.push({ type: 'house', x: 3 * TS, y: G_ });
+  L.doors.push({ x: 3 * TS + 24, y: G_, kind: 'door', label: '', to: 'home', hidden: true });
+  for (const [type, tx] of [['fence', 7], ['well', 10], ['shop', 15], ['bench', 27], ['fountain2', 30], ['bench', 35], ['stall', 38], ['flowerbox', 43], ['hut', 45], ['tree', 57], ['flowerbox', 71], ['fence', 74], ['tree', 79], ['stall', 86], ['tree', 95]])
+    L.structs.push({ type, x: tx * TS, y: G_ });
+  L.structs.push({ type: 'tower', x: (W - 8) * TS, y: G_ });
+  L.decos.push({ type: 'sign', x: 13 * TS + 8, y: G_, text: 'PIXMOND', ground: true });
+  for (const x of [25, 42, 60, 76, 90]) L.decos.push({ type: 'lamp', x: x * TS + 8, y: G_, ground: true });
+  const block = new Set(); for (let x = 2; x < 100; x++) block.add(x);
+  for (const x of [24, 26, 41, 44, 56, 59, 62, 70, 77, 83, 84, 92, 93, 97, 98, 99, 100, 101, 102, 103]) block.delete(x);
+  for (let x = 1; x < W - 14; x++) if (!block.has(x)) L.decos.push({ type: ['tuft', 'flower', 'flower', 'bush'][(hash(x, 1, 6) * 4) | 0], x: x * TS + 3, y: G_, v: (hash(x, 2, 6) * 4) | 0, ground: true });
+  L.villagers.push({ x: 29 * TS, min: 26 * TS, max: 40 * TS, dir: 1, pal: 'v1', wait: 0 });
+  L.villagers.push({ x: 11 * TS, min: 8 * TS, max: 14 * TS, dir: -1, pal: 'v4', wait: 40 });
+  L.villagers.push({ x: 58 * TS, min: 55 * TS, max: 62 * TS, dir: 1, pal: 'v2', wait: 20 });
+  L.villagers.push({ x: 80 * TS, min: 72 * TS, max: 95 * TS, dir: -1, pal: 'v3', wait: 0 });
   return L;
 }
 const homeWidth = () => Math.min(250, 50 + 25 * save.worlds.filter(w => w.done).length);
@@ -1186,8 +1384,9 @@ function toast(text, dur = 150) { if (G.toasts.some(t => t.text === text)) retur
 function placePlayer(keep) {
   const sp = world.spawn;
   player = player || newPlayer(sp.x, sp.y);
-  Object.assign(player, { x: sp.x, y: sp.y, vx: 0, vy: 0, inv: 0, knock: 0, punchT: 0, hp: keep ? player.hp : save.maxHp, face: 1, power: save.power || null, morph: 0, ride: player.ride && save.vehicles[player.ride] && save.vehicles[player.ride].hp > 0 && !world.home ? player.ride : null });
+  Object.assign(player, { x: sp.x, y: sp.y, vx: 0, vy: 0, inv: 0, knock: 0, punchT: 0, hp: keep ? player.hp : save.maxHp, invisT: 0, invisCD: 0, zip: null, climb: false, wallT: 0, onMover: null, face: 1, power: save.power || null, morph: 0, ride: player.ride && save.vehicles[player.ride] && save.vehicles[player.ride].hp > 0 && !world.home ? player.ride : null });
   player.safe = { x: player.x, y: player.y };
+  if (!keep) setSwitch(0);
   cam.x = clamp(player.x - VW / 2, 0, world.w * TS - VW); cam.y = clamp(player.y - VH * 0.64, 0, world.h * TS - VH);
   G.parts = []; G.near = null; G.build = false; G.mine = null; initWeather();
 }
@@ -1204,7 +1403,7 @@ function loadHome() {
   world = genHome(); world.spawn = { x: 5 * TS, y: 15 * TS - 14 }; placePlayer(); G.state = 'play';
   G.banner = { text: 'MY LAND', t: 150 }; Music.set('home');
 }
-function goto(cb) { if (G.trans) return; G.trans = { phase: 'out', t: 0, cb }; }
+function goto(cb, kind) { if (G.trans) return; G.trans = { phase: 'out', t: 0, cb, kind }; }
 const toLevel = spec => goto(() => loadLevel(spec, false));
 function toHub(msg) { const wi = world && world.spec ? world.spec.wi : save.cur, n = world && world.spec ? world.spec.n : null; goto(() => { loadHub(wi, n); if (msg) toast(msg, 220); }); }
 function loadHub(wi, n) {
@@ -1258,7 +1457,8 @@ function layout() {
     jump: { cx: VW - 24, cy: b - 18, r: 15 }, punch: { cx: VW - 60, cy: b - 10, r: 13 },
     pause: { x: VW - 24, y: 4, w: 20, h: 18 }, build: { x: VW - 47, y: 4, w: 20, h: 18 }, ride: { x: VW - 62, y: 4, w: 34, h: 18 },
   };
-  L.dpad = { x: 0, y: b - 56, w: 84, h: 62 };
+  L.down = { x: 74, y: b - 26, w: 24, h: 26 };
+  L.dpad = { x: 0, y: b - 56, w: 100, h: 62 };
   L.jumpZ = { x: VW - 44, y: b - 52, w: 44, h: 58 };
   L.punchZ = { x: VW - 84, y: b - 42, w: 40, h: 48 };
   return L;
@@ -1266,16 +1466,17 @@ function layout() {
 function pollButtons() {
   prevBtn.jump = btn.jump; prevBtn.punch = btn.punch;
   const K = save.keys;
-  let l = !!keys[K.left], r = !!keys[K.right], j = !!keys[K.jump], p = !!(keys[K.action] || keys.Enter);
+  let l = !!keys[K.left], r = !!keys[K.right], j = !!keys[K.jump], p = !!(keys[K.action] || keys.Enter), d = !!keys[K.down];
   if (isTouch() && G.state === 'play') {
     const L = layout();
     for (const pt of pointers.values()) {
-      if (inR(pt, L.dpad)) { if (pt.x < L.left.x + L.left.w + 2) l = true; else r = true; }
+      if (inR(pt, L.down, 2)) d = true;
+      else if (inR(pt, L.dpad)) { if (pt.x < L.left.x + L.left.w + 2) l = true; else r = true; }
       else if (inR(pt, L.jumpZ)) j = true;
       else if (inR(pt, L.punchZ)) p = true;
     }
   }
-  btn.left = l; btn.right = r; btn.jump = j; btn.punch = p;
+  btn.left = l; btn.right = r; btn.jump = j; btn.punch = p; btn.down = d;
   btn.jumpP = j && !prevBtn.jump; btn.punchP = p && !prevBtn.punch;
 }
 
@@ -1293,7 +1494,7 @@ function moveBody(b, oneWay = true) {
   const x0 = Math.floor(b.x / TS), x1 = Math.floor((b.x + b.w - 0.01) / TS);
   if (b.vy > 0) {
     const ty = Math.floor((b.y + b.h - 0.01) / TS);
-    for (let tx = x0; tx <= x1; tx++) { const t = tileAt(tx, ty); if (SOLID[t] || (oneWay && t === T.PLAT && prevBottom <= ty * TS + 0.5)) { b.y = ty * TS - b.h; b.vy = 0; b.onGround = true; break; } }
+    for (let tx = x0; tx <= x1; tx++) { const t = tileAt(tx, ty); if (SOLID[t] || (oneWay && (t === T.PLAT || (t === T.LADDER && tileAt(tx, ty - 1) !== T.LADDER && !b.climbDown && !b.climb)) && prevBottom <= ty * TS + 0.5)) { b.y = ty * TS - b.h; b.vy = 0; b.onGround = true; break; } }
   } else if (b.vy < 0) {
     const ty = Math.floor(b.y / TS);
     let best = null;
@@ -1364,6 +1565,20 @@ function toggleRide() {
   if (v.hp <= 0) { sfx.bump(); toast(VEH[id].name + ' BROKEN', 90); return; }
   p.ride = id; sfx.door(); puff(p.x + 5, p.y + 12, 10);
 }
+function updateMovers() { for (const m of world.movers) { m.t++; const k = Math.sin(m.t * m.sp + m.ph), nx = m.ax + k * m.rx, ny = m.ay + k * m.ry; m.dx = nx - m.x; m.dy = ny - m.y; m.x = nx; m.y = ny; } }
+function landMovers(p, preB) {
+  for (const m of world.movers) if (p.vy >= 0 && p.x + p.w > m.x + 1 && p.x < m.x + m.w - 1 && preB <= m.y + 4 && p.y + p.h >= m.y - 1) { p.y = m.y - p.h; p.vy = 0; p.onGround = true; p.onMover = m; return; }
+  p.onMover = null;
+}
+function startCrumble(tx, ty) { const k = ty * world.w + tx; if (!world.crumbles.has(k)) { world.crumbles.set(k, { tx, ty, t: 0, gone: false }); tone(200, 0.1, 'triangle', 0.08, 120); } }
+function updateCrumbles() {
+  for (const [k, c] of world.crumbles) {
+    c.t++;
+    if (!c.gone && c.t > 26) { c.gone = true; c.t = 0; world.map[k] = T.AIR; debris(c.tx * TS + 8, c.ty * TS + 8, ['#c8a070', '#a07a4a', '#e0c090']); noise(0.12, 0.2, 400); }
+    else if (c.gone && c.t > 240 && !overlap({ x: c.tx * TS, y: c.ty * TS, w: TS, h: TS }, player)) { world.map[k] = T.CRUMBLE; world.crumbles.delete(k); }
+  }
+}
+function toggleSwitch() { setSwitch(G.sw ? 0 : 1); sfx.unlock(); G.shake = 3; }
 function fireShot() {
   const p = player, k = p.power;
   world.shots.push({ kind: k, x: p.x + p.w / 2 + p.face * 6 - 3, y: p.y + 5, w: 6, h: 6, vx: p.face * (k === 'thunder' ? 6 : k === 'ice' ? 3.6 : 3.2), vy: k === 'fire' ? 1 : 0, life: k === 'thunder' ? 40 : k === 'ice' ? 70 : 110, hit: [] });
@@ -1376,9 +1591,10 @@ function updateShots() {
     s.life--; s.x += s.vx;
     if (s.kind === 'fire') { s.vy = Math.min(s.vy + 0.3, 4); s.y += s.vy; const fy = Math.floor((s.y + s.h) / TS), fx = Math.floor((s.x + 3) / TS); if (s.vy > 0 && SOLID[tileAt(fx, fy)] && !SOLID[tileAt(fx, fy - 1)]) { s.y = fy * TS - s.h; s.vy = -2.6; } }
     const tx = Math.floor((s.x + 3) / TS), ty = Math.floor((s.y + 3) / TS), t = tileAt(tx, ty);
-    if (SOLID[t]) { if (t === T.STAR || t === T.QBLOCK) hitBlock(tx, ty); else if (t === T.CRACK) mineHit(tx, ty, 0.5); s.life = 0; puff(s.x + 3, s.y + 3, 4, POWERS[s.kind].col); continue; }
+    if (SOLID[t]) { if (t === T.STAR || t === T.QBLOCK) hitBlock(tx, ty); else if (t === T.CRACK) mineHit(tx, ty, 0.5); s.life = 0; puff(s.x + 3, s.y + 3, 4, (POWERS[s.kind] || { col: '#ffe14a' }).col); continue; }
+    for (const lv of world.levers || []) if (!lv.cd && s.life > 0 && overlap(s, { x: lv.x - 7, y: lv.y - 18, w: 14, h: 18 })) { lv.cd = 20; toggleSwitch(); s.life = 0; }
     for (const e of world.enemies) {
-      if (e.dead || s.life <= 0 || s.hit.includes(e) || !overlap(s, e)) continue;
+      if (e.dead || e.hidden || s.life <= 0 || s.hit.includes(e) || !overlap(s, e)) continue;
       s.hit.push(e);
       if (s.kind === 'ice' && !e.frozen) { e.frozen = 300; e.vx = 0; sfx.place(); puff(e.x + e.w / 2, e.y + e.h / 2, 6, '#dff6ff'); }
       else { e.hp -= (s.kind === 'thunder' || e.frozen) ? 2 : 1; e.hurt = 12; if (e.hp <= 0) killEnemy(e); else sfx.hit(); }
@@ -1391,7 +1607,7 @@ function updateShots() {
   for (const s of world.bshots) {
     s.x += s.vx; s.y += s.vy; s.life--;
     if (SOLID[tileAt(Math.floor((s.x + 3) / TS), Math.floor((s.y + 3) / TS))]) s.life = 0;
-    if (s.life > 0 && player.inv <= 0 && overlap(s, player)) { s.life = 0; hurtPlayer(s.x); }
+    if (s.life > 0 && player.inv <= 0 && !player.invisT && overlap(s, player)) { s.life = 0; hurtPlayer(s.x); }
   }
   world.bshots = world.bshots.filter(s => s.life > 0);
 }
@@ -1440,7 +1656,7 @@ function updateBoss() {
     sfx.punch();
   }
   if (p.ride) { if (!G.trans && overlap({ x: p.x - 7, y: p.y - 3, w: p.w + 14, h: p.h + 3 }, b) && hitBoss(b, 1)) { if (p.inv <= 0) vehicleHit(1); p.vx = (p.x + p.w / 2 < b.x + b.w / 2 ? -1 : 1) * 3; p.knock = 10; } }
-  else if (!G.trans && overlap(p, b)) {
+  else if (!G.trans && !p.invisT && overlap(p, b)) {
     if (p.vy > 0.5 && (p.y + p.h) - b.y < 10 + p.vy) { hitBoss(b, 1); p.vy = -6.5; sfx.stomp(); }
     else if (p.inv <= 0) hurtPlayer(b.x + b.w / 2);
   }
@@ -1513,22 +1729,42 @@ function updatePlayer() {
   const inWater = world.underwater || tileAt(Math.floor((p.x + p.w / 2) / TS), Math.floor((p.y + p.h / 2) / TS)) === T.WATER;
   if (inWater && !p.inWater) puff(p.x + 5, p.y + 4, 5, '#dff4ff');
   p.inWater = inWater;
+  if (p.zip) {
+    const z = p.zip; p.zipX += 3.2; const k = (p.zipX - z.x1) / (z.x2 - z.x1);
+    p.x = p.zipX - p.w / 2; p.y = z.y1 + (z.y2 - z.y1) * k + 1; p.vx = 3.2; p.vy = 0; p.face = 1; p.onGround = false;
+    if (G.t % 3 === 0) G.parts.push({ x: p.zipX, y: p.y - 1, vx: -0.6, vy: -0.3, life: 8, col: '#ffe890', s: 1, g: 0 });
+    if (btn.jumpP) { p.zip = null; p.vy = -5; p.air2 = true; sfx.jump(); }
+    else if (p.zipX >= z.x2 - 6) { p.zip = null; p.vy = -1; }
+    return;
+  }
   const V = p.ride ? VEH[p.ride] : null;
   const maxS = inWater ? 1.25 : V ? V.speed : 1.75;
   const dir = (btn.right ? 1 : 0) - (btn.left ? 1 : 0);
   if (p.knock > 0) p.knock--;
   else { p.vx += (dir * maxS - p.vx) * (p.onGround ? 0.28 : 0.14); if (dir) p.face = dir; }
   if (Math.abs(p.vx) < 0.02) p.vx = 0;
-  if (V && V.fly) { p.vy += 0.18; if (btn.jump) p.vy -= 0.5; p.vy = clamp(p.vy, -2.6, 3.5); p.jbuf = 0; }
+  const lcx = Math.floor((p.x + p.w / 2) / TS);
+  let onLadder = false;
+  for (let ty = Math.floor((p.y + 2) / TS); ty <= Math.floor((p.y + p.h - 1) / TS); ty++) if (tileAt(lcx, ty) === T.LADDER) onLadder = true;
+  const ladderBelow = tileAt(lcx, Math.floor((p.y + p.h + 1) / TS)) === T.LADDER;
+  if (!V) {
+    if (!p.climb && ((onLadder && (btn.jump || btn.down) && !(p.onGround && btn.down && !ladderBelow)) || (ladderBelow && p.onGround && btn.down))) { p.climb = true; p.x = lcx * TS + 8 - p.w / 2; }
+    if (p.climb && !onLadder && !(btn.down && ladderBelow)) p.climb = false;
+  } else p.climb = false;
+  p.climbDown = p.climb && btn.down;
+  if (p.climb) { p.vy = btn.jump ? -1.5 : btn.down ? 1.5 : 0; p.vx = dir * 0.6; p.jbuf = 0; p.coyote = 0; p.air2 = true; }
+  else if (V && V.fly) { p.vy += 0.18; if (btn.jump) p.vy -= 0.5; p.vy = clamp(p.vy, -2.6, 3.5); p.jbuf = 0; }
   else if (inWater) p.vy = Math.min(p.vy + 0.09, 1.3);
   else { p.vy += 0.34; if (!btn.jump && p.vy < -1) p.vy += 0.3; p.vy = Math.min(p.vy, 6); }
   p.coyote = p.onGround ? 6 : p.coyote - 1;
   if (p.onGround || inWater) p.air2 = true;
-  p.jbuf = btn.jumpP && !(V && V.fly) ? 6 : p.jbuf - 1;
+  p.jbuf = btn.jumpP && !(V && V.fly) && !p.climb ? 6 : p.jbuf - 1;
   if (p.jbuf > 0) {
     if (inWater) {
       const headOut = !world.underwater && tileAt(Math.floor((p.x + p.w / 2) / TS), Math.floor((p.y - 2) / TS)) !== T.WATER;
       p.vy = headOut ? -5.6 : -2.6; p.jbuf = 0; sfx.swim();
+    } else if (p.coyote <= 0 && p.wallT > 0 && !V) {
+      p.vy = -5.8; p.vx = -p.wallDir * 2.6; p.knock = 10; p.face = -p.wallDir; p.wallT = 0; p.jbuf = 0; sfx.jump(); puff(p.x + 5, p.y + 8, 4);
     } else if (p.coyote <= 0 && p.air2 && !V && btn.jumpP) {
       p.vy = -5.4; p.air2 = false; p.jbuf = 0; tone(420, 0.12, 'square', 0.06, 840);
       for (let i = 0; i < 6; i++) G.parts.push({ x: p.x + 5, y: p.y + p.h, vx: Math.cos(i * 1.05) * 1.2, vy: Math.abs(Math.sin(i * 1.05)) * 0.6, life: 14, col: 'rgba(255,255,255,0.8)', s: 1, g: 0 });
@@ -1539,14 +1775,24 @@ function updatePlayer() {
   }
   if (p.shotCD > 0) p.shotCD--;
   if (p.morph > 0) p.morph--;
+  if (p.invisT > 0) p.invisT--; if (p.invisCD > 0) p.invisCD--;
   if (btn.punchP) {
     if (G.near) interact(G.near);
-    else if (p.ride) { /* no punching while driving */ }
-    else if (p.power) { if (p.shotCD <= 0 && world.shots.length < 3) fireShot(); }
-    else if (p.punchT <= 0) { p.punchT = 14; p.punchDone = false; sfx.punch(); }
+    else if (p.ride) { if (VEH[p.ride].gun && p.shotCD <= 0 && world.shots.length < 4) { world.shots.push({ kind: 'gun', x: p.x + p.w / 2 + p.face * 10 - 2, y: p.y + 6, w: 5, h: 3, vx: p.face * 5.5, vy: 0, life: 45, hit: [] }); p.shotCD = 10; tone(900, 0.05, 'square', 0.05, 400); } }
+    else if (p.power === 'invis' && p.invisCD <= 0) { p.invisT = 240; p.invisCD = 520; tone(1200, 0.3, 'triangle', 0.08, 300); puff(p.x + 5, p.y + 7, 10, '#c8b8ff'); }
+    else if (SHOOTERS.has(p.power)) { if (p.shotCD <= 0 && world.shots.length < 3) fireShot(); }
+    else if (p.punchT <= 0) { p.punchT = 14; p.punchDone = false; p.punchDown = btn.down && p.onGround; sfx.punch(); }
   }
   const wasAir = !p.onGround;
-  moveBody(p);
+  if (p.onMover) { p.x += p.onMover.dx; p.y += p.onMover.dy; }
+  const preB = p.y + p.h;
+  const hitW = moveBody(p);
+  landMovers(p, preB);
+  if (!p.onGround && !inWater && !V && !p.climb && hitW && dir !== 0 && p.vy > 0) { p.wallT = 8; p.wallDir = dir; p.vy = Math.min(p.vy, 1.1); if (G.t % 5 === 0) G.parts.push({ x: p.x + (dir > 0 ? p.w : 0), y: p.y + 4, vx: 0, vy: 0.5, life: 10, col: 'rgba(255,255,255,0.6)', s: 1, g: 0 }); }
+  else if (p.wallT > 0) p.wallT--;
+  if (p.ride === 'heli' && (hitW || p.bump) && p.inv <= 0) vehicleHit(1);
+  if (p.onGround) { const fy = Math.floor((p.y + p.h + 1) / TS); for (const cx2 of [Math.floor((p.x + 1) / TS), Math.floor((p.x + p.w - 1) / TS)]) if (tileAt(cx2, fy) === T.CRUMBLE) startCrumble(cx2, fy); }
+  if (!p.zip && !p.onGround && !p.climb && !V) for (const z of world.zips) { const zc = p.x + p.w / 2; if (zc > z.x1 + 2 && zc < z.x2 - 20) { const ry = z.y1 + (z.y2 - z.y1) * (zc - z.x1) / (z.x2 - z.x1); if (Math.abs(p.y - ry) < 7) { p.zip = z; p.zipX = zc; tone(700, 0.08, 'square', 0.05, 1200); break; } } }
   if (wasAir && p.onGround && !inWater) G.parts.push({ x: p.x + 4, y: p.y + p.h - 1, vx: 0, vy: -0.2, life: 10, col: 'rgba(255,255,255,0.5)', s: 2, g: 0 });
   if (p.bump) hitBlock(p.bump.tx, p.bump.ty);
   p.x = clamp(p.x, 0, world.w * TS - p.w);
@@ -1555,9 +1801,10 @@ function updatePlayer() {
     p.punchT--;
     if (p.punchT >= 3 && p.punchT <= 11) {
       const hb = { x: p.face > 0 ? p.x + p.w : p.x - 12, y: p.y + 3, w: 12, h: 9 };
-      for (const e of world.enemies) if (!e.dead && !e.hurt && overlap(hb, e)) { e.hp -= e.frozen ? 99 : 1; e.frozen = 0; e.hurt = 16; e.vx = p.face * 2; e.vy = -2; if (e.hp <= 0) killEnemy(e); else sfx.hit(); }
+      for (const lv of world.levers || []) if (!lv.cd && overlap(hb, { x: lv.x - 7, y: lv.y - 18, w: 14, h: 18 })) { lv.cd = 20; toggleSwitch(); }
+      for (const e of world.enemies) if (!e.dead && !e.hurt && !e.hidden && overlap(hb, e)) { e.hp -= e.frozen ? 99 : 1; e.frozen = 0; e.hurt = 16; e.vx = p.face * 2; e.vy = -2; if (e.hp <= 0) killEnemy(e); else sfx.hit(); }
       if (!p.punchDone) {
-        const tx = Math.floor((p.face > 0 ? hb.x + hb.w - 2 : hb.x + 2) / TS), ty = Math.floor((p.y + p.h / 2) / TS);
+        const tx = p.punchDown ? Math.floor((p.x + p.w / 2) / TS) : Math.floor((p.face > 0 ? hb.x + hb.w - 2 : hb.x + 2) / TS), ty = p.punchDown ? Math.floor((p.y + p.h + 2) / TS) : Math.floor((p.y + p.h / 2) / TS);
         const t = tileAt(tx, ty);
         if (t === T.STAR || t === T.QBLOCK) { hitBlock(tx, ty); p.punchDone = true; }
         else if (canMine(t)) { mineHit(tx, ty, 0.35); p.punchDone = true; }
@@ -1582,15 +1829,55 @@ function updateEnemy(e) {
   const p = player, dx = (p.x + p.w / 2) - (e.x + e.w / 2), dy = (p.y + p.h / 2) - (e.y + e.h / 2);
   const water = world.underwater;
   switch (e.kind) {
-    case 'walker': {
+    case 'walker': case 'hedgehog': {
       if (e.onGround && e.hurt <= 0) {
         e.vx = e.dir * e.spd;
         const ahead = e.dir > 0 ? e.x + e.w + 1 : e.x - 1;
         const t = tileAt(Math.floor(ahead / TS), Math.floor((e.y + e.h + 2) / TS));
-        if (!SOLID[t] && t !== T.PLAT) e.dir *= -1;
+        if (!SOLID[t] && t !== T.PLAT && t !== T.LADDER) e.dir *= -1;
       }
       e.vy = Math.min(e.vy + (water ? 0.1 : 0.3), water ? 1.5 : 5);
       if (moveBody(e)) e.dir *= -1;
+      break;
+    }
+    case 'frog': {
+      e.vy = Math.min(e.vy + (water ? 0.1 : 0.3), 5);
+      if (e.onGround) { e.vx *= 0.5; if (--e.timer <= 0) { e.dir = Math.abs(dx) < 160 ? (Math.sign(dx) || 1) : (Math.random() < 0.5 ? -1 : 1); e.vy = water ? -2.6 : -5.2; e.vx = e.dir * 1.7; e.timer = 55 + ((Math.random() * 50) | 0); } }
+      if (moveBody(e)) e.dir *= -1;
+      break;
+    }
+    case 'boar': {
+      e.vy = Math.min(e.vy + 0.3, 5);
+      const ahead = e.dir > 0 ? e.x + e.w + 1 : e.x - 1, gt = tileAt(Math.floor(ahead / TS), Math.floor((e.y + e.h + 2) / TS)), edge = !SOLID[gt] && gt !== T.PLAT && gt !== T.LADDER;
+      if (e.st === 'charge') { e.vx = e.dir * 2.8; if (edge && e.onGround) { e.vx = 0; e.st = 'stun'; e.timer = 50; } if (G.t % 4 === 0) G.parts.push({ x: e.x + e.w / 2, y: e.y + e.h, vx: -e.dir * 0.5, vy: -0.3, life: 12, col: 'rgba(210,190,160,0.7)', s: 2, g: 0 }); }
+      else if (e.st === 'stun') { e.vx = 0; if (--e.timer <= 0) e.st = null; }
+      else if (e.onGround && e.hurt <= 0) { e.vx = e.dir * 0.45; if (edge) e.dir *= -1; if (Math.abs(dx) < 130 && Math.abs(dy) < 20 && Math.sign(dx) === e.dir) { e.st = 'charge'; tone(160, 0.2, 'sawtooth', 0.05, 90); } }
+      if (moveBody(e)) { if (e.st === 'charge') { e.st = 'stun'; e.timer = 60; G.shake = 3; } e.dir *= -1; }
+      break;
+    }
+    case 'plant': {
+      e.vy = Math.min(e.vy + 0.3, 5); e.vx = 0; moveBody(e); e.dir = dx > 0 ? 1 : -1;
+      if (e.shoot > 0) e.shoot--;
+      if (--e.timer <= 0) { e.timer = 120; if (Math.abs(dx) < 200 && Math.abs(dy) < 70) { world.bshots.push({ x: e.x + e.w / 2 - 2 + e.dir * 6, y: e.y + 3, w: 5, h: 5, vx: e.dir * 2, vy: 0, life: 150, seed: true }); e.shoot = 14; tone(300, 0.08, 'square', 0.05, 500); } }
+      break;
+    }
+    case 'dropper': {
+      e.x += e.dir * 0.9; e.y = e.baseY + Math.sin(e.t * 0.06) * 3;
+      const tx = Math.floor((e.x + (e.dir > 0 ? e.w : 0)) / TS), ty = Math.floor((e.y + e.h / 2) / TS);
+      if (Math.abs(e.x - e.homeX) > 110 || SOLID[tileAt(tx, ty)]) e.dir *= -1;
+      if (--e.timer <= 0 && Math.abs(dx) < 12 && dy > 0) { e.timer = 80; world.bshots.push({ x: e.x + e.w / 2 - 3, y: e.y + e.h, w: 6, h: 6, vx: 0, vy: 2.4, life: 160, rock: true }); }
+      break;
+    }
+    case 'mole': {
+      e.vy = Math.min(e.vy + 0.3, 5);
+      if (e.st !== 'up') {
+        e.hidden = true; e.vx = Math.abs(dx) < 200 ? Math.sign(dx) * 0.8 : 0; moveBody(e);
+        if (e.timer > 0) e.timer--;
+        if (e.timer <= 0 && Math.abs(dx) < 14 && e.onGround) { e.st = 'up'; e.hidden = false; e.vy = -3.4; e.timer = 80; puff(e.x + e.w / 2, e.y + e.h, 8, '#8a5a3a'); sfx.stomp(); }
+      } else {
+        e.vx = 0; moveBody(e);
+        if (--e.timer <= 0) { e.st = 'under'; e.hidden = true; e.timer = 90; puff(e.x + e.w / 2, e.y + e.h, 8, '#8a5a3a'); }
+      }
       break;
     }
     case 'slime': {
@@ -1643,7 +1930,7 @@ function updateArena() {
   const th = world.th, n = 2 + A.wave + Math.round(world.spec.diff * 2);
   for (let i = 0; i < n; i++) {
     const [k, p] = th.enemies[(Math.random() * th.enemies.length) | 0];
-    const x = (4 + Math.random() * (world.w - 8)) * TS, fly = !(k === 'walker' || k === 'slime');
+    const x = (4 + Math.random() * (world.w - 8)) * TS, fly = !GROUND_KINDS.has(k);
     spawnEnemy(world, k, p, x, (fly ? 9 : 6) * TS);
     puff(x, (fly ? 9 : 6) * TS - 6, 6, '#ffffff');
   }
@@ -1652,13 +1939,17 @@ function updatePlay() {
   const p = player;
   if (G.doorAnim > 0) { G.doorAnim--; if (G.doorAnim === 39) sfx.door(); if (G.doorAnim < 18) { p.vx = 0.9; p.face = 1; moveBody(p); p.anim += 0.9; } return; }
   G.near = findNear();
+  for (const v of world.villagers || []) { if (v.wait > 0) { v.wait--; continue; } v.x += v.dir * 0.35; if (v.x < v.min || v.x > v.max) { v.dir *= -1; v.wait = 60 + ((Math.random() * 90) | 0); } else if (Math.random() < 0.003) v.wait = 50 + ((Math.random() * 80) | 0); }
+  updateMovers(); updateCrumbles(); for (const lv of world.levers) if (lv.cd > 0) lv.cd--;
   updatePlayer();
   for (const e of world.enemies) {
     if (e.dead) continue;
     updateEnemy(e);
-    if (p.ride && !e.dead && !G.trans && overlap({ x: p.x - 7, y: p.y - 3, w: p.w + 14, h: p.h + 3 }, e)) { if (e.kind === 'ghost' || e.kind === 'jelly') { if (p.inv <= 0) vehicleHit(1); } else { killEnemy(e); sfx.stomp(); G.shake = 3; } continue; }
+    if (p.ride && !e.dead && !e.hidden && !G.trans && overlap({ x: p.x - 7, y: p.y - 3, w: p.w + 14, h: p.h + 3 }, e)) { if (e.kind === 'ghost' || e.kind === 'jelly') { if (p.inv <= 0) vehicleHit(1); } else { killEnemy(e); sfx.stomp(); G.shake = 3; } continue; }
     if (e.dead || !overlap(p, e) || G.trans) continue;
     if (e.frozen) { if (p.vy > 0.5 && (p.y + p.h) - e.y < 8 + p.vy) { killEnemy(e); p.vy = -4; sfx.stomp(); } continue; }
+    if (e.hidden || p.invisT > 0) continue;
+    if (e.spiky && p.vy > 0.5 && (p.y + p.h) - e.y < 7 + p.vy) { if (p.inv <= 0) hurtPlayer(e.x + e.w / 2); p.vy = -4.5; continue; }
     const stompable = e.kind !== 'ghost' && e.kind !== 'jelly';
     if (stompable && p.vy > 0.5 && (p.y + p.h) - e.y < 7 + p.vy) { killEnemy(e); p.vy = btn.jump ? -6 : -4; sfx.stomp(); }
     else if (p.inv <= 0) hurtPlayer(e.x + e.w / 2);
@@ -1666,10 +1957,13 @@ function updatePlay() {
   world.enemies = world.enemies.filter(e => !e.dead);
   updateArena();
   updateShots(); updateBoss(); updateMining(); updateGates();
-  if (world.warps && !G.trans) for (const w of world.warps) if (overlap(player, w)) { sfx.door(); const u = world.unders[w.k]; goto(() => enterUnder(u)); break; }
+  if (world.warps && !G.trans) for (const w of world.warps) if (overlap(player, w)) { sfx.door(); const u = world.unders[w.k]; goto(() => enterUnder(u), 'fade'); break; }
+  if (!G.trans) for (const hd of world.hatchDoors) { const pc = player.x + player.w / 2; if (btn.down && player.onGround && pc > hd.x && pc < hd.x + hd.w && Math.abs(player.y + player.h - hd.y) < 3) { sfx.door(); const u = world.unders[hd.k]; goto(() => enterUnder(u), 'fade'); break; } }
+  if (world.under && world.exitX != null && !G.trans && player.x + player.w / 2 >= world.exitX && player.y < world.exitY) { sfx.door(); goto(returnSurface, 'fade'); }
   const pb = { x: p.x - 1, y: p.y - 1, w: p.w + 2, h: p.h + 2 };
   for (const c of world.pickups) {
     c.t++;
+    if (p.power === 'magnet' && c.type === 'coin' && !c.pop) { const mx = p.x + p.w / 2 - c.x - 4, my = p.y + p.h / 2 - c.y - 4, md = Math.hypot(mx, my); if (md < 96 && md > 1) { c.x += mx / md * 3; c.y += my / md * 3; } }
     if (c.pop) { c.y += c.vy; c.vy += 0.3; if (c.t > 22) { c.got = true; if (c.val !== 0) { addCoins(c.val || 1); sfx.coin(); } sparkle(c.x + 4, c.y + 4); } continue; }
     const box = c.type === 'skin' ? { x: c.x - 2, y: c.y - 2, w: 14, h: 14 } : { x: c.x, y: c.y, w: 8, h: 8 };
     if (overlap(pb, box)) {
@@ -1698,7 +1992,7 @@ function updatePlay() {
 }
 
 // ---- Mining: hold on a cracked block (anything in your own world) ----
-const canMine = t => world.home ? (t !== T.AIR && t !== T.BEDROCK && t !== T.WATER && t !== T.LAVA) : t === T.CRACK;
+const canMine = t => world.home ? (t !== T.AIR && t !== T.BEDROCK && t !== T.WATER && t !== T.LAVA) : (t === T.CRACK || t === T.HCRACK);
 function mineTarget() {
   const L = layout();
   for (const pt of pointers.values()) {
@@ -1719,7 +2013,7 @@ function mineHit(tx, ty, amt) {
   }
 }
 function updateMining() {
-  if (G.build) { G.mine = null; return; }
+  if (G.build || player.ride) { G.mine = null; return; }
   const tg = mineTarget();
   if (!tg) { if (G.mine && --G.mine.t <= 0) G.mine = null; return; }
   const t = tileAt(tg.tx, tg.ty);
@@ -1812,12 +2106,13 @@ function openShop(wi) { G.shop = { wi, tab: 'skin', page: 0 }; G.state = 'shop';
 function shopCatalog() {
   const S = G.shop;
   if (S.tab === 'skin') return SKINS.filter(s => s.id === 'classico' || ((s.gift || s.id === 'dorato') ? save.skins.includes(s.id) : s.wmin <= S.wi)).map(s => ({ kind: 'skin', it: s }));
+  if (S.tab === 'powers') return Object.keys(POWER_PRICE).map(k => ({ kind: 'power', it: { id: k, name: POWERS[k].name, price: POWER_PRICE[k] } }));
   if (S.tab === 'blocks') return ITEMS.filter(i => i.wmin <= S.wi).map(it => ({ kind: 'block', it }));
   return PROPS.filter(p => p.wmin <= S.wi).map(it => ({ kind: 'prop', it }));
 }
 function shopLayout() {
   const pw = Math.min(VW - 12, 340), ph = Math.min(VH - 10, 196), px = ((VW - pw) / 2) | 0, py = ((VH - ph) / 2) | 0;
-  const tw = ((pw - 16) / 3) | 0, tabs = ['skin', 'blocks', 'props'].map((id, i) => ({ id, x: px + 6 + i * (tw + 2), y: py + 20, w: tw, h: 14 }));
+  const tw = ((pw - 18) / 4) | 0, tabs = ['skin', 'powers', 'blocks', 'props'].map((id, i) => ({ id, x: px + 6 + i * (tw + 2), y: py + 20, w: tw, h: 14 }));
   const cw = ((pw - 18) / 2) | 0, ch = 24, rows = Math.max(1, Math.floor((ph - 40 - 22) / (ch + 3))), per = rows * 2;
   const list = shopCatalog(), pages = Math.max(1, Math.ceil(list.length / per)), page = clamp(G.shop.page, 0, pages - 1);
   const cells = list.slice(page * per, page * per + per).map((e, i) => ({ x: px + 6 + (i % 2) * (cw + 6), y: py + 38 + ((i / 2) | 0) * (ch + 3), w: cw, h: ch, e }));
@@ -1825,6 +2120,12 @@ function shopLayout() {
 }
 function shopBuy(e) {
   const it = e.it;
+  if (e.kind === 'power') {
+    if (save.power === it.id) { sfx.bump(); return; }
+    if (!canPay(it.price)) { sfx.bump(); toast('NOT ENOUGH COINS', 80); return; }
+    pay(it.price); save.power = it.id; if (player) { player.morphOther = player.power; player.power = it.id; player.morph = 48; }
+    sfx.key(); toast('POWER: ' + it.name + '!', 100); G.dirty = true; return;
+  }
   if (e.kind === 'skin') {
     if (save.skins.includes(it.id)) { save.skin = it.id; G.dirty = true; sfx.select(); toast('NOW PLAYING AS: ' + it.name, 80); return; }
     if (!canPay(it.price)) { sfx.bump(); toast('NOT ENOUGH COINS', 80); return; }
@@ -1849,7 +2150,7 @@ function updateShop() {
   }
   for (const k of keyTaps) {
     if (k === 'Escape' || k === 'KeyX') G.state = 'play';
-    else if (k === 'ArrowRight' || k === 'ArrowLeft') { const ids = ['skin', 'blocks', 'props'], i = ids.indexOf(G.shop.tab); G.shop.tab = ids[(i + (k === 'ArrowRight' ? 1 : 2)) % 3]; G.shop.page = 0; }
+    else if (k === 'ArrowRight' || k === 'ArrowLeft') { const ids = ['skin', 'powers', 'blocks', 'props'], i = ids.indexOf(G.shop.tab); G.shop.tab = ids[(i + (k === 'ArrowRight' ? 1 : 3)) % 4]; G.shop.page = 0; }
   }
 }
 function garageLayout() {
@@ -2073,10 +2374,10 @@ function drawTiles() {
     const sx = tx * TS - CX, sy = ty * TS - CY;
     const up = ty > 0 ? map[(ty - 1) * W + tx] : (world.topSolid ? T.BEDROCK : 0);
     switch (t) {
-      case T.GROUND: {
+      case T.GROUND: case T.HCRACK: {
         const v = (hash(tx, ty, 7) * 3) | 0; let slot;
-        if (up !== T.GROUND && up !== T.BEDROCK) slot = v;
-        else { const u2 = ty > 1 ? map[(ty - 2) * W + tx] : T.GROUND, u3 = ty > 2 ? map[(ty - 3) * W + tx] : T.GROUND; slot = (u2 === T.GROUND && u3 === T.GROUND && ty > 3) ? 6 + (v & 1) : 3 + v; }
+        if (up !== T.GROUND && up !== T.BEDROCK && up !== T.HCRACK) slot = v;
+        else { const u2 = ty > 1 ? map[(ty - 2) * W + tx] : T.GROUND, u3 = ty > 2 ? map[(ty - 3) * W + tx] : T.GROUND; slot = ((u2 === T.GROUND || u2 === T.HCRACK) && (u3 === T.GROUND || u3 === T.HCRACK) && ty > 3) ? 6 + (v & 1) : 3 + v; }
         ctx.drawImage(sheet, slot * 16, 0, 16, 16, sx, sy, 16, 16);
         const lt = tx > 0 ? map[ty * W + tx - 1] : T.BEDROCK, rt = tx < W - 1 ? map[ty * W + tx + 1] : T.BEDROCK, dn = ty < world.h - 1 ? map[(ty + 1) * W + tx] : T.BEDROCK;
         ctx.fillStyle = OUT;
@@ -2090,6 +2391,9 @@ function drawTiles() {
       case T.WATER: ctx.drawImage(UNI, (up !== T.WATER ? 16 : 14) * 16 + af * 16, 0, 16, 16, sx, sy, 16, 16); break;
       case T.QBLOCK: ctx.drawImage(UNI, (5 + ((G.t >> 4) % 3 === 0 ? 1 : 0)) * 16, 0, 16, 16, sx, sy, 16, 16); break;
       case T.LANTERN: ctx.drawImage(UNI, (18 + af) * 16, 0, 16, 16, sx, sy, 16, 16); G.lights.push({ x: sx + 8, y: sy + 10, r: 52, warm: true }); break;
+      case T.RED: ctx.drawImage(UNI, (G.sw ? 25 : 24) * 16, 0, 16, 16, sx, sy, 16, 16); break;
+      case T.BLUE: ctx.drawImage(UNI, (G.sw ? 26 : 27) * 16, 0, 16, 16, sx, sy, 16, 16); break;
+      case T.CRUMBLE: { const c = world.crumbles && world.crumbles.get(ty * W + tx); ctx.drawImage(UNI, 23 * 16, 0, 16, 16, sx + (c && !c.gone ? ((G.t >> 1) % 2 ? 1 : -1) : 0), sy, 16, 16); break; }
       case T.CRACK: ctx.drawImage(sheet, (3 + ((hash(tx, ty, 7) * 3) | 0)) * 16, 0, 16, 16, sx, sy, 16, 16); ctx.drawImage(UNI, 21 * 16, 0, 16, 16, sx, sy, 16, 16); break;
       default: ctx.drawImage(UNI, UNI_SLOT[t] * 16, 0, 16, 16, sx, sy, 16, 16);
     }
@@ -2125,6 +2429,7 @@ function drawDeco(d) {
     case 'pumpkin': { fr(sx, gy - 8, 12, 8, OUT); fr(sx + 1, gy - 7, 10, 7, '#f08a2e'); fr(sx + 4, gy - 7, 1, 7, '#c8601e'); fr(sx + 7, gy - 7, 1, 7, '#c8601e'); fr(sx + 5, gy - 10, 2, 3, '#3a8a3e'); const gl = (G.t >> 4) % 3 ? '#ffe060' : '#ffc040'; fr(sx + 2, gy - 5, 2, 1, gl); fr(sx + 8, gy - 5, 2, 1, gl); fr(sx + 3, gy - 3, 6, 1, gl); G.lights.push({ x: sx + 6, y: gy - 4, r: 26, warm: true }); break; }
     case 'torch': { fr(sx + 2, gy, 3, 6, '#3a3440'); fr(sx + 1, gy - 1, 5, 2, '#5a5f78'); const f = (G.t >> 2) % 3; fr(sx + 1, gy - 6 + (f === 1 ? 1 : 0), 5, 5, '#ff6a1e'); fr(sx + 2, gy - 8 + f % 2, 3, 6, '#ffb02e'); fr(sx + 3, gy - 5, 1, 3, '#fff0a0'); G.lights.push({ x: sx + 3, y: gy - 4, r: 60, warm: true }); break; }
     case 'hatch': { fr(sx, gy - 3, 32, 3, OUT); fr(sx + 1, gy - 3, 30, 2, '#9a5a2e'); for (let k = 4; k < 30; k += 6) fr(sx + k, gy - 3, 1, 2, '#6a3a1e'); const b = (G.t >> 4) % 2; fr(sx + 15, gy - 12 - b, 2, 6, '#f5c542'); fr(sx + 13, gy - 11 - b, 6, 1, '#f5c542'); fr(sx + 14, gy - 12 - b, 4, 1, '#f5c542'); break; }
+    case 'trapdoor': { fr(sx, gy, 32, 5, OUT); fr(sx + 1, gy + 1, 30, 3, '#8a5430'); for (let k = 5; k < 30; k += 6) fr(sx + k, gy + 1, 1, 3, '#5a3a1e'); fr(sx + 14, gy + 1, 4, 2, '#c8ccd8'); fr(sx + 2, gy + 1, 2, 3, '#3a3440'); fr(sx + 28, gy + 1, 2, 3, '#3a3440'); break; }
     case 'cobweb': { const c = 'rgba(230,230,255,0.5)'; for (let k = 0; k < 10; k++) { fr(sx + k, gy + ((k * 0.7) | 0), 1, 1, c); fr(sx + k, gy, 1, 1, c); fr(sx, gy + k, 1, 1, c); } for (let k = 0; k < 7; k++) { fr(sx + k, gy + 6, 1, 1, c); fr(sx + 6, gy + k, 1, 1, c); } break; }
   }
 }
@@ -2181,6 +2486,71 @@ function propIcon(id) {
   return PROP_ICON[id];
 }
 function drawIconFit(img, x, y, bw, bh) { const s = Math.min(bw / img.width, bh / img.height, 1); const w = Math.max(1, Math.round(img.width * s)), h = Math.max(1, Math.round(img.height * s)); ctx.drawImage(img, x + ((bw - w) >> 1), y + (bh - h), w, h); }
+function drawStruct(st) {
+  const sx = Math.round(st.x - CX), gy = Math.round(st.y - CY);
+  if (sx < -110 || sx > VW + 40) return;
+  switch (st.type) {
+    case 'tower': ctx.drawImage(TOWER, sx - 36, gy - TOWER.height); break;
+    case 'house': drawProp('casa', sx, gy, true); if (G.doorAnim > 0) fr(sx + 21, gy - 15, 7, 15, '#15101c'); break;
+    case 'tree': drawTree(ctx, 'round', sx + 8, gy, 46, ['#4fae4a', '#3a8a3e', '#86d86a']); break;
+    case 'fence': for (let k = 0; k < 48; k += 8) fr(sx + k, gy - 12, 2, 12, '#b0743e'); fr(sx, gy - 10, 48, 2, '#d89c60'); fr(sx, gy - 5, 48, 2, '#d89c60'); break;
+    case 'flowerbox': fr(sx, gy - 6, 28, 6, OUT); fr(sx + 1, gy - 5, 26, 5, '#8a5430'); for (let k = 0; k < 6; k++) { fr(sx + 3 + k * 4, gy - 9, 1, 3, '#3c8f3e'); fr(sx + 2 + k * 4, gy - 11, 3, 2, ['#ff5a6a', '#ffd23a', '#ffffff', '#b07aff'][k % 4]); } break;
+    case 'bench': fr(sx, gy - 8, 22, 3, '#8a5430'); fr(sx, gy - 8, 22, 1, '#b0743e'); fr(sx + 2, gy - 5, 2, 5, '#4a2a18'); fr(sx + 18, gy - 5, 2, 5, '#4a2a18'); fr(sx, gy - 14, 22, 2, '#8a5430'); fr(sx + 2, gy - 14, 2, 6, '#4a2a18'); fr(sx + 18, gy - 14, 2, 6, '#4a2a18'); break;
+    case 'well': {
+      fr(sx, gy - 12, 24, 12, OUT); fr(sx + 1, gy - 11, 22, 11, '#9a9090');
+      for (let y = gy - 11; y < gy; y += 4) for (let x = sx + 1 + ((y >> 2) % 2) * 3; x < sx + 22; x += 6) fr(x, y, 1, 3, '#6a6060');
+      fr(sx + 3, gy - 30, 2, 18, '#6a3e22'); fr(sx + 19, gy - 30, 2, 18, '#6a3e22');
+      for (let k = 0; k < 6; k++) fr(sx - 1 + k, gy - 36 + k, 26 - 2 * k, 1, '#b8503e');
+      fr(sx + 5, gy - 24, 14, 1, '#3a3440'); fr(sx + 11, gy - 24, 1, 6, '#c8ccd8'); fr(sx + 9, gy - 18, 5, 4, '#8a5430');
+      break;
+    }
+    case 'stall': {
+      fr(sx + 2, gy - 30, 2, 30, '#4a2a18'); fr(sx + 42, gy - 30, 2, 30, '#4a2a18');
+      for (let i = 0; i < 8; i++) { const c = i % 2 ? '#f4ecdc' : '#3a8a3e'; fr(sx + i * 6, gy - 34, 6, 6, c); fr(sx + 1 + i * 6, gy - 28, 4, 2, c); }
+      fr(sx + 3, gy - 12, 40, 12, OUT); fr(sx + 4, gy - 11, 38, 11, '#b0743e'); fr(sx + 4, gy - 11, 38, 2, '#d89c60');
+      for (let i = 0; i < 9; i++) fr(sx + 6 + i * 4, gy - 15 + (i % 2), 3, 3, ['#e0453c', '#ffd23a', '#ff9a2e', '#7ac05a'][i % 4]);
+      break;
+    }
+    case 'fountain2': {
+      fr(sx, gy - 12, 52, 12, OUT); fr(sx + 1, gy - 11, 50, 11, '#9aa0b8'); fr(sx + 1, gy - 11, 50, 1, '#c8ccd8'); fr(sx + 4, gy - 10, 44, 3, '#5ec4ee');
+      fr(sx + 23, gy - 26, 6, 15, '#9aa0b8'); fr(sx + 16, gy - 29, 20, 4, '#9aa0b8'); fr(sx + 17, gy - 28, 18, 2, '#5ec4ee');
+      const f = (G.t >> 3) % 3; fr(sx + 25, gy - 36 - f, 2, 8 + f, '#8fe0ff');
+      for (const dx of [14, 37]) fr(sx + dx + (dx < 20 ? -f : f), gy - 25 + f, 1, 12, 'rgba(143,224,255,0.8)');
+      break;
+    }
+    case 'shop': {
+      fr(sx, gy - 24, 80, 24, OUT); fr(sx + 1, gy - 23, 78, 23, '#9a9090');
+      for (let y = gy - 23; y < gy; y += 5) { fr(sx + 1, y, 78, 1, '#7a7070'); for (let x = sx + 3 + ((y >> 2) % 2) * 5; x < sx + 78; x += 10) fr(x, y, 1, 5, '#7a7070'); }
+      fr(sx + 2, gy - 50, 76, 27, OUT); fr(sx + 3, gy - 49, 74, 26, '#efe2c4');
+      for (const bx of [3, 27, 51, 74]) fr(sx + bx, gy - 49, 3, 26, '#6a4a2e'); fr(sx + 3, gy - 49, 74, 2, '#6a4a2e');
+      for (const wx of [10, 57]) { fr(sx + wx, gy - 44, 13, 11, OUT); fr(sx + wx + 1, gy - 43, 11, 9, '#8fd4ff'); fr(sx + wx + 6, gy - 43, 1, 9, OUT); fr(sx + wx - 1, gy - 32, 15, 3, '#8a5430'); fr(sx + wx + 1, gy - 34, 3, 2, '#ff5a6a'); fr(sx + wx + 7, gy - 34, 3, 2, '#ffd23a'); }
+      for (let k = 0; k < 18; k++) { const w = (44 + k * 2.6) | 0; fr(sx + 40 - w / 2 - 1, gy - 68 + k, w + 2, 1, OUT); if (k > 0) fr(sx + 40 - w / 2, gy - 68 + k, w, 1, k % 4 === 3 ? '#8a3a30' : '#b8503e'); }
+      fr(sx + 6, gy - 20, 36, 16, OUT); fr(sx + 7, gy - 19, 34, 14, '#2a3a5a');
+      for (let i = 0; i < 6; i++) { fr(sx + 9 + i * 5, gy - 10, 3, 4, ['#e0453c', '#3d7fe3', '#5ae07a', '#ffd23a', '#b07aff', '#ff9a2e'][i]); fr(sx + 10 + i * 5, gy - 12, 1, 2, '#c8ccd8'); }
+      for (let i = 0; i < 6; i++) fr(sx + 5 + i * 6, gy - 24, 6, 4, i % 2 ? '#f4ecdc' : '#d8433b');
+      fr(sx + 50, gy - 20, 14, 20, OUT); fr(sx + 51, gy - 19, 12, 19, '#8a5430'); fr(sx + 57, gy - 19, 1, 19, '#5a3a1e'); fr(sx + 60, gy - 10, 2, 2, '#f2c14e');
+      fr(sx + 66, gy - 42, 12, 2, '#3a3440'); fr(sx + 76, gy - 42, 2, 4, '#3a3440');
+      signAt('SHOP', sx + 72, gy - 38);
+      break;
+    }
+    case 'hut': {
+      const cxh = sx + 28;
+      fr(sx, gy - 34, 56, 34, OUT); fr(sx + 1, gy - 33, 54, 33, '#9a6a44'); for (let x = sx + 6; x < sx + 55; x += 6) fr(x, gy - 33, 1, 33, '#7a4e30');
+      for (let k = 0; k < 15; k++) { const w = 18 + k * 3; fr(cxh - w / 2 - 1, gy - 49 + k, w + 2, 1, OUT); if (k > 0) fr(cxh - w / 2, gy - 49 + k, w, 1, k % 4 === 3 ? '#2d4a90' : '#3d6ab0'); }
+      circ(cxh + 10, gy - 22, 5, OUT); circ(cxh + 10, gy - 22, 4, '#8fd4ff'); fr(cxh + 10, gy - 26, 1, 9, OUT); fr(cxh + 6, gy - 22, 9, 1, OUT);
+      fr(sx + 8, gy - 18, 11, 18, OUT); fr(sx + 9, gy - 17, 9, 17, '#5a3a1e'); fr(sx + 16, gy - 9, 1, 2, '#f2c14e');
+      for (let k = 0; k < 12; k++) fr(cxh + 2 + k, gy - 52 - (k >> 1), 2, 2, '#c8a040'); fr(cxh + 1, gy - 50, 1, 3, '#3a3440'); fr(cxh + 6, gy - 50, 1, 3, '#3a3440');
+      break;
+    }
+  }
+}
+function drawVillagers() {
+  for (const v of world.villagers || []) {
+    const sx = Math.round(v.x - CX), gy = Math.round(15 * TS - CY); if (sx < -20 || sx > VW + 20) continue;
+    const moving = v.wait <= 0, img = getESpr('walker', v.pal).f[moving ? (G.t >> 3) % 2 : 0][v.dir > 0 ? 'r' : 'l'];
+    ctx.drawImage(img, sx - 6, gy - 15);
+  }
+}
 function drawDoor(d) {
   if (d.hidden) return;
   const sx = Math.round(d.x - CX), gy = Math.round(d.y - CY);
@@ -2223,8 +2593,10 @@ function drawCheck(ck) {
   for (let i = 0; i < 10; i++) fr(sx + 2 + i, gy - 27 + (ck.on ? Math.round(Math.sin(G.t * 0.15 - i * 0.5)) : 0), 1, 7 - (i >> 2), col);
 }
 function drawEnemy(e) {
+  if (e.hidden) { const sx = Math.round(e.x + e.w / 2 - CX), gy = Math.round(e.y + e.h - CY); if (sx > -20 && sx < VW + 20) { const b = (G.t >> 3) % 2; fr(sx - 5, gy - 2 - b, 10, 2 + b, '#6a4430'); fr(sx - 3, gy - 3 - b, 6, 1, '#8a5a3a'); } return; }
   const s = getESpr(e.kind, e.pal);
   let fi = (e.t >> 3) % 2; if (e.kind === 'ghost' && e.shy) fi = 2;
+  if (e.kind === 'frog') fi = e.onGround ? 0 : 1; else if (e.kind === 'plant') fi = e.shoot > 0 ? 0 : 1; else if (e.kind === 'boar') fi = e.st === 'charge' ? (e.t >> 2) % 2 : e.st === 'stun' ? 0 : fi;
   const set = e.hurt > 0 && (e.hurt >> 1) % 2 ? s.w : s.f;
   const img = set[fi][e.dir > 0 ? 'r' : 'l'];
   const sx = Math.round(e.x + e.w / 2 - img.width / 2 - CX), sy = Math.round(e.y + e.h - img.height - CY);
@@ -2255,9 +2627,12 @@ function drawPlayer() {
   else if (!p.onGround) f = p.inWater ? ((G.t >> 3) % 2 ? 'jump' : 'walk1') : 'jump';
   else if (Math.abs(p.vx) > 0.3) f = ['walk1', 'stand', 'walk2', 'stand'][((p.anim / 7) | 0) % 4];
   if (G.state === 'clear') f = (G.t >> 4) % 2 ? 'jump' : 'stand';
-  const dir = p.face > 0 ? 'r' : 'l';
+  if (p.climb || p.zip || p.wallT > 0) f = 'jump';
+  const dir = p.climb ? ((((p.y / 6) | 0) % 2) ? 'r' : 'l') : p.face > 0 ? 'r' : 'l';
   const sx = Math.round(p.x - CX) - 1, sy = Math.round(p.y - CY) - 2;
-  ctx.drawImage(H[f][dir], sx, sy);
+  if (p.zip) fr(sx + 3, sy - 3, 7, 3, '#8a90a8');
+  if (p.invisT > 0) ctx.globalAlpha = p.invisT < 60 && (G.t >> 2) % 2 ? 0.7 : 0.28;
+  ctx.drawImage(H[f][dir], sx, sy); ctx.globalAlpha = 1;
   if (f === 'punch') {
     const fx = p.face > 0 ? sx + 12 : sx - 5;
     ctx.drawImage(H.fist[dir], fx, sy + 10);
@@ -2275,20 +2650,62 @@ function drawPickups() {
     else ctx.drawImage(COIN[COIN_SEQ[((G.t + c.t) >> 3) % 4]], sx, sy);
   }
 }
+function drawMovers() {
+  for (const m of world.movers) {
+    const sx = Math.round(m.x - CX), sy = Math.round(m.y - CY); if (sx > VW + 10 || sx + m.w < -10) continue;
+    ctx.fillStyle = 'rgba(255,255,255,0.16)';
+    if (m.rx) ctx.fillRect(Math.round(m.ax - m.rx - CX), Math.round(m.ay - CY) + 3, m.rx * 2 + m.w, 1); else ctx.fillRect(sx + m.w / 2, Math.round(m.ay - m.ry - CY), 1, m.ry * 2 + 8);
+    fr(sx, sy, m.w, 8, OUT); fr(sx + 1, sy + 1, m.w - 2, 6, '#b0743e'); fr(sx + 1, sy + 1, m.w - 2, 1, '#e0a468');
+    for (let k = 4; k < m.w - 2; k += 10) fr(sx + k, sy + 3, 2, 2, '#5a3a1e');
+  }
+}
+function drawLevers() {
+  for (const lv of world.levers) {
+    const sx = Math.round(lv.x - CX), gy = Math.round(lv.y - CY); if (sx < -20 || sx > VW + 20) continue;
+    const d = G.sw ? 1 : -1;
+    for (let k = 0; k < 10; k++) fr(sx + Math.round(d * k * 0.6), gy - 5 - k, 2, 1, '#5a5f78');
+    circ(sx + Math.round(d * 6) + 1, gy - 15, 2, G.sw ? '#3d7fe3' : '#e0453c');
+    fr(sx - 6, gy - 5, 13, 5, OUT); fr(sx - 5, gy - 4, 11, 4, '#8a90a8'); fr(sx - 5, gy - 4, 11, 1, '#c8ccd8');
+  }
+}
+function drawZips() {
+  for (const z of world.zips) {
+    const x1 = Math.round(z.x1 - CX), x2 = Math.round(z.x2 - CX), y1 = Math.round(z.y1 - CY), y2 = Math.round(z.y2 - CY), g = Math.round(z.g - CY);
+    if (x2 < -10 || x1 > VW + 10) continue;
+    fr(x1 - 1, y1 - 3, 3, g - y1 + 3, '#6a3e22'); fr(x1 - 1, y1 - 3, 1, g - y1 + 3, '#b0743e'); fr(x1 - 3, y1 - 4, 7, 2, '#4a2a18');
+    fr(x2 - 1, y2 - 3, 3, g - y2 + 3, '#6a3e22'); fr(x2 - 3, y2 - 4, 7, 2, '#4a2a18');
+    const len = x2 - x1; for (let i = 0; i <= len; i++) fr(x1 + i, Math.round(y1 + (y2 - y1) * i / len), 1, 1, '#2a2430');
+  }
+}
+function drawHoles() {
+  for (const h of world.holes) {
+    const sx = Math.round(h.x - CX), sy = Math.round(h.y - CY); if (sx > VW || sx + h.w < 0 || sy > VH) continue;
+    const g = ctx.createLinearGradient(0, sy, 0, sy + 40); g.addColorStop(0, 'rgba(5,3,10,0)'); g.addColorStop(1, 'rgba(5,3,10,1)');
+    ctx.fillStyle = g; ctx.fillRect(sx, sy, h.w, 40); ctx.fillStyle = '#05030a'; ctx.fillRect(sx, sy + 40, h.w, Math.max(0, VH - sy - 40));
+  }
+  for (const h of world.holesUp) {
+    const sx = Math.round(h.x - CX), sy = Math.round(h.y - CY); if (sx > VW || sx + h.w < 0) continue;
+    const g = ctx.createLinearGradient(0, sy, 0, sy + h.h); g.addColorStop(0, 'rgba(5,3,10,1)'); g.addColorStop(1, 'rgba(5,3,10,0)');
+    ctx.fillStyle = g; ctx.fillRect(sx, sy, h.w, h.h);
+  }
+}
 function drawOrb(kind, x, y) {
   const P = POWERS[kind]; circ(x + 4, y + 4, 4, OUT); circ(x + 4, y + 4, 3, P.col); fr(x + 2, y + 2, 2, 2, '#ffffff');
   if (kind === 'fire') fr(x + 4, y + 4, 2, 2, '#ffe14a');
+  else if (kind === 'invis') { fr(x + 3, y + 3, 3, 3, 'rgba(255,255,255,0.6)'); }
+  else if (kind === 'magnet') { fr(x + 2, y + 3, 1, 3, '#ffffff'); fr(x + 6, y + 3, 1, 3, '#ffffff'); fr(x + 2, y + 6, 5, 1, '#ffffff'); }
   else if (kind === 'ice') { fr(x + 4, y + 3, 1, 3, '#ffffff'); fr(x + 3, y + 4, 3, 1, '#ffffff'); }
   else { fr(x + 5, y + 2, 1, 2, OUT); fr(x + 4, y + 4, 2, 1, OUT); fr(x + 4, y + 5, 1, 2, OUT); }
 }
 function drawShots() {
   for (const s of world.shots) {
     const x = Math.round(s.x - CX), y = Math.round(s.y - CY), f = (G.t >> 2) % 2;
-    if (s.kind === 'fire') { circ(x + 3, y + 3, 3, '#ff5a1e'); circ(x + 3, y + 3, 2, f ? '#ffb02e' : '#ffe14a'); G.lights.push({ x: x + 3, y: y + 3, r: 22, warm: true }); }
+    if (s.kind === 'gun') { fr(x, y, 5, 3, OUT); fr(x, y + 1, 5, 1, '#ffe14a'); }
+    else if (s.kind === 'fire') { circ(x + 3, y + 3, 3, '#ff5a1e'); circ(x + 3, y + 3, 2, f ? '#ffb02e' : '#ffe14a'); G.lights.push({ x: x + 3, y: y + 3, r: 22, warm: true }); }
     else if (s.kind === 'ice') { fr(x + 2, y, 2, 6, '#8fd4ff'); fr(x, y + 2, 6, 2, '#8fd4ff'); fr(x + 2, y + 2, 2, 2, '#ffffff'); G.lights.push({ x: x + 3, y: y + 3, r: 18, warm: false }); }
     else { for (let i = 0; i < 12; i++) fr(x - 3 + i, y + 2 + ((i + (G.t >> 1)) % 4 < 2 ? 0 : 2), 1, 2, i % 3 ? '#ffe14a' : '#ffffff'); G.lights.push({ x: x + 3, y: y + 3, r: 26, warm: true }); }
   }
-  for (const s of world.bshots) { const x = Math.round(s.x - CX), y = Math.round(s.y - CY); circ(x + 3, y + 3, 3, OUT); circ(x + 3, y + 3, 2, (G.t >> 2) % 2 ? '#ff4a8a' : '#ff9ac8'); G.lights.push({ x: x + 3, y: y + 3, r: 18, warm: true }); }
+  for (const s of world.bshots) { const x = Math.round(s.x - CX), y = Math.round(s.y - CY); if (s.rock) { fr(x, y + 1, 6, 4, OUT); fr(x + 1, y, 4, 6, OUT); fr(x + 1, y + 1, 4, 4, '#8a8a9a'); fr(x + 1, y + 1, 2, 1, '#c8c8d8'); } else if (s.seed) { circ(x + 2, y + 2, 2, OUT); fr(x + 1, y + 1, 3, 3, '#8ad06a'); } else { circ(x + 3, y + 3, 3, OUT); circ(x + 3, y + 3, 2, (G.t >> 2) % 2 ? '#ff4a8a' : '#ff9ac8'); G.lights.push({ x: x + 3, y: y + 3, r: 18, warm: true }); } }
 }
 function drawMining() {
   const m = G.mine; if (!m) return;
@@ -2319,8 +2736,7 @@ function renderWorld() {
   CX = Math.round(cam.x + (sh ? (Math.random() * 2 - 1) * sh * 0.5 : 0));
   CY = Math.round(cam.y + (sh ? (Math.random() * 2 - 1) * sh * 0.5 : 0));
   drawBG();
-  for (const s of world.structs) if (s.type === 'house') { const sx = Math.round(s.x - CX), gy = Math.round(s.y - CY); if (sx > -60 && sx < VW + 10) { drawProp('casa', sx, gy, true); if (G.doorAnim > 0) fr(sx + 21, gy - 15, 7, 15, '#15101c'); } }
-  for (const s of world.structs) if (s.type === 'tower') { const sx = Math.round(s.x - CX), gy = Math.round(s.y - CY); if (sx > -80 && sx < VW + 80) ctx.drawImage(TOWER, sx - 36, gy - TOWER.height); }
+  for (const st of world.structs) drawStruct(st);
   if (world.home) for (const pr of save.home.props) { const sx = pr.x * TS - CX; if (sx > -90 && sx < VW + 10) drawProp(pr.type, sx, pr.y * TS - CY, true); }
   for (const d of world.doors) drawDoor(d);
   for (const pt of world.portals || []) drawPortal(pt);
@@ -2329,8 +2745,10 @@ function renderWorld() {
   if (world.check) drawCheck(world.check);
   drawTiles();
   for (const g of world.gates || []) drawGate(g);
+  drawMovers(); drawLevers(); drawZips();
   drawMining();
   for (const d of world.decos) drawDeco(d);
+  drawVillagers();
   if (world.goal) drawGoal(world.goal);
   if (G.state !== 'title') {
     drawPickups();
@@ -2341,6 +2759,7 @@ function renderWorld() {
     for (const p of G.parts) fr(Math.round(p.x - CX), Math.round(p.y - CY), p.s, p.s, p.col);
     if (world.dark) G.lights.push({ x: player.x + player.w / 2 - CX, y: player.y + player.h / 2 - CY, r: 96 });
   }
+  drawHoles();
   if (world.dark) drawDarkness(world.dark * 0.6);
   drawGlows();
   if (world.underwater) { ctx.fillStyle = 'rgba(30,110,200,0.14)'; ctx.fillRect(0, 0, VW, VH); }
@@ -2399,7 +2818,7 @@ function drawHUD() {
   let x = 10 + save.maxHp * 9;
   ctx.drawImage(COIN[COIN_SEQ[(G.t >> 3) % 4]], x, 8); text(save.coins, x + 11, 10, '#ffffff');
   if (hasKey) ctx.drawImage(save.worlds[sp.wi].keys[sp.node] ? KEY : KEY_OFF, x + 15 + cw, 10);
-  if (p.power) drawOrb(p.power, x + 15 + cw + (hasKey ? 14 : 0), 8);
+  if (p.power) { drawOrb(p.power, x + 15 + cw + (hasKey ? 14 : 0), 8); if (p.power === 'invis' && p.invisCD > 0) { ctx.fillStyle = 'rgba(20,17,32,0.65)'; ctx.fillRect(x + 15 + cw + (hasKey ? 14 : 0), 8, 9, Math.ceil(9 * p.invisCD / 520)); } }
   textOut(world.home ? 'MY LAND' : world.village ? 'PIXMOND VILLAGE' : world.isHub ? 'WORLD ' + (world.hubW + 1) + ': ' + world.th.name + '   LEVELS ' + levelsDone(world.hubW) + '/16' : world.parentSpec ? sp.label + ' - UNDERGROUND' : sp.label, 6, 24, '#d8d2ea', OUT, 1);
   hudButton(L.pause, iconPause, false);
   if (!world.home && save.ride && save.vehicles[save.ride]) { const r = L.ride, v = save.vehicles[save.ride]; hudButton(r, () => {}, !!p.ride); drawIconFit(vehicleIcon(save.ride), r.x + 3, r.y + 2, r.w - 6, r.h - 4); if (v.hp === 0) { fr(r.x + 3, r.y + 8, r.w - 6, 2, '#ff5a5a'); } if (p.ride) { const V = VEH[p.ride]; fr(6, 32, 42, 4, OUT); fr(7, 33, Math.round(40 * v.hp / V.hp), 2, v.hp < V.hp / 2 ? '#f5c542' : '#5ae07a'); } }
@@ -2444,9 +2863,10 @@ function drawControls(L) {
     ctx.fillStyle = 'rgba(255,255,255,0.45)'; ctx.fillRect(r.x, r.y, r.w, 1); ctx.fillRect(r.x, r.y + r.h - 1, r.w, 1); ctx.fillRect(r.x, r.y, 1, r.h); ctx.fillRect(r.x + r.w - 1, r.y, 1, r.h);
     ctx.fillStyle = on ? '#ffffff' : 'rgba(255,255,255,0.85)';
     const cx = (r.x + r.w / 2) | 0, cy = (r.y + r.h / 2) | 0;
-    for (let i = 0; i < 6; i++) ctx.fillRect(dir > 0 ? cx - 3 + i : cx + 2 - i, cy - (5 - i), 1, (5 - i) * 2 + 1);
+    if (dir === 0) { for (let i = 0; i < 6; i++) ctx.fillRect(cx - (5 - i), cy - 3 + i, (5 - i) * 2 + 1, 1); }
+    else for (let i = 0; i < 6; i++) ctx.fillRect(dir > 0 ? cx - 3 + i : cx + 2 - i, cy - (5 - i), 1, (5 - i) * 2 + 1);
   };
-  pad(L.left, btn.left, -1); pad(L.right, btn.right, 1);
+  pad(L.left, btn.left, -1); pad(L.right, btn.right, 1); pad(L.down, btn.down, 0);
   const round = (c, on, col, colOn, label, sub) => {
     circ(c.cx, c.cy, c.r + 1, 'rgba(255,255,255,0.35)'); circ(c.cx, c.cy, c.r, on ? colOn : col);
     text(label, c.cx, c.cy - 4, '#ffffff', 2, 'center');
@@ -2490,12 +2910,12 @@ function drawVehicle(id, cx, gy, d, head) {
     R_(-6, -18, 11, 5, 'rgba(191,230,255,0.45)'); R_(-1, -19, 1, 7, '#2753a8'); R_(12, -11, 2, 2, '#ffe890'); R_(-14, -11, 2, 2, '#e0453c');
     wheel(-8); wheel(8);
   } else {
-    const rw = [28, 18, 6, 18][(G.t >> 1) % 4]; fr(cx - rw / 2, gy - 23, rw, 1, '#3a3440'); R_(-1, -22, 2, 4, '#3a3440');
-    R_(-19, -13, 11, 3, '#c8901a'); R_(-21, -17, 3, 7, '#c8901a'); R_(-22, -18, 1, (G.t >> 1) % 2 ? 9 : 3, '#3a3440');
-    R_(-9, -19, 19, 13, OUT); R_(-8, -18, 17, 11, '#f5c542'); R_(-8, -18, 17, 1, '#fff2a0');
-    if (head) head(d > 0 ? cx - 3 : cx - 9, gy - 19);
-    R_(2, -17, 7, 6, 'rgba(191,230,255,0.5)');
-    R_(-9, -2, 18, 1, '#3a3440'); R_(-6, -6, 1, 4, '#3a3440'); R_(5, -6, 1, 4, '#3a3440');
+    const rw = [22, 14, 4, 14][(G.t >> 1) % 4]; fr(cx - rw / 2, gy - 19, rw, 1, '#3a3440'); R_(-1, -18, 2, 3, '#3a3440');
+    R_(-15, -11, 8, 2, '#b0302e'); R_(-16, -14, 2, 5, '#b0302e'); R_(-17, -15, 1, (G.t >> 1) % 2 ? 7 : 3, '#3a3440');
+    R_(-7, -15, 14, 10, OUT); R_(-6, -14, 12, 8, '#e0453c'); R_(-6, -14, 12, 1, '#ff7a6a');
+    if (head) head(d > 0 ? cx - 5 : cx - 7, gy - 17);
+    R_(1, -13, 5, 5, 'rgba(191,230,255,0.5)'); R_(6, -9, 4, 1, '#3a3440');
+    R_(-6, -2, 13, 1, '#3a3440'); R_(-4, -5, 1, 3, '#3a3440'); R_(4, -5, 1, 3, '#3a3440');
   }
 }
 const VEH_ICON = {};
@@ -2534,7 +2954,7 @@ function drawShopUI() {
   text('SHOP', S.px + 8, S.py + 5, '#f5c542', 2);
   const ct = coinsLabel(); ctx.drawImage(COIN[0], S.px + S.pw - 36 - textW(ct), S.py + 5); text(ct, S.px + S.pw - 26 - textW(ct), S.py + 7, '#ffffff');
   panel(S.close.x, S.close.y, S.close.w, S.close.h, 0.9); text('X', S.close.x + 6, S.close.y + 4, '#ffffff');
-  const TAB_L = { skin: 'CHARACTERS', blocks: 'BLOCKS', props: 'DECOR' };
+  const TAB_L = { skin: 'CHARACTERS', powers: 'POWERS', blocks: 'BLOCKS', props: 'DECOR' };
   for (const t of S.tabs) { const on = G.shop.tab === t.id; panel(t.x, t.y, t.w, t.h, on ? 0.95 : 0.6, on ? '#f5c542' : '#6a6480'); text(TAB_L[t.id], t.x + t.w / 2, t.y + 5, on ? '#f5c542' : '#b8b2cc', 1, 'center'); }
   for (const b of S.cells) {
     const e = b.e, it = e.it;
@@ -2547,6 +2967,8 @@ function drawShopUI() {
       const owned = save.skins.includes(it.id);
       sub = owned ? (save.skin === it.id ? 'IN USE' : 'TAP TO WEAR') : 'NEW CHARACTER';
       right = owned ? '' : String(it.price); can = owned || canPay(it.price);
+    } else if (e.kind === 'power') {
+      drawOrb(it.id, b.x + 7, b.y + 8); sub = save.power === it.id ? 'ACTIVE' : 'KEEP IT UNTIL YOU GET HIT'; right = save.power === it.id ? '' : String(it.price); can = canPay(it.price);
     } else if (e.kind === 'block') {
       tileIcon(it.tile, b.x + 3, b.y + 4); sub = 'X' + it.pack + '  (OWNED ' + (save.inv[it.id] | 0) + ')'; right = String(it.price); can = canPay(it.price);
     } else {
@@ -2609,7 +3031,7 @@ function drawGate(g) {
 function drawNPC(n) {
   const sx = Math.round(n.x - CX), gy = Math.round(n.y - CY);
   if (sx < -60 || sx > VW + 60) return;
-  if (n.type === 'merchant') { drawProp('negozio', sx - 24, gy, true); signAt('SHOP', sx, gy - 58, '#3a1e0e'); return; }
+  if (n.type === 'merchant') { const img = getESpr('walker', 'merchant').f[0][player.x + 5 < n.x ? 'l' : 'r'], bob = (G.t >> 5) % 2; ctx.drawImage(img, sx - 6, gy - 15 + bob); fr(sx - 7, gy - 16 + bob, 14, 2, '#4a2e80'); fr(sx - 4, gy - 20 + bob, 8, 4, '#4a2e80'); fr(sx - 4, gy - 17 + bob, 8, 1, '#f2c14e'); return; }
   if (n.type === 'mechanic') {
     const x = sx - 20;
     fr(x - 3, gy - 46, 66, 6, OUT); fr(x - 2, gy - 45, 64, 4, '#d8433b');
@@ -2742,6 +3164,7 @@ function drawTitle() {
 function drawTransition() {
   const tr = G.trans; if (!tr) return;
   const k = tr.phase === 'out' ? tr.t / 22 : 1 - tr.t / 22;
+  if (tr.kind === 'fade') { ctx.fillStyle = 'rgba(5,3,10,' + Math.min(1, k * 1.25).toFixed(3) + ')'; ctx.fillRect(0, 0, VW, VH); return; }
   const rad = Math.max(0, (1 - k) * Math.hypot(VW, VH) * 0.6);
   let px = VW / 2, py = VH / 2;
   if (G.state === 'play' && player && world) { px = player.x + player.w / 2 - CX; py = player.y + player.h / 2 - CY; }

@@ -26,19 +26,36 @@ Rushing works: you can go straight for the keys and the fortress. Thorough playe
 ### A world that opens one door at a time
 Every world is a long plain lined with portals and brick walls. The door in each wall has no handle and no button. It only opens with the key you win in the level before it. The portal you should enter next is always marked.
 
-### 16 different kinds of challenge per world
-- **Paths and hills**: classic runs full of enemies, pits and star blocks.
-- **Floating skies**: platform hopping over bottomless drops.
-- **Underground**: dark tunnels lit only by torches and your own glow.
-- **Bonus room**: coins everywhere, no enemies, pure greed.
-- **Timed run**: a clock and a faster soundtrack.
-- **Secret passage**: darker, meaner, more rewarding.
-- **Monster arena**: survive wave after wave to unlock the exit.
-- **Treasure room**: a hidden chest with a permanent extra heart.
-- **The fortress**: a real boss fight with a health bar, projectiles and a rage phase.
+### 16 levels, 16 personalities
+Every level in a world has its own identity instead of being a remix of the same pieces:
+
+| # | Level | What makes it special |
+|---|---|---|
+| 1 | Green Trail | A gentle warm-up |
+| 2 | Frog Pond | Lily pads, water and jumping frogs |
+| 3 | Floating Isles | No ground at all, just islands hanging over the void |
+| 4 | Mole Mines | Dark tunnels, ladders and moles that burst out of the ground |
+| 5 | Bonus Room | Coins everywhere |
+| 6 | Ladder Cliffs | Climb walls of rock to reach the upper paths |
+| 7 | Sky Lifts | Moving platforms over bottomless drops |
+| 8 | Time Trial | Beat the clock |
+| 9 | Crumbling Canyon | Bridges that collapse under your feet and ziplines across the gaps |
+| 10 | Switch Garden | Hit levers to swap red and blue blocks |
+| 11 | Secret Passage | Dark and dangerous |
+| 12 | Treetops | Hop from one tree crown to the next |
+| 13 | Monster Arena | Survive the waves |
+| 14 | Boar Stampede | Boars charging at full speed |
+| 15 | Treasure Room | A hidden chest with an extra heart |
+| 16 | Fortress | The boss |
+
+### Ways to move
+Double jump, **wall slide and wall jump**, **ladders**, **ziplines**, **moving platforms**, **crumbling bridges** and **red/blue switch blocks**.
+
+### A bestiary with personality
+Slimes, goblins, bats, **hedgehogs** you can't jump on, **frogs** that leap at you, **boars** that charge when they spot you, **plants** that spit seeds, **birds** that drop rocks, and **moles** that dig underground and burst out right under your feet.
 
 ### Hidden undergrounds
-Some levels hide **cracked blocks** you can break by holding on them, or **water pools** you can dive into. They lead to separate underground areas full of coins and surprise blocks. The screen closes into a black circle as you enter and opens again inside. When you find the exit, you climb out through a hatch further along the level.
+Some entrances are easy to spot: **cracked blocks**, a **pool** you can dive into, or a **wooden trapdoor** that opens when you press down on it. Others look exactly like normal ground and only give way if you dig (hold on the ground, or press down and punch). They all lead into a deep dark well: you can't see the bottom until you jump, the screen fades to black, and you drop into the underground from above. To get out, climb the ladder back up into the dark.
 
 ### Question blocks that gamble
 Hit a **?** block and anything can happen: coins, a heart, building materials, a monster jumping out at you, or a **power**.
@@ -46,9 +63,11 @@ Hit a **?** block and anything can happen: coins, a heart, building materials, a
 ### Powers that change you
 - **Fire**: bouncing fireballs.
 - **Ice**: freezes enemies solid so you can shatter them.
-- **Thunder**: a fast bolt that pierces through a whole line of enemies.
+- **Thunder**: a fast bolt that pierces a whole line of enemies.
+- **Invisibility**: vanish for a few seconds; enemies and bullets pass right through you.
+- **Coin magnet**: coins fly straight into your pockets.
 
-Your outfit changes colour with the power, and you **keep it from level to level** until an enemy hits you.
+Your outfit changes colour with the power, and you **keep it from level to level** until an enemy hits you. Powers can also be bought at the shop so you start a level already powered up.
 
 ### Vehicles
 The mechanic sells machines that are clearly meant for later worlds and feel almost unfair in the first ones:
@@ -57,9 +76,9 @@ The mechanic sells machines that are clearly meant for later worlds and feel alm
 |---|---|
 | **Motorbike** | Very fast, huge jumps |
 | **Car** | Armoured, flattens everything in its path |
-| **Helicopter** | Flies over every pit and wall |
+| **Helicopter** | A small red single-seater that flies and shoots, but breaks easily if it hits a wall |
 
-Vehicles take the hits instead of you, and they wear out. When one breaks, the mechanic can fix it for a fraction of what a new one costs.
+Vehicles take the hits instead of you, and they wear out. You can't dig while driving: get off first. When one breaks, the mechanic can fix it for a fraction of what a new one costs.
 
 ### Characters to unlock
 Buy new looks at the shop or find **hidden gift boxes** inside levels. Some characters can only be found, never bought.
@@ -78,7 +97,8 @@ Progress, coins, characters, vehicles, the doors you have opened, the blocks you
 | Action | Key |
 |---|---|
 | Move | `←` `→` |
-| Jump / double jump / fly up | `↑` (press again mid-air for a double jump) |
+| Jump / double jump / climb up / fly up | `↑` (press again mid-air for a double jump, against a wall for a wall jump) |
+| Climb down / open trapdoors / dig (with punch) | `↓` |
 | Punch / use / shoot power | `Space` |
 | Get on / off vehicle | `V` |
 | Build mode (on your land) | `B` |
@@ -87,7 +107,7 @@ Progress, coins, characters, vehicles, the doors you have opened, the blocks you
 
 ### Phone
 Choose **Phone / Tablet** on the first screen (you can change it later in Settings) and on-screen controls appear:
-- **◀ ▶** to move, **A** to jump, **B** to punch, use and shoot.
+- **◀ ▶** to move, **▼** to climb down and open trapdoors, **A** to jump, **B** to punch, use and shoot.
 - **Hold your finger** on a cracked block to break it.
 - The vehicle button in the top-right corner gets you on and off.
 
