@@ -295,8 +295,9 @@ const LOCK_OPEN = spr(['..kkkkk..', '.kg...gk.', '.kg.......', 'kkkkkkkkk', 'kgg
 // =====================================================================
 //  TILES
 // =====================================================================
-const T = { AIR: 0, GROUND: 1, BEDROCK: 2, STONE: 3, WOOD: 4, BRICK: 5, GLASS: 6, STAR: 7, QBLOCK: 8, USED: 9, PLAT: 10, SPIKE: 11, LAVA: 12, WATER: 13, LANTERN: 14, LEAF: 15, CRACK: 16, LADDER: 17, CRUMBLE: 18, RED: 19, BLUE: 20, HCRACK: 21 };
-const SOLID = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1];
+const T = { AIR: 0, GROUND: 1, BEDROCK: 2, STONE: 3, WOOD: 4, BRICK: 5, GLASS: 6, STAR: 7, QBLOCK: 8, USED: 9, PLAT: 10, SPIKE: 11, LAVA: 12, WATER: 13, LANTERN: 14, LEAF: 15, CRACK: 16, LADDER: 17, CRUMBLE: 18, RED: 19, BLUE: 20, HCRACK: 21, GATE: 22, TRAP: 23, BELTL: 24, BELTR: 25 };
+const SOLID = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1];
+const trapUp = tx => ((G.t + tx * 17) % 110) < 50;
 function setSwitch(v) { G.sw = v; SOLID[T.RED] = v ? 0 : 1; SOLID[T.BLUE] = v ? 1 : 0; }
 const UNI_SLOT = { 3: 0, 4: 1, 5: 2, 6: 3, 7: 4, 9: 7, 10: 8, 11: 9, 14: 18, 15: 20, 17: 22, 18: 23 };
 const ITEMS = [
@@ -339,7 +340,7 @@ const PROPS = [
 ];
 
 function buildUni() {
-  const c = mk(28 * 16, 16), g = c.getContext('2d');
+  const c = mk(36 * 16, 16), g = c.getContext('2d');
   let o = 0;
   const r = (x, y, w, h, col) => { g.fillStyle = col; g.fillRect(o + x, y, w, h); };
   const bevel = (base, light, dark, out) => { r(0, 0, 16, 16, out); r(1, 1, 14, 14, base); r(1, 1, 14, 1, light); r(1, 1, 1, 14, light); r(1, 14, 14, 1, dark); r(14, 1, 1, 14, dark); };
@@ -388,6 +389,16 @@ function buildUni() {
   const sw = (on, base, lite, dark) => { if (on) { bevel(base, lite, dark, OUT); r(6, 3, 4, 6, '#ffffff'); r(6, 10, 4, 3, '#ffffff'); } else { for (let i = 0; i < 16; i += 2) { r(i, 0, 1, 1, base); r(i, 15, 1, 1, base); r(0, i, 1, 1, base); r(15, i, 1, 1, base); } r(7, 7, 2, 2, base); } };
   o = 24 * 16; sw(true, '#d8433b', '#ff7a6a', '#9c2c36'); o = 25 * 16; sw(false, '#d8433b');
   o = 26 * 16; sw(true, '#3d7fe3', '#7db4ff', '#2753a8'); o = 27 * 16; sw(false, '#3d7fe3');
+  o = 28 * 16; r(0, 0, 16, 2, '#3a3c50'); r(0, 14, 16, 2, '#3a3c50'); for (const x of [1, 5, 9, 13]) { r(x, 0, 2, 16, '#5a5f78'); r(x, 0, 1, 16, '#8a90a8'); } r(0, 7, 16, 2, '#3a3c50');
+  o = 29 * 16; for (let i = 0; i < 16; i += 3) { r(i, 0, 1, 1, '#5a5f78'); r(i, 15, 1, 1, '#5a5f78'); }
+  o = 30 * 16; r(0, 13, 16, 3, '#3a3c50'); r(0, 13, 16, 1, '#6a6f88'); for (const x of [2, 6, 10, 14]) r(x, 14, 1, 1, '#15131f');
+  o = 31 * 16; r(0, 13, 16, 3, '#3a3c50'); r(0, 13, 16, 1, '#6a6f88'); for (let k = 0; k < 4; k++) { const cx = k * 4; r(cx + 1, 5, 2, 8, '#c8ccd8'); r(cx + 2, 5, 1, 8, '#8a90a8'); r(cx + 1, 3, 1, 2, '#e0453c'); }
+  for (let f = 0; f < 2; f++) for (let dirb = 0; dirb < 2; dirb++) {
+    o = (32 + dirb * 2 + f) * 16; r(0, 0, 16, 16, '#2a2432'); r(0, 0, 16, 4, '#3a3440'); r(0, 0, 16, 1, '#6a6f88'); r(0, 12, 16, 4, '#3a3440');
+    for (let x = 0; x < 16; x++) { const ph = ((x + (dirb ? f * 4 : -f * 4)) % 8 + 8) % 8; if (ph < 2) r(x, 1, 1, 2, '#f5c542'); }
+    circ2(o + 3, 8, 3); circ2(o + 12, 8, 3);
+  }
+  function circ2(cx, cy, rad) { for (let dy = -rad; dy <= rad; dy++) { const w = Math.floor(Math.sqrt(rad * rad - dy * dy)); g.fillStyle = '#5a5f78'; g.fillRect(cx - w, cy + dy, w * 2 + 1, 1); } g.fillStyle = '#c8ccd8'; g.fillRect(cx, cy, 1, 1); }
   return c;
 }
 const UNI = buildUni();
@@ -602,19 +613,19 @@ const LEVELS = [
 ];
 const LEVEL_SEQ = LEVELS.map(l => l.type);
 const STYLE = {
-  intro: { segs: { flat: 4, step: 3, pit: 2, blocks: 3, stairs: 2 }, kinds: ['slime', 'walker', 'frog'], enemyMul: 0.6 },
-  pond: { segs: { flat: 2, pond: 5, blocks: 2, step: 1 }, kinds: ['frog', 'dropper', 'slime'] },
+  intro: { segs: { flat: 4, step: 3, pit: 2, blocks: 3, stairs: 2, crate: 1 }, kinds: ['slime', 'walker', 'frog'], enemyMul: 0.6 },
+  pond: { segs: { flat: 2, pond: 5, blocks: 2, step: 1, fan: 1 }, kinds: ['frog', 'dropper', 'slime'] },
   islands: { segs: { islands: 1 }, kinds: ['frog', 'dropper', 'bat'] },
-  mines: { segs: { flat: 2, step: 2, cliff: 2, tower: 2, pit: 1, blocks: 1 }, kinds: ['mole', 'bat', 'slime', 'hedgehog'] },
-  cliffs: { segs: { cliff: 4, tower: 3, flat: 2, step: 1 }, kinds: ['walker', 'plant', 'dropper'] },
-  lifts: { segs: { movers: 5, flat: 1, zip: 1 }, kinds: ['dropper', 'bat', 'plant'] },
-  rush: { segs: { flat: 3, pit: 3, step: 2, zip: 1 }, kinds: ['boar', 'slime'] },
-  canyon: { segs: { crumble: 4, zip: 3, flat: 2, pit: 1 }, kinds: ['dropper', 'frog', 'hedgehog'] },
-  switches: { segs: { switch: 4, flat: 2, blocks: 2, stairs: 1 }, kinds: ['walker', 'plant', 'hedgehog'] },
-  secret: { segs: { flat: 2, pit: 2, blocks: 2, cliff: 1, crumble: 1 } },
+  mines: { segs: { flat: 2, step: 2, cliff: 2, tower: 2, pit: 1, blocks: 1, traps: 2, crate: 1 }, kinds: ['mole', 'bat', 'slime', 'hedgehog'] },
+  cliffs: { segs: { cliff: 3, tower: 2, flat: 2, step: 1, fan: 3, crate: 2 }, kinds: ['walker', 'plant', 'dropper'] },
+  lifts: { segs: { movers: 4, flat: 1, zip: 1, fan: 2, cannon: 2 }, kinds: ['dropper', 'bat', 'plant'] },
+  rush: { segs: { flat: 2, pit: 3, step: 2, zip: 1, belt: 2, cannon: 1 }, kinds: ['boar', 'slime'] },
+  canyon: { segs: { crumbleisles: 7, crumble: 3, zip: 1, cannon: 1 }, kinds: ['dropper', 'frog', 'hedgehog'] },
+  switches: { segs: { switch: 3, timegate: 3, crate: 2, flat: 2, blocks: 1 }, kinds: ['walker', 'plant', 'hedgehog'] },
+  secret: { segs: { flat: 2, pit: 2, blocks: 1, cliff: 1, crumble: 1, traps: 3, timegate: 1 } },
   treetops: { segs: { trees: 1 }, kinds: ['dropper', 'bat', 'frog'] },
-  stampede: { segs: { flat: 5, stairs: 2, blocks: 1, pit: 1 }, kinds: ['boar', 'hedgehog'], enemyMul: 1.6 },
-  boss: { segs: { flat: 3, step: 2, pit: 2, blocks: 2, cliff: 1 } },
+  stampede: { segs: { flat: 4, stairs: 2, blocks: 1, pit: 1, belt: 3, traps: 1 }, kinds: ['boar', 'hedgehog'], enemyMul: 1.6 },
+  boss: { segs: { flat: 3, step: 2, pit: 2, blocks: 2, cliff: 1, traps: 1, cannon: 1 } },
 };
 const SKIN_LEVELS = { 4: 'esploratore', 9: 'pirata', 12: 'ninja' };
 const TYPE_NAME = { sky: 'FLOATING SKIES', cave: 'UNDERGROUND', bonus: 'BONUS ROOM', secret: 'SECRET PASSAGE', timed: 'TIME TRIAL', arena: 'MONSTER ARENA', treasure: 'TREASURE ROOM', boss: 'FORTRESS' };
@@ -992,7 +1003,7 @@ function baseLevel(themeId, W, extra) {
     id: themeId, th, w: W, h: 22, map: new Uint8Array(W * 22), sheet: sheetOf(themeId),
     enemies: [], pickups: [], doors: [], decos: [], structs: [], boss: null, chest: null, goal: null, check: null,
     underwater: th.kind === 'water', topSolid: th.kind !== 'outdoor', ceil: null, bgId: themeId, dark: th.dark || 0,
-    arena: null, timer: 0, home: false, shots: [], bshots: [], movers: [], levers: [], zips: [], holes: [], holesUp: [], hatchDoors: [], crumbles: new Map(), spec: null, spawn: { x: 4 * TS, y: 15 * TS - 14 },
+    arena: null, timer: 0, home: false, shots: [], bshots: [], movers: [], levers: [], zips: [], holes: [], holesUp: [], hatchDoors: [], plates: [], fans: [], crates: [], cannons: [], gateT: 0, gateDur: 1, crumbles: new Map(), spec: null, spawn: { x: 4 * TS, y: 15 * TS - 14 },
   }, extra || {});
 }
 function fillColumns(L, hs, pit) {
@@ -1056,9 +1067,10 @@ function genLevel(spec) {
       const segW = ST.segs || { flat: 3, step: 2, pit: 2, blocks: 2, stairs: 1, platpit: 1, cliff: 1, tower: 1, movers: 1, crumble: 1 };
       let tot = 0; for (const k in segW) tot += segW[k];
       let roll = Rn() * tot, seg = 'flat'; for (const k in segW) { roll -= segW[k]; if (roll <= 0) { seg = k; break; } }
-      const needPit = ['pit', 'platpit', 'movers', 'crumble', 'zip', 'switch'];
+      const needPit = ['pit', 'platpit', 'movers', 'crumble', 'zip', 'switch', 'cannon', 'crumbleisles'];
       const pitList = pits.length ? pits : ['void'];
       if (needPit.includes(seg) && !pits.length && seg !== 'movers' && seg !== 'zip') seg = 'flat';
+      if (water && ['cliff', 'tower', 'fan', 'cannon', 'belt', 'crate', 'zip'].includes(seg)) seg = 'step';
       switch (seg) {
         case 'flat': {
           const n = 5 + ((Rn() * 6) | 0); flat(n);
@@ -1141,6 +1153,52 @@ function genLevel(spec) {
           for (let i = 0; i < w; i++) coin(s2 + i, h - 2);
           if (Rn() < enemyP * 0.5 && w > 3) ens.push([s2 + 2, h]);
           if (Rn() < 0.2) blocks.push([s2 + 1, h - 4, T.QBLOCK]);
+          break;
+        }
+        case 'timegate': {
+          flat(3); const px = s + 1; occ[px] = 1;
+          flat(3); hole(2, pick(pitList)); flat(3 + ((Rn() * 3) | 0));
+          const gx = x; flat(1); for (let y = Math.max(1, h - 7); y < h; y++) blocks.push([gx, y, T.GATE]); occ[gx] = 1;
+          for (let i = gx - 1; i <= gx + 1; i++) capCeil[i] = Math.max(1, h - 8);
+          L.plates.push({ x: px * TS, y: h * TS, w: TS, dur: Math.round(210 - d * 50), gx: gx * TS, gy: (h - 7) * TS });
+          flat(3); break;
+        }
+        case 'fan': {
+          flat(4); const fx = s + 2, h0 = h, h2 = Math.max(5, h - 8); occ[fx] = 1;
+          L.fans.push({ x: fx * TS + 8, y: h0 * TS, top: (h2 - 3) * TS });
+          h = h2; const n = 8, s2 = x; flat(n); for (let i = 1; i < n - 1; i++) coin(s2 + i, h - 2);
+          if (Rn() < 0.5) blocks.push([s2 + 4, h - 4, T.QBLOCK]);
+          for (let i = fx - 1; i < s2 + 2; i++) capCeil[i] = Math.max(1, h2 - 5);
+          h = clamp(h0 + pick([-1, 0, 1]), 11, 17); flat(2); break;
+        }
+        case 'crate': {
+          flat(4); L.crates.push({ x: (s + 1) * TS, y: (h - 1) * TS, w: 16, h: 16, vx: 0, vy: 0, hx: (s + 1) * TS, hy: (h - 1) * TS, dx: 0, dy: 0, push: 0 });
+          flat(3); const wx = x; flat(1); for (let y = h - 7; y < h; y++) blocks.push([wx, y, T.STONE]); occ[wx] = 1; coin(wx, h - 8);
+          for (let i = wx - 1; i <= wx + 1; i++) capCeil[i] = Math.max(1, h - 9);
+          flat(3); break;
+        }
+        case 'cannon': {
+          flat(4); L.cannons.push({ x: (s + 2) * TS + 8, y: h * TS, t: 0, cd: 0 }); occ[s + 2] = 1;
+          const n = 9 + ((Rn() * 3) | 0); hole(n, pitList.includes('void') ? 'void' : pick(pitList)); flat(6);
+          for (let i = 2; i < n; i += 2) coin(s + 4 + i, h - 5 - Math.round(Math.sin(i / n * Math.PI) * 4));
+          break;
+        }
+        case 'traps': {
+          const n = 11; flat(n); for (let i = 1; i < n - 1; i += 2) { blocks.push([s + i, h - 1, T.TRAP]); occ[s + i] = 1; } for (let i = 2; i < n - 1; i += 2) coin(s + i, h - 2);
+          break;
+        }
+        case 'belt': {
+          const n = 8 + ((Rn() * 4) | 0), bt = Rn() < 0.5 ? T.BELTL : T.BELTR; flat(n);
+          for (let i = 0; i < n; i++) { blocks.push([s + i, h, bt]); occ[s + i] = 1; }
+          if (Rn() < enemyP) ens.push([s + (n >> 1), h]);
+          if (pits.length && Rn() < 0.6) { hole(2, pick(pits)); } flat(3); break;
+        }
+        case 'crumbleisles': {
+          hole(1 + ((Rn() * 2) | 0), 'void');
+          h = clamp(h + pick([-2, -1, 0, 1, 2]), 8, 16);
+          const w = 3 + ((Rn() * 4) | 0), s2 = x; hole(w, 'void');
+          for (let i = 0; i < w; i++) { blocks.push([s2 + i, h, T.CRUMBLE]); if (Rn() < 0.5) coin(s2 + i, h - 2); }
+          if (Rn() < 0.15) blocks.push([s2 + 1, h - 4, T.QBLOCK]);
           break;
         }
         case 'trees': {
@@ -1281,7 +1339,7 @@ function genUnder(spec, u) {
   L.holesUp.push({ x: 3 * TS, y: 0, w: 2 * TS, h: (L.ceil[3] + 2) * TS });
   const ex = W - 5;
   for (const cx of [ex, ex + 1]) for (let y = 0; y < L.ceil[cx]; y++) map[y * W + cx] = u.wet ? T.WATER : T.AIR;
-  for (let y = 0; y < hs[ex]; y++) map[y * W + ex] = T.LADDER;
+  if (!u.wet) for (let y = 0; y < hs[ex]; y++) map[y * W + ex] = T.LADDER;
   L.holesUp.push({ x: ex * TS, y: 0, w: 2 * TS, h: (L.ceil[ex] + 2) * TS });
   L.exitX = ex * TS; L.exitY = 1.5 * TS;
   L.spawn = { x: 3 * TS + 3, y: TS };
@@ -1297,28 +1355,52 @@ function returnSurface() {
   world.spawn = { x: u.exitX, y: u.exitY }; placePlayer(true); Music.set(world.spec.wid, 1);
   player.vy = -5.5; puff(player.x + 5, player.y + 14, 10, '#c8a070');
 }
-const HUB_GAP = 12;
-const portalX = n => 14 + (n - 1) * HUB_GAP;
 function genWorldHub(wi) {
-  const wid = WORLDS[wi], th = THEMES[wid], W = portalX(16) + 16;
+  const wid = WORLDS[wi], th = THEMES[wid], W = 16 * 24 + 40;
   const L = baseLevel(wid, W, { isHub: true, hubW: wi, topSolid: false, dark: 0, portals: [], gates: [] });
-  const hs = new Int16Array(W).fill(15), pit = new Array(W).fill(null);
-  fillColumns(L, hs, pit);
-  L.doors.push({ x: 3 * TS + 8, y: 15 * TS, kind: 'door', label: 'VILLAGE', to: 'village' });
-  const ws = save.worlds[wi], block = new Set([2, 3, 4]);
+  const hs = new Int16Array(W).fill(15), pit = new Array(W).fill(null), occ = new Uint8Array(W), blocks = [];
+  const ws = save.worlds[wi], Rn = mulberry32(wi * 313 + 5);
+  let x = 0, h = 15;
+  const flat = n => { for (let i = 0; i < n && x < W; i++, x++) hs[x] = h; };
+  const pool = n => { for (let i = 0; i < n && x < W; i++, x++) { hs[x] = h; pit[x] = 'water'; } };
+  const kinds = ['climb', 'pool', 'descend', 'platforms', 'lift', 'zip', 'climb', 'platforms', 'descend', 'lift', 'pool', 'zip', 'climb', 'platforms', 'descend'];
+  flat(8);
+  L.doors.push({ x: 3 * TS + 8, y: 15 * TS, kind: 'door', label: 'VILLAGE', to: 'village' }); occ[2] = occ[3] = occ[4] = 1;
   for (let n = 1; n <= 16; n++) {
-    const px = portalX(n); L.portals.push({ n, x: px * TS + 8, y: 15 * TS }); for (let k = px - 2; k <= px + 2; k++) block.add(k);
-    if (n < 16) {
-      const wx = px + 6, open = !!ws.open[n] || save.admin;
-      for (let y = 0; y < 15; y++) L.map[y * W + wx] = T.BRICK;
-      if (open) { L.map[13 * W + wx] = T.AIR; L.map[14 * W + wx] = T.AIR; }
-      L.gates.push({ n, tx: wx, x: wx * TS + 8, y: 15 * TS, open, msg: false });
-      for (let k = wx - 1; k <= wx + 1; k++) block.add(k);
+    flat(3); const px = x; flat(5);
+    L.portals.push({ n, x: (px + 1) * TS + 8, y: h * TS }); for (let k = px - 1; k <= px + 3; k++) occ[k] = 1;
+    if (n === 16) break;
+    flat(3); const wx = x - 2; occ[wx - 1] = occ[wx] = occ[wx + 1] = 1;
+    const open = !!ws.open[n] || save.admin;
+    for (let c = wx - 1; c <= wx + 1; c++) { for (let y = h - 7; y < h; y++) blocks.push([c, y, T.BRICK]); if (open) blocks.push([c, h - 2, T.AIR], [c, h - 1, T.AIR]); }
+    L.gates.push({ n, tx: wx, ty0: h - 2, x: wx * TS + 8, y: h * TS, top: (h - 7) * TS, open, msg: false });
+    flat(2);
+    let k = kinds[(n - 1 + wi * 3) % kinds.length];
+    if (k === 'climb' && h <= 10) k = 'descend';
+    if (k === 'descend' && h >= 15) k = 'climb';
+    if (k === 'climb') {
+      flat(2); const lx = x - 1, h2 = h - 4; for (let y = h2; y < h; y++) blocks.push([lx, y, T.LADDER]); occ[lx] = 1; h = h2; flat(3);
+    } else if (k === 'descend') {
+      flat(2); const h2 = h + 4; h = h2; const lx = x; flat(3); for (let y = h2 - 4; y < h2; y++) blocks.push([lx, y, T.LADDER]); occ[lx] = 1;
+    } else if (k === 'pool') {
+      flat(1); pool(5); flat(2);
+    } else if (k === 'platforms') {
+      flat(1); const s0 = x; pool(7); for (let i = 0; i < 3; i++) blocks.push([s0 + 1 + i * 2, h - 2 - i, T.STONE]); blocks.push([s0 + 6, h - 2, T.STONE]); flat(2);
+    } else if (k === 'lift') {
+      flat(1); const s0 = x, n2 = 8; pool(n2);
+      L.movers.push({ ax: (s0 + n2 / 2) * TS - 24, ay: h * TS, rx: (n2 / 2 - 2) * TS, ry: 0, sp: 0.022, ph: n, w: 48, h: 8, t: 0, x: (s0 + n2 / 2) * TS - 24, y: h * TS, dx: 0, dy: 0 });
+      flat(2);
+    } else {
+      flat(1); const s0 = x - 1, n2 = 9; pool(n2); flat(2);
+      L.zips.push({ x1: s0 * TS + 8, y1: (h - 3) * TS, x2: (s0 + n2 + 2) * TS + 8, y2: (h - 1) * TS + 4, g: h * TS }); occ[s0] = occ[s0 + n2 + 2] = 1;
     }
   }
-  L.structs.push({ type: 'tower', x: (W - 6) * TS, y: 15 * TS });
-  for (let x = 1; x < W - 10; x++) if (!block.has(x) && hash(x, wi, 5) < 0.4) L.decos.push({ type: th.decos[(hash(x, 2, 5) * th.decos.length) | 0], x: x * TS + 3, y: 15 * TS, v: (hash(x, 3, 5) * 4) | 0, h: 12 + ((hash(x, 4, 5) * 10) | 0), ground: true });
-  if (th.kind === 'indoor') for (let x = 6; x < W; x += 9) if (!block.has(x)) L.decos.push({ type: 'torch', x: x * TS + 6, y: 15 * TS - 40, ground: false });
+  flat(W - x);
+  fillColumns(L, hs, pit);
+  for (const [bx, by, t] of blocks) L.map[by * W + bx] = t;
+  const last = L.portals[15];
+  L.structs.push({ type: 'tower', x: Math.min(W - 6, Math.floor(last.x / TS) + 12) * TS, y: hs[Math.floor(last.x / TS)] * TS });
+  for (let tx = 1; tx < W - 10; tx++) if (!occ[tx] && !pit[tx] && hash(tx, wi, 5) < 0.4) L.decos.push({ type: th.decos[(hash(tx, 2, 5) * th.decos.length) | 0], x: tx * TS + 3, y: hs[tx] * TS, v: (hash(tx, 3, 5) * 4) | 0, h: 12 + ((hash(tx, 4, 5) * 10) | 0), ground: true });
   return L;
 }
 function genVillage() {
@@ -1384,9 +1466,9 @@ function toast(text, dur = 150) { if (G.toasts.some(t => t.text === text)) retur
 function placePlayer(keep) {
   const sp = world.spawn;
   player = player || newPlayer(sp.x, sp.y);
-  Object.assign(player, { x: sp.x, y: sp.y, vx: 0, vy: 0, inv: 0, knock: 0, punchT: 0, hp: keep ? player.hp : save.maxHp, invisT: 0, invisCD: 0, zip: null, climb: false, wallT: 0, onMover: null, face: 1, power: save.power || null, morph: 0, ride: player.ride && save.vehicles[player.ride] && save.vehicles[player.ride].hp > 0 && !world.home ? player.ride : null });
+  Object.assign(player, { x: sp.x, y: sp.y, vx: 0, vy: 0, inv: 0, knock: 0, punchT: 0, hp: keep ? player.hp : save.maxHp, inCannon: null, cannonFly: false, invisT: 0, invisCD: 0, zip: null, climb: false, wallT: 0, onMover: null, face: 1, power: save.power || null, morph: 0, ride: player.ride && save.vehicles[player.ride] && save.vehicles[player.ride].hp > 0 && !world.home ? player.ride : null });
   player.safe = { x: player.x, y: player.y };
-  if (!keep) setSwitch(0);
+  if (!keep) { setSwitch(0); SOLID[T.GATE] = 1; }
   cam.x = clamp(player.x - VW / 2, 0, world.w * TS - VW); cam.y = clamp(player.y - VH * 0.64, 0, world.h * TS - VH);
   G.parts = []; G.near = null; G.build = false; G.mine = null; initWeather();
 }
@@ -1408,7 +1490,7 @@ const toLevel = spec => goto(() => loadLevel(spec, false));
 function toHub(msg) { const wi = world && world.spec ? world.spec.wi : save.cur, n = world && world.spec ? world.spec.n : null; goto(() => { loadHub(wi, n); if (msg) toast(msg, 220); }); }
 function loadHub(wi, n) {
   save.cur = wi; world = genWorldHub(wi);
-  if (n) world.spawn = { x: portalX(n) * TS + 3, y: 15 * TS - 14 };
+  if (n) { const pt = world.portals.find(q => q.n === n); if (pt) world.spawn = { x: pt.x - 5, y: pt.y - 14 }; }
   placePlayer(); G.state = 'play';
   G.banner = { text: 'WORLD ' + (wi + 1) + ': ' + THEMES[WORLDS[wi]].name, t: 150 }; Music.set(WORLDS[wi], 0.85);
 }
@@ -1567,8 +1649,31 @@ function toggleRide() {
 }
 function updateMovers() { for (const m of world.movers) { m.t++; const k = Math.sin(m.t * m.sp + m.ph), nx = m.ax + k * m.rx, ny = m.ay + k * m.ry; m.dx = nx - m.x; m.dy = ny - m.y; m.x = nx; m.y = ny; } }
 function landMovers(p, preB) {
-  for (const m of world.movers) if (p.vy >= 0 && p.x + p.w > m.x + 1 && p.x < m.x + m.w - 1 && preB <= m.y + 4 && p.y + p.h >= m.y - 1) { p.y = m.y - p.h; p.vy = 0; p.onGround = true; p.onMover = m; return; }
+  for (const m of world.movers.concat(world.crates)) if (p.vy >= 0 && p.x + p.w > m.x + 1 && p.x < m.x + m.w - 1 && preB <= m.y + 4 && p.y + p.h >= m.y - 1) { p.y = m.y - p.h; p.vy = 0; p.onGround = true; p.onMover = m; return; }
   p.onMover = null;
+}
+function updateGadgets() {
+  const p = player;
+  for (const c of world.crates) {
+    const ox = c.x, oy = c.y; c.vx = c.push ? c.push * 1.1 : 0; c.push = 0; c.vy = Math.min(c.vy + 0.34, 6); moveBody(c, true);
+    if (c.y > world.h * TS + 20) { c.x = c.hx; c.y = c.hy - 40; c.vy = 0; puff(c.x + 8, c.y + 8, 8); }
+    c.dx = c.x - ox; c.dy = c.y - oy;
+  }
+  for (const c of world.cannons) if (c.cd > 0) c.cd--;
+  if (world.gateT > 0) { world.gateT--; if (world.gateT % 30 === 0 && world.gateT > 0) sfx.tick(); if (world.gateT === 0) { for (const gt of world.plates) { const tx = Math.floor(gt.gx / TS); for (let ty = Math.floor(gt.gy / TS); ty < Math.floor(gt.y / TS); ty++) if (overlap(p, { x: tx * TS, y: ty * TS, w: TS, h: TS })) world.gateT = 1; } if (world.gateT === 0) sfx.bump(); } }
+  SOLID[T.GATE] = world.gateT > 0 ? 0 : 1;
+  for (const pl of world.plates) if (p.onGround && p.x + p.w > pl.x + 2 && p.x < pl.x + pl.w - 2 && Math.abs(p.y + p.h - pl.y) < 3) { if (world.gateT < pl.dur - 10) { if (world.gateT === 0) sfx.unlock(); world.gateT = pl.dur; world.gateDur = pl.dur; } }
+  if (G.t % 4 === 0) for (const f of world.fans) if (Math.abs(f.x - CX - VW / 2) < VW) G.parts.push({ x: f.x + (Math.random() - 0.5) * 14, y: f.y - 5, vx: 0, vy: -3, life: ((f.y - f.top) / 3) | 0, col: 'rgba(255,255,255,0.45)', s: 1, g: 0 });
+}
+function crateBlock(p, dir) {
+  for (const c of world.crates) {
+    if (p.y + p.h <= c.y + 1 || p.y >= c.y + c.h) continue;
+    if (p.x + p.w > c.x && p.x < c.x + c.w) {
+      if (p.x + p.w / 2 < c.x + c.w / 2) { p.x = c.x - p.w; if (dir > 0 && p.onGround) c.push = 1; }
+      else { p.x = c.x + c.w; if (dir < 0 && p.onGround) c.push = -1; }
+      p.vx = dir ? dir * 1.1 : 0;
+    }
+  }
 }
 function startCrumble(tx, ty) { const k = ty * world.w + tx; if (!world.crumbles.has(k)) { world.crumbles.set(k, { tx, ty, t: 0, gone: false }); tone(200, 0.1, 'triangle', 0.08, 120); } }
 function updateCrumbles() {
@@ -1695,9 +1800,9 @@ function updateGates() {
   const ws = save.worlds[world.hubW], pcx = player.x + player.w / 2;
   for (const g of world.gates) {
     if (g.open) continue;
-    if (Math.abs(pcx - g.x) < 22 && Math.abs(player.y + player.h - g.y) < 24) {
+    if (Math.abs(pcx - g.x) < 36 && Math.abs(player.y + player.h - g.y) < 24) {
       if (ws.cleared['L' + g.n] || save.admin) {
-        g.open = true; ws.open[g.n] = true; setTile(g.tx, 13, T.AIR); setTile(g.tx, 14, T.AIR); G.dirty = true;
+        g.open = true; ws.open[g.n] = true; for (let c = g.tx - 1; c <= g.tx + 1; c++) { setTile(c, g.ty0, T.AIR); setTile(c, g.ty0 + 1, T.AIR); } G.dirty = true;
         sfx.unlock(); puff(g.x, g.y - 16, 14, '#ffd23a'); toast('DOOR OPENED WITH THE KEY OF LEVEL ' + (world.hubW + 1) + '-' + g.n + '!', 150);
       } else if (!g.msg) { g.msg = true; sfx.bump(); }
     } else g.msg = false;
@@ -1729,6 +1834,11 @@ function updatePlayer() {
   const inWater = world.underwater || tileAt(Math.floor((p.x + p.w / 2) / TS), Math.floor((p.y + p.h / 2) / TS)) === T.WATER;
   if (inWater && !p.inWater) puff(p.x + 5, p.y + 4, 5, '#dff4ff');
   p.inWater = inWater;
+  if (p.inCannon) {
+    const c = p.inCannon; p.x = c.x - p.w / 2; p.y = c.y - p.h - 6; p.vx = 0; p.vy = 0;
+    if (--c.t <= 0) { p.inCannon = null; p.vx = 4.2; p.vy = -8.8; p.knock = 46; p.air2 = true; p.face = 1; p.cannonFly = true; c.cd = 60; G.shake = 6; noise(0.3, 0.35, 300); tone(90, 0.3, 'square', 0.1, 40); puff(c.x + 12, c.y - 20, 12, '#c8c8d8'); }
+    return;
+  }
   if (p.zip) {
     const z = p.zip; p.zipX += 3.2; const k = (p.zipX - z.x1) / (z.x2 - z.x1);
     p.x = p.zipX - p.w / 2; p.y = z.y1 + (z.y2 - z.y1) * k + 1; p.vx = 3.2; p.vy = 0; p.face = 1; p.onGround = false;
@@ -1755,7 +1865,7 @@ function updatePlayer() {
   if (p.climb) { p.vy = btn.jump ? -1.5 : btn.down ? 1.5 : 0; p.vx = dir * 0.6; p.jbuf = 0; p.coyote = 0; p.air2 = true; }
   else if (V && V.fly) { p.vy += 0.18; if (btn.jump) p.vy -= 0.5; p.vy = clamp(p.vy, -2.6, 3.5); p.jbuf = 0; }
   else if (inWater) p.vy = Math.min(p.vy + 0.09, 1.3);
-  else { p.vy += 0.34; if (!btn.jump && p.vy < -1) p.vy += 0.3; p.vy = Math.min(p.vy, 6); }
+  else { p.vy += 0.34; if (!btn.jump && p.vy < -1 && !p.cannonFly) p.vy += 0.3; p.vy = Math.min(p.vy, 6); }
   p.coyote = p.onGround ? 6 : p.coyote - 1;
   if (p.onGround || inWater) p.air2 = true;
   p.jbuf = btn.jumpP && !(V && V.fly) && !p.climb ? 6 : p.jbuf - 1;
@@ -1786,8 +1896,16 @@ function updatePlayer() {
   const wasAir = !p.onGround;
   if (p.onMover) { p.x += p.onMover.dx; p.y += p.onMover.dy; }
   const preB = p.y + p.h;
+  for (const f of world.fans) if (!V && p.x + p.w > f.x - 10 && p.x < f.x + 10 && p.y + p.h > f.top && p.y < f.y) { p.vy = Math.max(p.vy - 0.62, -3.4); p.air2 = true; p.climb = false; }
   const hitW = moveBody(p);
+  crateBlock(p, dir);
   landMovers(p, preB);
+  if (p.onGround) {
+    p.cannonFly = false;
+    const bt = tileAt(Math.floor((p.x + p.w / 2) / TS), Math.floor((p.y + p.h + 1) / TS));
+    if (bt === T.BELTL || bt === T.BELTR) { const bv = bt === T.BELTR ? 1.1 : -1.1; p.x += bv; if (SOLID[tileAt(Math.floor((bv > 0 ? p.x + p.w : p.x) / TS), Math.floor((p.y + p.h / 2) / TS))]) p.x -= bv; }
+  }
+  if (!p.inCannon && !V) for (const c of world.cannons) if (c.cd <= 0 && Math.abs(p.x + p.w / 2 - c.x) < 9 && Math.abs(p.y + p.h - c.y) < 18) { p.inCannon = c; c.t = 30; tone(500, 0.2, 'square', 0.05, 900); break; }
   if (!p.onGround && !inWater && !V && !p.climb && hitW && dir !== 0 && p.vy > 0) { p.wallT = 8; p.wallDir = dir; p.vy = Math.min(p.vy, 1.1); if (G.t % 5 === 0) G.parts.push({ x: p.x + (dir > 0 ? p.w : 0), y: p.y + 4, vx: 0, vy: 0.5, life: 10, col: 'rgba(255,255,255,0.6)', s: 1, g: 0 }); }
   else if (p.wallT > 0) p.wallT--;
   if (p.ride === 'heli' && (hitW || p.bump) && p.inv <= 0) vehicleHit(1);
@@ -1813,7 +1931,7 @@ function updatePlayer() {
   }
   const txs = [Math.floor((p.x + 2) / TS), Math.floor((p.x + p.w - 2) / TS)], tys = [Math.floor((p.y + 2) / TS), Math.floor((p.y + p.h - 1) / TS)];
   let lava = false, spike = false;
-  for (const tx of txs) for (const ty of tys) { const t = tileAt(tx, ty); if (t === T.LAVA && p.y + p.h > ty * TS + 6) lava = true; if (t === T.SPIKE && p.y + p.h > ty * TS + 7) spike = true; }
+  for (const tx of txs) for (const ty of tys) { const t = tileAt(tx, ty); if (t === T.LAVA && p.y + p.h > ty * TS + 6) lava = true; if (t === T.SPIKE && p.y + p.h > ty * TS + 7) spike = true; if (t === T.TRAP && trapUp(tx) && p.y + p.h > ty * TS + 6) spike = true; }
   if (lava) { if (!G.trans && p.inv < 9000) { if (p.ride) { save.vehicles[p.ride].hp = 0; p.ride = null; } puff(p.x + 5, p.y + p.h, 14, '#ffb02e'); p.hp = 0; p.power = null; save.power = null; G.shake = 10; sfx.hurt(); toast('YOU FELL IN THE LAVA!', 140); gameOver(); } }
   else if (spike && p.inv <= 0) { hurtPlayer(p.x + p.w / 2 - p.face * 4); p.vy = -5; }
   if (p.y > world.h * TS + 24 && !G.trans && p.inv < 9000) { p.hp = 0; p.power = null; save.power = null; sfx.hurt(); gameOver(); }
@@ -1940,7 +2058,7 @@ function updatePlay() {
   if (G.doorAnim > 0) { G.doorAnim--; if (G.doorAnim === 39) sfx.door(); if (G.doorAnim < 18) { p.vx = 0.9; p.face = 1; moveBody(p); p.anim += 0.9; } return; }
   G.near = findNear();
   for (const v of world.villagers || []) { if (v.wait > 0) { v.wait--; continue; } v.x += v.dir * 0.35; if (v.x < v.min || v.x > v.max) { v.dir *= -1; v.wait = 60 + ((Math.random() * 90) | 0); } else if (Math.random() < 0.003) v.wait = 50 + ((Math.random() * 80) | 0); }
-  updateMovers(); updateCrumbles(); for (const lv of world.levers) if (lv.cd > 0) lv.cd--;
+  updateMovers(); updateCrumbles(); updateGadgets(); for (const lv of world.levers) if (lv.cd > 0) lv.cd--;
   updatePlayer();
   for (const e of world.enemies) {
     if (e.dead) continue;
@@ -2391,6 +2509,9 @@ function drawTiles() {
       case T.WATER: ctx.drawImage(UNI, (up !== T.WATER ? 16 : 14) * 16 + af * 16, 0, 16, 16, sx, sy, 16, 16); break;
       case T.QBLOCK: ctx.drawImage(UNI, (5 + ((G.t >> 4) % 3 === 0 ? 1 : 0)) * 16, 0, 16, 16, sx, sy, 16, 16); break;
       case T.LANTERN: ctx.drawImage(UNI, (18 + af) * 16, 0, 16, 16, sx, sy, 16, 16); G.lights.push({ x: sx + 8, y: sy + 10, r: 52, warm: true }); break;
+      case T.GATE: ctx.drawImage(UNI, (SOLID[T.GATE] ? 28 : 29) * 16, 0, 16, 16, sx, sy, 16, 16); break;
+      case T.TRAP: ctx.drawImage(UNI, (trapUp(tx) ? 31 : 30) * 16, 0, 16, 16, sx, sy, 16, 16); break;
+      case T.BELTR: case T.BELTL: ctx.drawImage(UNI, (32 + (t === T.BELTL ? 2 : 0) + ((G.t >> 3) % 2)) * 16, 0, 16, 16, sx, sy, 16, 16); break;
       case T.RED: ctx.drawImage(UNI, (G.sw ? 25 : 24) * 16, 0, 16, 16, sx, sy, 16, 16); break;
       case T.BLUE: ctx.drawImage(UNI, (G.sw ? 26 : 27) * 16, 0, 16, 16, sx, sy, 16, 16); break;
       case T.CRUMBLE: { const c = world.crumbles && world.crumbles.get(ty * W + tx); ctx.drawImage(UNI, 23 * 16, 0, 16, 16, sx + (c && !c.gone ? ((G.t >> 1) % 2 ? 1 : -1) : 0), sy, 16, 16); break; }
@@ -2619,6 +2740,7 @@ function drawBoss(b) {
 }
 function drawPlayer() {
   const p = player, H = getHero(save.skin, p.morph > 0 && (p.morph >> 2) % 2 ? p.morphOther : p.power);
+  if (p.inCannon) return;
   if (p.inv > 0 && p.inv < 9000 && (G.t >> 2) % 2) return;
   if (G.doorAnim > 18) return;
   if (p.ride) { drawRide(p, H); return; }
@@ -2657,6 +2779,31 @@ function drawMovers() {
     if (m.rx) ctx.fillRect(Math.round(m.ax - m.rx - CX), Math.round(m.ay - CY) + 3, m.rx * 2 + m.w, 1); else ctx.fillRect(sx + m.w / 2, Math.round(m.ay - m.ry - CY), 1, m.ry * 2 + 8);
     fr(sx, sy, m.w, 8, OUT); fr(sx + 1, sy + 1, m.w - 2, 6, '#b0743e'); fr(sx + 1, sy + 1, m.w - 2, 1, '#e0a468');
     for (let k = 4; k < m.w - 2; k += 10) fr(sx + k, sy + 3, 2, 2, '#5a3a1e');
+  }
+}
+function drawGadgets() {
+  for (const pl of world.plates) {
+    const sx = Math.round(pl.x - CX), gy = Math.round(pl.y - CY), on = world.gateT > 0;
+    fr(sx + 1, gy - 1, 14, 1, OUT); fr(sx + 2, gy - (on ? 2 : 4), 12, on ? 1 : 3, on ? '#5ae07a' : '#f5c542'); fr(sx + 2, gy - (on ? 2 : 4), 12, 1, '#ffffff');
+    if (on) { const gx = Math.round(pl.gx - CX), gyy = Math.round(pl.gy - CY) - 6, w = Math.round(16 * world.gateT / world.gateDur); fr(gx, gyy, 16, 3, OUT); fr(gx, gyy, w, 3, world.gateT < 60 ? '#ff5a5a' : '#5ae07a'); }
+  }
+  for (const f of world.fans) {
+    const sx = Math.round(f.x - CX), gy = Math.round(f.y - CY); if (sx < -20 || sx > VW + 20) continue;
+    fr(sx - 9, gy - 6, 18, 6, OUT); fr(sx - 8, gy - 5, 16, 5, '#8a90a8'); fr(sx - 8, gy - 5, 16, 1, '#c8ccd8');
+    const b = (G.t >> 1) % 3; fr(sx - 6 + b * 2, gy - 4, 4, 1, '#3a3440'); fr(sx + 2 - b * 2, gy - 2, 4, 1, '#3a3440');
+  }
+  for (const c of world.crates) {
+    const sx = Math.round(c.x - CX), sy = Math.round(c.y - CY); if (sx < -20 || sx > VW + 20) continue;
+    fr(sx, sy, 16, 16, OUT); fr(sx + 1, sy + 1, 14, 14, '#b0743e'); fr(sx + 1, sy + 1, 14, 2, '#d89c60'); fr(sx + 1, sy + 13, 14, 2, '#8a5430');
+    for (let k = 0; k < 10; k++) { fr(sx + 3 + k, sy + 3 + k, 1, 1, '#6a3e22'); fr(sx + 12 - k, sy + 3 + k, 1, 1, '#6a3e22'); }
+  }
+  for (const c of world.cannons) {
+    const shake = player.inCannon === c ? ((G.t >> 1) % 2 ? 1 : -1) : 0, sx = Math.round(c.x - CX) + shake, gy = Math.round(c.y - CY);
+    if (sx < -30 || sx > VW + 30) continue;
+    for (let k = 0; k < 12; k++) fr(sx - 6 + k, gy - 12 - k, 7, 7, k === 11 ? OUT : k % 3 ? '#3a3440' : '#5a5f78');
+    fr(sx + 4, gy - 24, 8, 3, '#15131f');
+    circ(sx - 5, gy - 5, 5, OUT); circ(sx - 5, gy - 5, 3, '#8a5430'); circ(sx + 5, gy - 5, 5, OUT); circ(sx + 5, gy - 5, 3, '#8a5430');
+    if (player.inCannon === c && (G.t >> 2) % 2) fr(sx - 9, gy - 14, 2, 2, '#ffb02e');
   }
 }
 function drawLevers() {
@@ -2745,7 +2892,7 @@ function renderWorld() {
   if (world.check) drawCheck(world.check);
   drawTiles();
   for (const g of world.gates || []) drawGate(g);
-  drawMovers(); drawLevers(); drawZips();
+  drawMovers(); drawLevers(); drawZips(); drawGadgets();
   drawMining();
   for (const d of world.decos) drawDeco(d);
   drawVillagers();
@@ -3020,6 +3167,8 @@ function drawPortal(pt) {
 function drawGate(g) {
   const sx = Math.round(g.tx * TS - CX), gy = Math.round(g.y - CY);
   if (sx < -30 || sx > VW + 30) return;
+  const ty = Math.round(g.top - CY); fr(sx - 19, ty - 3, 54, 4, OUT); fr(sx - 18, ty - 2, 52, 2, '#9a9cb2'); for (const cx of [-19, -8, 3, 14, 25]) { fr(sx + cx, ty - 9, 9, 7, OUT); fr(sx + cx + 1, ty - 8, 7, 6, '#9a9cb2'); fr(sx + cx + 1, ty - 8, 7, 1, '#c8ccd8'); }
+  if (g.open) { fr(sx - 16, gy - 32, 48, 32, '#15101c'); }
   fr(sx - 2, gy - 36, 20, 4, OUT); fr(sx - 1, gy - 35, 18, 2, '#8a90a8');
   if (!g.open) {
     fr(sx + 1, gy - 32, 14, 32, OUT); fr(sx + 2, gy - 31, 12, 31, '#9a5a2e'); fr(sx + 2, gy - 31, 12, 2, '#b8743e');
