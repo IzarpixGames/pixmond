@@ -536,7 +536,7 @@ function makeSpec(wi, n) {
   return { wi, wid: WORLDS[wi], node: 'L' + n, n, type: ty, diff: clamp(wi * 0.12 + n * 0.028, 0, 1), key: false, skin: SKIN_LEVELS[n] || null, seed: hashStr(WORLDS[wi] + ':L' + n) + wi * 977, label: levelLabel(wi, n) };
 }
 const levelsDone = wi => { let c = 0; for (let n = 1; n <= 16; n++) if (save.worlds[wi].cleared['L' + n]) c++; return c; };
-const homeUnlocked = () => save.worlds.reduce((s, w) => s + Object.keys(w.cleared).length, 0) >= 3;
+const homeUnlocked = () => save.admin || save.worlds.reduce((s, w) => s + Object.keys(w.cleared).length, 0) >= 3;
 
 // =====================================================================
 //  BACKGROUNDS (procedural, tileable)
@@ -765,7 +765,7 @@ const defaultSave = () => ({
   coins: 0, maxHp: 3, sfx: true, music: true, device: null, skin: 'classico', skins: ['classico'],
   inv: { terra: 10, pietra: 6, legno: 10, foglie: 6, piatt: 4, mattoni: 0, vetro: 0, lanterna: 0 },
   props: { casa: 1, albero: 2, fiori: 3, recinto: 4 },
-  keys: { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', action: 'Space', vehicle: 'KeyV' }, lvl: {}, crackTut: false, power: null, vehicles: {}, ride: null, testMoney: true, villTut: false, hubTut: false,
+  keys: { left: 'ArrowLeft', right: 'ArrowRight', jump: 'ArrowUp', action: 'Space', vehicle: 'KeyV' }, lvl: {}, crackTut: false, power: null, vehicles: {}, ride: null, admin: false, villTut: false, hubTut: false,
   cur: 0, maxWorld: 0, worlds: Array.from({ length: 8 }, newWorldSave), home: { edits: {}, props: [] }, tut: false, mapTut: false,
 });
 let save = defaultSave();
@@ -775,9 +775,9 @@ try {
 } catch (e) { /* storage unavailable */ }
 function persist() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(save)); } catch (e) { /* ignore */ } }
 const isTouch = () => save.device === 'touch';
-const canPay = n => save.testMoney || save.coins >= n;
-const pay = n => { if (!save.testMoney) save.coins -= n; };
-const coinsLabel = () => save.testMoney ? 'INFINITE' : String(save.coins);
+const canPay = n => save.admin || save.coins >= n;
+const pay = n => { if (!save.admin) save.coins -= n; };
+const coinsLabel = () => save.admin ? 'INFINITE' : String(save.coins);
 const KEY_NAMES = { ArrowLeft: 'LEFT ARROW', ArrowRight: 'RIGHT ARROW', ArrowUp: 'UP ARROW', ArrowDown: 'DOWN ARROW', Space: 'SPACE', Enter: 'ENTER', ShiftLeft: 'SHIFT', ShiftRight: 'RIGHT SHIFT', ControlLeft: 'CTRL', ControlRight: 'RIGHT CTRL', AltLeft: 'ALT', AltRight: 'RIGHT ALT', Tab: 'TAB', Backspace: 'BACKSPACE' };
 const keyName = c => KEY_NAMES[c] || String(c).replace(/^Key/, '').replace(/^Digit/, '').replace(/^Numpad/, 'NUM ').toUpperCase();
 const KEYMAP_ROWS = [['left', 'LEFT'], ['right', 'RIGHT'], ['jump', 'JUMP'], ['action', 'PUNCH / USE / SHOOT'], ['vehicle', 'GET ON / OFF VEHICLE']];
@@ -1114,7 +1114,7 @@ function genWorldHub(wi) {
   for (let n = 1; n <= 16; n++) {
     const px = portalX(n); L.portals.push({ n, x: px * TS + 8, y: 15 * TS }); for (let k = px - 2; k <= px + 2; k++) block.add(k);
     if (n < 16) {
-      const wx = px + 6, open = !!ws.open[n];
+      const wx = px + 6, open = !!ws.open[n] || save.admin;
       for (let y = 0; y < 15; y++) L.map[y * W + wx] = T.BRICK;
       if (open) { L.map[13 * W + wx] = T.AIR; L.map[14 * W + wx] = T.AIR; }
       L.gates.push({ n, tx: wx, x: wx * TS + 8, y: 15 * TS, open, msg: false });
@@ -1475,7 +1475,7 @@ function updateGates() {
   for (const g of world.gates) {
     if (g.open) continue;
     if (Math.abs(pcx - g.x) < 22 && Math.abs(player.y + player.h - g.y) < 24) {
-      if (ws.cleared['L' + g.n]) {
+      if (ws.cleared['L' + g.n] || save.admin) {
         g.open = true; ws.open[g.n] = true; setTile(g.tx, 13, T.AIR); setTile(g.tx, 14, T.AIR); G.dirty = true;
         sfx.unlock(); puff(g.x, g.y - 16, 14, '#ffd23a'); toast('DOOR OPENED WITH THE KEY OF LEVEL ' + (world.hubW + 1) + '-' + g.n + '!', 150);
       } else if (!g.msg) { g.msg = true; sfx.bump(); }
@@ -1778,8 +1778,8 @@ const wselPos = i => ({ x: Math.round(WSEL_POS[i][0] * VW), y: Math.round(34 + W
 function worldsButtons() { return { gear: { x: VW - 24, y: 4, w: 20, h: 18 }, back: { x: VW - 84, y: 4, w: 56, h: 18, label: '< VILLAGE' }, enter: { x: VW - 62, y: VH - 26, w: 58, h: 22 } }; }
 function worldsEnter() {
   const i = G.wsel.cur;
-  if (i >= PLAYABLE) { sfx.bump(); toast('WORLD ' + (i + 1) + ' ' + THEMES[WORLDS[i]].name + ': UNDER CONSTRUCTION', 150); return; }
-  if (i > save.maxWorld) { sfx.bump(); toast('CLEAR WORLD ' + i + ' TO UNLOCK', 120); return; }
+  if (i >= PLAYABLE && !save.admin) { sfx.bump(); toast('WORLD ' + (i + 1) + ' ' + THEMES[WORLDS[i]].name + ': UNDER CONSTRUCTION', 150); return; }
+  if (i > save.maxWorld && !save.admin) { sfx.bump(); toast('CLEAR WORLD ' + i + ' TO UNLOCK', 120); return; }
   save.cur = i; sfx.door(); goto(() => loadHub(i, null));
 }
 function worldsBack() { sfx.select(); if (world && world.village) G.state = 'play'; else goto(() => loadVillage('guide')); }
@@ -1876,7 +1876,7 @@ function settingsButtons() {
     ['DEVICE: ' + (isTouch() ? 'PHONE (TOUCH CONTROLS)' : 'COMPUTER (KEYBOARD)'), () => { save.device = isTouch() ? 'keys' : 'touch'; G.dirty = true; }],
     ['SOUND EFFECTS: ' + (save.sfx ? 'ON' : 'OFF'), () => { save.sfx = !save.sfx; applyVolumes(); G.dirty = true; }],
     ['MUSIC: ' + (save.music ? 'ON' : 'OFF'), () => { save.music = !save.music; applyVolumes(); G.dirty = true; }],
-    ['INFINITE COINS (TEST): ' + (save.testMoney ? 'ON' : 'OFF'), () => { save.testMoney = !save.testMoney; G.dirty = true; }],
+    ['ADMIN MODE: ' + (save.admin ? 'ON' : 'OFF'), () => { save.admin = !save.admin; G.dirty = true; }],
     ['CHARACTER: ' + sk.name + '  >', () => { const i = save.skins.indexOf(save.skin); save.skin = save.skins[(i + 1) % save.skins.length]; G.dirty = true; }],
     [G.confirmReset ? 'SURE? TAP AGAIN' : 'RESET GAME', () => { if (!G.confirmReset) { G.confirmReset = true; return; } resetSave(); }],
     ['CLOSE', closeSettings],
@@ -2700,24 +2700,24 @@ function drawWorlds() {
     fr(cx + 4, cy + 18, 30, 3, 'rgba(10,40,90,0.18)'); fr(cx, cy + 4, 34, 7, 'rgba(255,255,255,0.75)'); fr(cx + 6, cy, 16, 6, 'rgba(255,255,255,0.75)'); fr(cx + 18, cy + 2, 10, 4, 'rgba(255,255,255,0.75)'); }
   for (let k = 0; k < 3; k++) { const gx = ((t * 0.5 + k * 90) % (VW + 40)) - 20, gy = VH * 0.18 + k * 26 + Math.sin(t * 0.05 + k) * 4, w = (t >> 3) % 2; fr(gx, gy, 2, 1, '#ffffff'); fr(gx + 2, gy + 1 - w, 1, 1, '#ffffff'); fr(gx + 3, gy, 2, 1, '#ffffff'); }
   for (let i = 0; i < 8; i++) {
-    const p = wselPos(i), locked = i >= PLAYABLE || i > save.maxWorld;
+    const p = wselPos(i), locked = !save.admin && (i >= PLAYABLE || i > save.maxWorld);
     if (locked) { ctx.fillStyle = 'rgba(15,12,30,0.5)'; for (let dy = -22; dy <= 22; dy++) { const w = Math.floor(Math.sqrt(484 - dy * dy)); ctx.fillRect(p.x - w, p.y + dy * 0.8, w * 2, 1); } }
     panel(p.x - 7, p.y + 17, 14, 11, 0.95, i === W.cur ? '#f5c542' : '#e9e4f5'); text(String(i + 1), p.x, p.y + 20, '#ffffff', 1, 'center');
-    if (i >= PLAYABLE) { const bx = p.x + 10, by = p.y + 8; fr(bx + 1, by + 5, 1, 5, '#5a3a1e'); fr(bx + 12, by + 5, 1, 5, '#5a3a1e'); fr(bx - 1, by - 1, 16, 7, OUT); for (let k = 0; k < 14; k++) fr(bx + k, by, 1, 5, ((k >> 1) % 2) ? '#1b1626' : '#f5c542'); if ((G.t >> 4) % 2) fr(bx + 6, by - 4, 2, 2, '#ff6a3a'); }
+    if (i >= PLAYABLE && !save.admin) { const bx = p.x + 10, by = p.y + 8; fr(bx + 1, by + 5, 1, 5, '#5a3a1e'); fr(bx + 12, by + 5, 1, 5, '#5a3a1e'); fr(bx - 1, by - 1, 16, 7, OUT); for (let k = 0; k < 14; k++) fr(bx + k, by, 1, 5, ((k >> 1) % 2) ? '#1b1626' : '#f5c542'); if ((G.t >> 4) % 2) fr(bx + 6, by - 4, 2, 2, '#ff6a3a'); }
     else if (save.worlds[i].done) ctx.drawImage(STARI, p.x + 9, p.y + 18);
   }
   const p = wselPos(W.cur), b = Math.abs(Math.sin(G.t * 0.08)) * 3 | 0;
   const c = (G.t >> 3) % 2 ? '#ffffff' : '#f5c542';
   for (const [dx, dy, w, h] of [[-26, -22, 8, 2], [-26, -22, 2, 8], [18, -22, 8, 2], [24, -22, 2, 8], [-26, 20, 8, 2], [-26, 14, 2, 8], [18, 20, 8, 2], [24, 14, 2, 8]]) fr(p.x + dx, p.y + dy, w, h, c);
-  if (W.cur < PLAYABLE) ctx.drawImage(getHero(save.skin, save.power).stand.r, p.x - 6, p.y - 24 - b);
+  if (W.cur < PLAYABLE || save.admin) ctx.drawImage(getHero(save.skin, save.power).stand.r, p.x - 6, p.y - 24 - b);
   panel(4, 4, 150, 16); text('CHOOSE A WORLD', 10, 9, '#f5c542', 1);
   const B = worldsButtons();
   hudButton(B.gear, iconGear, false); uiButton(B.back);
   const th = THEMES[WORLDS[W.cur]], info = 'WORLD ' + (W.cur + 1) + ': ' + th.name;
-  const sub = W.cur >= PLAYABLE ? 'UNDER CONSTRUCTION: COMING SOON' : W.cur > save.maxWorld ? 'LOCKED' : 'LEVELS ' + levelsDone(W.cur) + '/16' + (save.worlds[W.cur].done ? '  -  TREASURE FOUND' : '');
+  const sub = save.admin ? 'ADMIN: LEVELS ' + levelsDone(W.cur) + '/16' : W.cur >= PLAYABLE ? 'UNDER CONSTRUCTION: COMING SOON' : W.cur > save.maxWorld ? 'LOCKED' : 'LEVELS ' + levelsDone(W.cur) + '/16' + (save.worlds[W.cur].done ? '  -  TREASURE FOUND' : '');
   const iw = Math.min(VW - 76, Math.max(textW(info), textW(sub)) + 14);
   panel(4, VH - 26, iw, 22, 0.92); text(info, 10, VH - 22, '#ffffff'); text(sub, 10, VH - 13, '#b8b2cc');
-  const ok = W.cur < PLAYABLE && W.cur <= save.maxWorld, e = B.enter;
+  const ok = save.admin || (W.cur < PLAYABLE && W.cur <= save.maxWorld), e = B.enter;
   panel(e.x, e.y, e.w, e.h, 0.95, ok ? '#f5c542' : '#6a6480'); text('ENTER', e.x + e.w / 2, e.y + 6, ok ? '#ffffff' : '#6a6480', 2, 'center');
   drawToasts(26);
 }
@@ -2758,6 +2758,7 @@ function render() {
   if (s === 'settings') drawSettings();
   if (s === 'keys') drawKeys();
   drawTransition();
+  if (save.admin && G.state !== 'title') { panel((VW / 2 | 0) - 18, VH - 12, 36, 10, 0.85, '#ff6a3a'); text('ADMIN', VW / 2, VH - 9, '#ff9a6a', 1, 'center'); }
   if (G.goT > 0) { const a = Math.min(1, G.goT / 15); ctx.globalAlpha = a; textOut('GAME OVER', VW / 2, (VH / 2 | 0) - 8, '#ff5a5a', OUT, 3, 'center'); ctx.globalAlpha = 1; }
 }
 

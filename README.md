@@ -146,8 +146,8 @@ Useful links for testing (add them to the end of the URL):
 - **Consistent levels**: each level is generated from a fixed seed, so it plays the same every time, and any blocks you break stay broken.
 - **Local saves** through `localStorage`.
 
-### Current test mode
-**Infinite money** is switched on so that everything in the shops can be tried out. Turn it off in *Settings → Infinite coins (test)* to play with the coins you actually earn.
+### Admin mode
+*Settings → Admin mode* gives infinite coins, opens every locked door, unlocks your land and lets you enter every world on the map. An **ADMIN** badge shows at the bottom of the screen while it's on.
 
 ---
 
