@@ -4,6 +4,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0d0b16">
 <meta name="apple-mobile-web-app-title" content="Pixmond">
+<meta name="app-version" content="20260920.1512">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -2386,12 +2387,14 @@ function settingsButtons() {
     ['MUSIC: ' + (save.music ? 'ON' : 'OFF'), () => { save.music = !save.music; applyVolumes(); G.dirty = true; }],
     ['ADMIN MODE: ' + (save.admin ? 'ON' : 'OFF'), () => { save.admin = !save.admin; G.dirty = true; }],
     ['BACKUP SAVE  >', () => { G.state = 'backup'; }],
+    [updateLabel(), forceUpdate],
     [G.confirmReset ? 'SURE? TAP AGAIN' : 'RESET GAME', () => { if (!G.confirmReset) { G.confirmReset = true; return; } resetSave(); }],
     ['CLOSE', closeSettings],
   ];
   if (!isTouch()) items.splice(1, 0, ['KEYBOARD CONTROLS  >', () => { G.state = 'keys'; G.keyWait = null; }]);
-  let y = ((VH - items.length * 19) / 2 | 0) + 10;
-  return items.map(([label, act]) => { const b = { x, y, w, h: 16, label, act }; y += 19; return b; });
+  const step = items.length > 8 ? 17 : 19;
+  let y = ((VH - items.length * step) / 2 | 0) + (step < 19 ? 6 : 10);
+  return items.map(([label, act]) => { const b = { x, y, w, h: step - 3, label, act }; y += step; return b; });
 }
 function keysButtons() {
   const w = 200, x = ((VW - w) / 2) | 0;
@@ -2493,6 +2496,7 @@ function drawWeather() {
 // =====================================================================
 function update() {
   G.t++;
+  if (UPD.pending) tickUpdate();
   pollButtons();
   if (G.trans) {
     const tr = G.trans; tr.t++;
@@ -3138,7 +3142,7 @@ function drawSettings() {
   const bs = settingsButtons(), top = bs[0].y - 26, bottom = bs[bs.length - 1].y + 24;
   panel(bs[0].x - 10, top, bs[0].w + 20, bottom - top + 8, 0.96, '#f5c542');
   text('SETTINGS', VW / 2, top + 8, '#f5c542', 2, 'center');
-  for (const b of bs) uiButton(b, false, b.label.startsWith('SURE') ? '#ff6a6a' : null);
+  for (const b of bs) uiButton(b, false, b.label.startsWith('SURE') ? '#ff6a6a' : b.label.startsWith('INSTALL') ? '#7ee787' : null);
 }
 function drawKeys() {
   ctx.fillStyle = 'rgba(10,8,20,0.78)'; ctx.fillRect(0, 0, VW, VH);
@@ -3465,6 +3469,72 @@ window.addEventListener('resize', resize);
 window.addEventListener('orientationchange', () => setTimeout(resize, 200));
 window.addEventListener('pagehide', persist);
 
+// =====================================================================
+//  AUTO UPDATE  (keeps the home-screen web app in sync without reinstalling)
+// =====================================================================
+const APP_VERSION = (document.querySelector('meta[name="app-version"]') || {}).content || '0';
+const UPD = { latest: APP_VERSION, pending: false, checking: false, applying: false, warned: false, last: 0 };
+
+function updateLabel() {
+  if (UPD.applying) return 'UPDATING...';
+  if (UPD.pending) return 'INSTALL UPDATE NOW!';
+  if (UPD.checking) return 'CHECKING FOR UPDATES...';
+  return 'FORCE UPDATE  (V' + APP_VERSION + ')';
+}
+async function wipeCaches() {
+  try { if (window.caches && caches.keys) { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); } } catch (e) { /* ignore */ }
+  try { if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) { const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r => r.unregister())); } } catch (e) { /* ignore */ }
+}
+const TRY_KEY = 'pixmond_update_try';
+const lastTry = (() => { try { return sessionStorage.getItem(TRY_KEY) || ''; } catch (e) { return ''; } })();
+async function applyUpdate(tag) {
+  if (UPD.applying) return;
+  UPD.applying = true;
+  try { sessionStorage.setItem(TRY_KEY, String(tag)); } catch (e) { /* ignore */ }
+  try { persist(); } catch (e) { /* ignore */ }
+  await wipeCaches();
+  // A fresh query string is the only thing Safari cannot serve from its cache.
+  location.replace(location.href.split('#')[0].split('?')[0] + '?v=' + encodeURIComponent(tag || Date.now()) + location.hash);
+}
+async function checkUpdate(loud) {
+  if (UPD.applying || UPD.checking) return;
+  UPD.checking = true; UPD.last = Date.now();
+  try {
+    const r = await fetch('version.json?cb=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const v = String((await r.json()).version || '');
+    UPD.checking = false;
+    if (v && v !== APP_VERSION) { if (v !== UPD.latest) UPD.warned = false; UPD.latest = v; UPD.pending = true; tickUpdate(); }
+    else if (loud) toast('ALREADY UP TO DATE', 120);
+  } catch (e) {
+    UPD.checking = false;
+    if (loud) toast('UPDATE CHECK FAILED', 120);
+  }
+}
+function tickUpdate() {
+  if (!UPD.pending || UPD.applying) return;
+  // Never yank the ground from under an active run: wait for a menu.
+  if (G.state === 'play' || G.trans) { if (!UPD.warned) { UPD.warned = true; toast('UPDATE READY - PAUSE TO INSTALL', 220); } return; }
+  // Already reloaded once for this version and still got the old page: stop
+  // auto-reloading and leave it to the settings button, so we never loop.
+  if (lastTry === UPD.latest) { if (!UPD.warned) { UPD.warned = true; toast('UPDATE READY - SEE SETTINGS', 220); } return; }
+  applyUpdate(UPD.latest);
+}
+function forceUpdate() {
+  if (UPD.applying) return;
+  toast('UPDATING...', 60);
+  applyUpdate(UPD.pending ? UPD.latest : Date.now());
+}
+function startUpdateWatch() {
+  checkUpdate(false);
+  setInterval(() => checkUpdate(false), 60000);
+  const wake = () => { if (!document.hidden && Date.now() - UPD.last > 10000) checkUpdate(false); };
+  document.addEventListener('visibilitychange', wake);
+  window.addEventListener('focus', wake);
+  window.addEventListener('pageshow', wake);
+  window.addEventListener('online', wake);
+}
+
 let last = performance.now(), acc = 0;
 const STEP = 1000 / 60;
 function frame(t) {
@@ -3492,5 +3562,6 @@ else if ((m_ = /(?:world|mondo)=(\d)/.exec(hsh))) { dev(); loadHub(+m_[1] - 1, n
 else if ((m_ = /(?:level|livello)=(\d)-(\d+)/.exec(hsh))) { dev(); loadLevel(makeSpec(+m_[1] - 1, clamp(+m_[2], 1, 16)), false); }
 else if (/home|casa/.test(hsh)) { dev(); loadHome(); }
 requestAnimationFrame(frame);
+startUpdateWatch();
 })();
 </script>

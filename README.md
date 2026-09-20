@@ -166,6 +166,20 @@ Useful links for testing (add them to the end of the URL):
 - **Consistent levels**: each level is generated from a fixed seed, so it plays the same every time, and any blocks you break stay broken.
 - **Local saves** through `localStorage`.
 
+### Staying up to date
+The game is installed as a web app on the home screen, so Safari happily keeps serving the copy it
+already has. To avoid reinstalling it after every deploy:
+
+- `index.html` carries a build stamp (`<meta name="app-version">`) that matches `version.json`.
+- The running game fetches `version.json` on launch, then every minute, and whenever the app comes
+  back to the foreground. A different stamp means a new deploy.
+- The reload happens as soon as you are not mid-run (title, pause, menus); while playing you get a
+  *update ready* toast instead. The reload adds a fresh `?v=` so the cache cannot answer it.
+- *Settings → Force update* reloads from the network right away, whatever the check thinks.
+- `bump-version.sh` writes a new stamp into both files, and the local `pre-commit` hook (in `.git/hooks`) runs it
+  for you whenever `index.html` is committed. **If the stamp never changes, nothing updates.**
+- `_headers` tells Cloudflare Pages to serve `index.html` and `version.json` without caching.
+
 ### Admin mode
 *Settings → Admin mode* gives infinite coins, opens every locked door, unlocks your land and lets you enter every world on the map. An **ADMIN** badge shows at the bottom of the screen while it's on.
 
