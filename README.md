@@ -49,7 +49,7 @@ Every level in a world has its own identity instead of being a remix of the same
 | 16 | Fortress | The boss |
 
 ### Ways to move
-Double jump, **wall slide and wall jump**, **ladders**, **ziplines**, **moving platforms**, **crumbling bridges** and **red/blue switch blocks**.
+Double jump, **wall slide and wall jump**, **ladders**, **ziplines** (steer them with left/right, so you can always ride back), **moving platforms**, **crumbling bridges** and **red/blue switch blocks**.
 
 ### A bestiary with personality
 Slimes, goblins, bats, **hedgehogs** you can't jump on, **frogs** that leap at you, **boars** that charge when they spot you, **plants** that spit seeds, **birds** that drop rocks, and **moles** that dig underground and burst out right under your feet.
